@@ -36,3 +36,28 @@ export const deleteRequestType = async (authtoken, id) => {
         },
     });
 };
+
+//////////////
+export const createRequestOther = async (authtoken, value) => {
+    return await axios.post("http://localhost:4200/api/request-other", value, {
+        headers: {
+            authtoken,
+        },
+    });
+};
+
+export const createRequestTopup = async (authtoken, value) => {
+    return await axios.post("http://localhost:4200/api/request-topup", value, {
+        headers: {
+            authtoken,
+        },
+    });
+};
+
+export const createRequestWithdraw = async (authtoken, value) => {
+    return await axios.post("http://localhost:4200/api/request-withdraw", value, {
+        headers: {
+            authtoken,
+        },
+    });
+};

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 const RequestTopUpSchema = new mongoose.Schema(
     {
-        name: {
+        paymentname: {
             type: String,
         },
         topupAmount: {
@@ -13,7 +13,7 @@ const RequestTopUpSchema = new mongoose.Schema(
         },
         checkStatus: {
             type: String,
-            default: 'waiting for confirmation',
+            default: 'Waiting for confirmation',
         },
         paymentImage: {
             type: Array,

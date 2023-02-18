@@ -22,6 +22,12 @@ router.post("/removeimages-seller", auth, sellerCheck, removeImage);
 //@Endpoint  http://localhost:5000/api/removeimages-admin
 router.post("/removeimages-admin", auth, adminCheck, removeImage);
 
+//@Endpoint  http://localhost:4200/api/images-user
+router.post("/images-user", auth, createImage);
+
+//@Endpoint  http://localhost:5000/api/removeimages-user
+router.post("/removeimages-user", auth, removeImage);
+
 
 
 

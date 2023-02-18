@@ -25,11 +25,6 @@ const HistoryRequest = () => {
             value: 'Other',
             label: 'Other'
 
-        },
-        {
-            value: 'Report User',
-            label: 'Report User'
-
         }
 
     ]
@@ -40,6 +35,12 @@ const HistoryRequest = () => {
     }
 
     const loadData = () => {
+        if (selectedStatus === 'Top up money') {
+
+        }
+        if (selectedStatus === 'Other') {
+
+        }
         // let orderStatus = selectedStatus
 
         // getOrderSeller(user.token, orderStatus)
@@ -64,7 +65,7 @@ const HistoryRequest = () => {
                 <div className='flex flex-row justify-end w-[95%]'>
                     <Select
                         defaultValue="Other"
-                        size="middle"
+                        size="large"
                         style={{ width: 150 }}
                         onChange={handleSelectChange}
                         options={typeRequest}
