@@ -7,8 +7,9 @@ import FileUpload from './FileUpload';
 import {
     createPaymentSeller,
     readPayment,
-    updatePayment
+    updatePayment,
 } from '../../../functions/payment';
+import { createRequestWithdraw } from '../../../functions/request';
 import { toast } from "react-toastify";
 
 //antd
@@ -22,9 +23,7 @@ const initialstatepayment = {
     accountnumber: '',
     accountname: '',
 }
-const initialstatewithdraw = {
-    amount: 0,
-}
+
 
 
 
@@ -38,7 +37,7 @@ const Payment = () => {
     const [loading, setLoading] = useState(false);
     const [statusEdit, setStatusEdit] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [amounts, setAmounts] = useState(initialstatewithdraw)
+    const [amounts, setAmounts] = useState(0)
 
 
 
@@ -156,9 +155,7 @@ const Payment = () => {
         setIsModalOpen(false);
     };
     const handleChangeWithdraw = (value) => {
-        setAmounts({
-            amount: value,
-        });
+        setAmounts(value);
 
         console.log('Changed', value)
     }
@@ -167,14 +164,19 @@ const Payment = () => {
         if (window.confirm(`Are you sure you want to withdraw ${amounts.amount} amount?`)) {
             let data = {
                 amount: amounts,
-                // notitype: datas._id,
+                requestType: 'Withdraw money',
             }
-            console.log('onSubmit', data)
-        } else {
+            createRequestWithdraw(user.token, data)
+                .then((res) => {
+                    toast.success('Request Withdraw Success')
 
+                }).catch((err) => {
+                    toast.error('Error Request Withdraw!')
+                })
+            console.log('onSubmit', data)
         }
         setIsModalOpen(false);
-        setAmounts(initialstatewithdraw)
+        setAmounts(0)
     }
 
     useEffect(() => {

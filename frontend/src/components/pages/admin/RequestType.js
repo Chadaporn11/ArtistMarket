@@ -12,7 +12,7 @@ import {
     listRequestType,
     deleteRequestType,
     editRequestType,
-} from '../../functions/requesttype';
+} from '../../functions/request';
 
 //menu
 import MenubarAdmin from '../../layouts/MenubarAdmin';

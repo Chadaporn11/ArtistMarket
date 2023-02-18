@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 import {
-    listRequestType
-} from '../../../functions/requesttype';
+    listRequestType,
+    createRequestOther
+} from '../../../functions/request';
 
 //antd
 import { Select, Button, Form, Input, Image } from 'antd';
 const { Option } = Select;
 const { TextArea } = Input;
+
 
 const initialstate = [{
     id: '',
@@ -27,68 +31,70 @@ const RequestNotification = () => {
     const { user } = useSelector((state) => ({ ...state }));
     const [form] = Form.useForm();
     const navigate = useNavigate();
-    const [value, setValue] = useState(initialstate);
-    const [selected, setSelected] = useState('')
-    const [datas, setDatas] = useState('')
-    const [product, setProduct] = useState(initialstate);
-    const [loading, setLoading] = useState(false);
+    const [selected, setSelected] = useState('Other')
     const typeRequest = [
         {
             value: 'Other',
             label: 'Other'
 
-        },
-        {
-            value: 'Report User',
-            label: 'Report User'
-
         }
-
     ]
 
 
-    const onSubmit = () => {
+    const onSubmit = (values) => {
         let data = {
-            amount: Number(value.amount),
-            // requestType: datas._id,
+            title: values.title,
+            description: values.description,
+            requestType: selected
         }
-        console.log('onSubmit', data)
+        createRequestOther(user.token, data)
+            .then((res) => {
+                toast.success('Create Request Success')
+                form.resetFields()
+
+
+            }).catch((err) => {
+                toast.error('Create Request error!')
+
+
+            })
     }
-    const onSelectChange = (values) => {
+    const handleSelectChange = (values) => {
         setSelected(values)
     }
 
-    const loadData = () => {
-        listRequestType()
-            .then((res) => {
-                console.log(res.data);
-                setValue({ ...value, requestTypes: res.data })
-            }).catch((err) => {
-                console.log(err.response.data);
-            })
+    // const loadData = () => {
 
-    }
 
-    useEffect(() => {
-        loadData();
-    }, []);
+    // }
+
+    // useEffect(() => {
+    //     loadData();
+    // }, []);
     return (
         <div className="container max-w-[100%] min-h-screen bg-[#f9fafb] pb-[150px]">
             <div className="flex flex-col justify-items-center content-center w-[100%]">
                 <div className='flex flex-col place-self-center h-[80px] mt-10'>
                     <h1 className='flex justify-center text-4xl'>Request Notifications</h1>
                 </div>
-                <div className='flex justify-end w-[1200px]'>
+                <div className='flex justify-end w-full px-20'>
                     <Button
                         type="primary"
-                        className="rounded-full bg-[#34d399] justify-self-center"
+                        className="rounded-full bg-[#34d399] justify-self-center mr-3"
                         onClick={() => navigate('/seller/history-request')}
                         htmlType="submit"
                     >
                         <i className="fa-solid fa-clock-rotate-left"></i>
-                        <i className="fa-solid text-md ml-2">History Request</i>
+                        <i className="fa-solid text-md ml-2">History</i>
 
                     </Button>
+                    <Select
+                        defaultValue="Other"
+                        size="large"
+                        style={{ width: 200 }}
+                        onChange={handleSelectChange}
+                        options={typeRequest}
+                    />
                 </div>
                 {/* <div className='flex flex-row justify-end w-screen pr-40 ml-5'>
                     <Select
@@ -111,12 +117,12 @@ const RequestNotification = () => {
                 </div> */}
 
                 <div className="flex justify-center mt-5">
-                    <div className="container col-span-6 bg-white w-[80%] min-h-[450px] h-fit rounded-lg shadow-md p-20">
-
+                    <div className="container col-span-6 bg-white w-[90%] min-h-[450px] h-fit rounded-lg shadow-md p-20">
                         <Form
                             layout="vertical"
                             name="control-hooks"
                             form={form}
+                            onFinish={onSubmit}
                         >
                             <Form.Item
                                 label="Title"
@@ -140,32 +146,7 @@ const RequestNotification = () => {
                                 />
 
                             </Form.Item>
-                            <Form.Item
-                                label="notification Type"
-                                name="requestType"
-                            >
-                                <Select
-                                    name="requestType"
-                                    id="requestType"
-                                    onChange={onSelectChange}
-                                    placeholder="Please Select Category..."
-                                >
-                                    <Option>Plese Select</Option>
-                                    {
-                                        typeRequest &&
-                                        typeRequest.map((item) =>
-                                            <Option
-                                                key={item.value}
-                                                value={item.value}
-                                            >{item.value}</Option>
-                                        )}
-                                </Select>
-                                {/* <Select.Option key="Kasikorn Bank" value="Kasikorn Bank" label="Kasikorn Bank" />
-                                        <Select.Option key="Bank Krungthai" value="Bank Krungthai" label="Bank Krungthai" />
-                                        <Select.Option key="Siam Commercial Bank" value="Siam Commercial Bank" label="Siam Commercial Bank" />
 
-                                    </Select> */}
-                            </Form.Item>
                             <Form.Item
                                 label="Description"
                                 name={"description"}
@@ -199,7 +180,7 @@ const RequestNotification = () => {
                                     type="primary"
                                     className="rounded-full bg-[#1BA8E7] justify-self-center"
                                     htmlType="submit"
-                                    onClick={onSubmit}
+                                // onClick={onSubmit}
                                 >
 
                                     Submit

@@ -10,7 +10,7 @@ const RequestOtherSchema = new mongoose.Schema(
         },
         checkStatus: {
             type: String,
-            default: 'waiting for check',
+            default: 'Waiting for check',
         },
         requestType: {
             type: ObjectId,

@@ -14,7 +14,7 @@ const HistoryRequest = () => {
     const { user } = useSelector((state) => ({ ...state }));
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
-    const [selectedStatus, setSelectedStatus] = useState('Waiting for the pack');
+    const [selectedStatus, setSelectedStatus] = useState('Other');
     const typeRequest = [
         {
             value: 'Other',
@@ -59,8 +59,8 @@ const HistoryRequest = () => {
                 <div className='flex flex-row justify-end w-[95%]'>
                     <Select
                         defaultValue="Other"
-                        size="middle"
-                        style={{ width: 150 }}
+                        size="large"
+                        style={{ width: 180 }}
                         onChange={handleSelectChange}
                         options={typeRequest}
                     />

@@ -7,7 +7,7 @@ const RequestWithdrawSchema = new mongoose.Schema(
         },
         checkStatus: {
             type: String,
-            default: 'waiting for confirmation',
+            default: 'Waiting for confirmation',
         },
         paymentImage: {
             type: Array,
@@ -15,6 +15,10 @@ const RequestWithdrawSchema = new mongoose.Schema(
         requestType: {
             type: ObjectId,
             ref: "requesttypes",
+        },
+        walletRequest: {
+            type: ObjectId,
+            ref: 'wallet'
         },
         requestBy: {
             type: ObjectId,
