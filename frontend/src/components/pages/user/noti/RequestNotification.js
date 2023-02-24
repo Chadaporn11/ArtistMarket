@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
 import FileUpload from './FileUpload';
+import FileUploadImageUser from './FileUploadImageUser';
+import FileUploadImageCard from './FileUploadImageCard';
+
 import { toast } from 'react-toastify';
 
 
@@ -9,7 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
     listRequestType,
     createRequestOther,
-    createRequestTopup
+    createRequestTopup,
+    createRequestSignupSeller
 } from '../../../functions/request';
 import {
     readPayment
@@ -27,6 +31,12 @@ const { TextArea } = Input;
 const initialstateImage = {
     images: [],
 };
+const initialstateImageUser = {
+    images: [],
+};
+const initialstateImageCard = {
+    images: [],
+};
 
 const RequestNotification = () => {
     const { user } = useSelector((state) => ({ ...state }));
@@ -34,10 +44,17 @@ const RequestNotification = () => {
     const [formOther] = Form.useForm();
 
     const navigate = useNavigate();
-    const [selected, setSelected] = useState('Other')
+    const [selectRequest, setSelectRequest] = useState('Other')
     const [loading, setLoading] = useState(false);
+    const [loadingCard, setLoadingCard] = useState(false);
+    const [loadingUser, setLoadingUser] = useState(false);
+
     const [paymentMethod, setPaymentMethod] = useState();
     const [image, setImage] = useState(initialstateImage);
+    const [cardImage, setCardImage] = useState(initialstateImageCard);
+    const [userImage, setUserImage] = useState(initialstateImageUser);
+
+
 
     const typeRequest = [
         {
@@ -49,6 +66,11 @@ const RequestNotification = () => {
             value: 'Other',
             label: 'Other'
 
+        },
+        {
+            value: 'SignUp Seller',
+            label: 'SignUp Seller'
+
         }
 
     ]
@@ -57,7 +79,7 @@ const RequestNotification = () => {
         let data = {
             title: values.title,
             description: values.description,
-            requestType: selected
+            requestType: selectRequest
         }
 
         createRequestOther(user.token, data)
@@ -80,14 +102,14 @@ const RequestNotification = () => {
             name: values.name,
             lastpaymentnumber: values.lastpaymentnumber,
             paymentImage: image,
-            requestType: selected,
+            requestType: selectRequest,
         }
         createRequestTopup(user.token, data)
             .then((res) => {
                 toast.success('Create Request Success')
                 formTopup.resetFields()
                 setImage({
-                    images: [],
+                    images: []
                 })
 
             }).catch((err) => {
@@ -96,7 +118,29 @@ const RequestNotification = () => {
         console.log('onSubmit', data)
     }
     const handleSelectChange = (values) => {
-        setSelected(values)
+        setSelectRequest(values)
+    }
+
+    const onSubmitSignupSeller = () => {
+        let data = {
+            ImageCard: cardImage.images,
+            ImageUser: userImage.images,
+            requestType: selectRequest
+        }
+        createRequestSignupSeller(user.token, data)
+            .then((res) => {
+                toast.success('Create Request Success')
+                setCardImage({
+                    images: []
+                })
+                setUserImage({
+                    images: []
+                })
+
+            }).catch((err) => {
+                toast.error('Create Request error!')
+            })
+
     }
 
 
@@ -134,34 +178,65 @@ const RequestNotification = () => {
                         {
                             loading && (<Spin></Spin>)
                         }
-                        <h1 className='flex justify-center text-4xl'>Request {selected}</h1>
+                        <h1 className='flex justify-center text-4xl'>Request {selectRequest}</h1>
                     </div>
-                    <div className='flex justify-end w-[1200px] mb-3'>
-                        <Button
-                            type="primary"
-                            className="rounded-full bg-[#34d399] justify-self-center mr-3"
-                            onClick={() => navigate('/user/history-request')}
-                            htmlType="submit"
-                        >
-                            <i className="fa-solid fa-clock-rotate-left"></i>
-                            <i className="fa-solid text-md ml-2">History</i>
 
-                        </Button>
-                        <Select
-                            defaultValue="Other"
-                            size="large"
-                            style={{ width: 200 }}
-                            onChange={handleSelectChange}
-                            options={typeRequest}
-                        />
+                    <div className={`flex w-screen mb-3 px-20 ${selectRequest === "Top up money" ? 'justify-between' : 'justify-end'}`}>
+                        {selectRequest === "Top up money" && (
+                            <div className='flex container bg-[#e0f2fe] w-[450px] h-[120px] rounded-md shadow-md p-8'>
+                                <div className='flex flex-col w-full'>
+                                    <div className='flex mb-3 w-full'>
+                                        <div className='flex justify-star'>
+                                            <i className="fa-solid fa-wallet text-xl text-[#78716c]"></i>
+                                            <i className="fa-solid text-md ml-2 text-[#075985]"> Wallet:</i>
+                                        </div>
+                                        <div className='flex justify-end w-full'>
+                                            <i className='fa-solid text-xl text-[#facc15]'>{user.walletUser.pocketmoney}</i>
+                                            <i className="fa-solid text-xl text-[#78716c] ml-2"> ฿</i>
+
+                                        </div>
+                                    </div>
+                                    <div className='flex'>
+                                        <p className='text-sm text-[#c7d2fe] bg-white/50 py-1 px-2 rounded-xl'><b>ID : </b>
+                                            {user.walletUser._id}</p>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        )}
+
+                        <div className='flex place-self-end'>
+                            <Button
+                                type="primary"
+                                className="rounded-full bg-[#34d399] justify-self-center mr-3"
+                                onClick={() => navigate('/user/history-request')}
+                                htmlType="submit"
+                            >
+                                <i className="fa-solid fa-clock-rotate-left"></i>
+                                <i className="fa-solid text-md ml-2">History</i>
+
+                            </Button>
+                            <Select
+                                defaultValue="Other"
+                                size="large"
+                                style={{ width: 200 }}
+                                onChange={handleSelectChange}
+                                options={typeRequest}
+                            />
+
+                        </div>
+
+
 
                     </div>
                 </div>
                 <div className="row-span-4 justify-center my-5">
-                    {selected === "Other" && (
+                    {selectRequest === "Other" && (
 
-                        <div className='grid grid-cols-6 grap-2 justify-items-center w-[1300px]'>
-                            <div className="container col-span-6 bg-white w-[95%] rounded-lg shadow-md p-20">
+                        <div className='grid grid-cols-6 grap-2 justify-items-center w-screen'>
+                            <div className="container col-span-6 bg-white w-[90%] rounded-lg shadow-md p-20">
                                 {/* {loading
                                     ? <h1 className="text-xl text-center mb-2">Loading...<Spin /></h1>
                                     : <h1 className="text-xl text-center mb-2">Create Request Other</h1>
@@ -237,7 +312,7 @@ const RequestNotification = () => {
                         </div>
 
                     )}
-                    {(selected === "Top up money") && (
+                    {(selectRequest === "Top up money") && (
                         <div className='grid grid-cols-6 grap-2 justify-items-center w-[1200px] h-[600px]'>
                             <div className="container col-span-4 bg-white w-[100%] mr-10 rounded-lg shadow-md p-10">
                                 <FileUpload
@@ -356,6 +431,7 @@ const RequestNotification = () => {
 
                             </div>
                             <div className="container col-span-2 bg-white w-[100%] rounded-lg shadow-md px-8 py-10">
+
                                 {paymentMethod.qrcode && paymentMethod.qrcode.map((item) =>
 
                                     <div className='flex justify-center items-center w-[100%]'>
@@ -398,108 +474,123 @@ const RequestNotification = () => {
                         </div>
 
                     )}
+                    {(selectRequest === "SignUp Seller") && (
+                        <div className='grid grid-cols-6 grap-2 justify-items-center w-screen'>
+                            <div className="container col-span-6 bg-white w-[90%] rounded-lg shadow-md p-10">
+                                <div className='flex flex-row w-[100%] divide-x-2 '>
+                                    <div className='flex justify-center w-[60%] px-3'>
+                                        <div className='flex flex-col'>
+                                            <div className='flex justify-center mb-5 bg-[#60a5fa]/60 p-2 rounded-xl'>
+                                                <i className="fa-solid fa-credit-card text-xl text-[#0284c7] mr-4"></i>
+                                                <i className="fa-solid text-md text-white">identity card</i>
+                                            </div>
+                                            <div className='flex flex-row justify-center w-[100%] mb-2'>
+                                                <div className='flex flex-col justify-center w-[50%]'>
+                                                    <div className='flex justify-center p-2'>
+                                                        <Image
+                                                            src='https://i.pinimg.com/564x/3b/21/5f/3b215fb245ba90b4fa129a50efaab0c2.jpg'                                                            // className='object-fill max-h-[500px]'
+
+                                                            width='100%'
+                                                            className="object-cover rounded-xl"
+
+                                                        />
+                                                    </div>
+
+                                                    <i className='text-center fa-solid text-[10px] text-[#78716c]'>( example image )</i>
+
+
+
+                                                </div>
+
+                                                <div className='flex justify-center w-[50%]'>
+                                                    <div className='flex flex-col'>
+                                                        {loadingCard && (<Spin />)}
+
+                                                        <FileUploadImageCard
+                                                            values={cardImage}
+                                                            setValues={setCardImage}
+                                                            loadind={loadingCard}
+                                                            setLoading={setLoadingCard}
+                                                        />
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div className='flex justify-center w-[40%] px-3'>
+                                        <div className='flex flex-col'>
+                                            <div className='flex justify-center mb-5 bg-[#60a5fa]/60 p-2 rounded-xl'>
+                                                <i className="fa-solid fa-images text-xl text-[#0284c7] mr-4"></i>
+                                                <i className="fa-solid text-md text-white">identity verification picture</i>
+                                            </div>
+                                            <div className='flex flex-row justify-center w-[100%] mb-2'>
+                                                <div className='flex flex-col justify-center w-[45%]'>
+                                                    <div className='flex justify-center p-2'>
+                                                        <Image
+                                                            src='https://i.pinimg.com/564x/db/ee/1d/dbee1dee8ddfa865a2abb54ffaa22872.jpg'
+                                                            // className='object-fill max-h-[500px]'
+
+                                                            width='100%'
+                                                            className="object-cover rounded-xl"
+
+                                                        />
+                                                    </div>
+
+                                                    <i className='text-center fa-solid text-[10px] text-[#78716c]'>( example  image )</i>
+
+
+
+                                                </div>
+
+                                                <div className='flex justify-center w-[55%]'>
+                                                    <div className='flex flex-col'>
+                                                        {loadingUser && (<Spin />)}
+                                                        <FileUploadImageUser
+                                                            values={userImage}
+                                                            setValues={setUserImage}
+                                                            loadind={loadingUser}
+                                                            setLoading={setLoadingUser}
+                                                        />
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='flex justify-end mt-6'>
+                                    <Button
+                                        disabled={cardImage.images.length <= 0 || userImage.images.length <= 0}
+                                        type="primary"
+                                        className="rounded-full bg-[#06b6d4] ml-2 hover:-translate-y-1"
+                                        onClick={onSubmitSignupSeller}
+                                        // disabled={!statusCheckout}
+                                        htmlType="submit"
+                                    >
+                                        Submit
+                                    </Button>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    )}
                 </div>
                 <div></div>
 
             </div>
-        </div>
+        </div >
 
-        // <div className="container max-w-[100%] max-h-[100%] bg-[#f9fafb]">
-        //     <div className="grid grid-rows-6 grid-flow-col gap-2 justify-items-center content-center w-[100%]">
-        //         {/* <div className="row-span-1 place-self-center">
-        //             {loading
-        //                 ? <h1 className="text-3xl text-center mb-2">Loading...<Spin /></h1>
-        //                 : <h1 className="text-3xl text-center mb-2">Withdraw Money</h1>
-        //             }
-        //         </div> */}
-        //         <div className="row-span-5 justify-center mt-10">
-        //             <div className='grid grid-cols-6 grap-2 justify-items-center w-[1200px] h-[600px]'>
-        //                 <div className="container col-span-6 bg-white w-[100%] rounded-lg shadow-md">
-        //                     <div className='flex flex-row w-[1200px] h-[100%] bg-red-500'>
-        //                         <div className='w-[700px] bg-white p-10'>
-        //                             <h1 className="text-3xl text-center mb-10">Withdraw Money</h1>
-        //                             <Form
-        //                                 layout="vertical"
-        //                                 name="control-hooks"
-        //                                 form={form}
-        //                             >
-        //                                 <Form.Item
-        //                                     label="Amount"
-        //                                     name="amount"
-        //                                     rules={[
-        //                                         {
-        //                                             required: true,
-        //                                             message: 'Please input your Amount!',
-        //                                         },
-        //                                     ]}
-        //                                 >
-        //                                     < Input
 
-        //                                         name="amount"
-        //                                         id="amount"
-        //                                         // value={value.productName}
-        //                                         // onChange={handleChange}
-        //                                         placeholder="amount"
-        //                                         className={`w-full !text-lg px-2 !rounded-[10px] justify-self-center`}
-        //                                     />
-
-        //                                 </Form.Item>
-        //                                 <Form.Item
-        //                                     label="notification Type"
-        //                                     name="requestType"
-        //                                 >
-        //                                     <Select
-        //                                         name="requestType"
-        //                                         id="requestType"
-        //                                         onChange={onSelectChange}
-        //                                         placeholder="Please Select Category..."
-        //                                     >
-        //                                         <Option>Plese Select</Option>
-        //                                         {
-        //                                             value.requestTypes &&
-        //                                             value.requestTypes.map((item) =>
-        //                                                 <Option
-        //                                                     key={item._id}
-        //                                                     value={item._id}
-        //                                                 >{item.name}</Option>
-        //                                             )}
-        //                                     </Select>
-        //                                     {/* <Select.Option key="Kasikorn Bank" value="Kasikorn Bank" label="Kasikorn Bank" />
-        //                                 <Select.Option key="Bank Krungthai" value="Bank Krungthai" label="Bank Krungthai" />
-        //                                 <Select.Option key="Siam Commercial Bank" value="Siam Commercial Bank" label="Siam Commercial Bank" />
-
-        //                             </Select> */}
-        //                                 </Form.Item>
-        //                                 <Form.Item
-        //                                 >
-        //                                     <Button
-        //                                         type="primary"
-        //                                         className="rounded-full bg-[#1BA8E7] justify-self-center"
-        //                                         htmlType="submit"
-        //                                         onClick={onSubmit}
-        //                                     >
-
-        //                                         Submit
-        //                                     </Button>
-        //                                 </Form.Item>
-        //                             </Form>
-        //                         </div>
-        //                         <div>
-        //                             <Image
-        //                                 className='object-cover object-center justify-center max-h-[600px] w-[500px]'
-        //                                 preview={false}
-        //                                 height={600}
-        //                                 // width={600}
-        //                                 src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-        //                             />
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-
-        //     </div>
-        // </div>
     )
 }
 

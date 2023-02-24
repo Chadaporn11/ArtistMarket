@@ -69,7 +69,7 @@ const HistoryOrder = () => {
                 <div className='flex flex-col place-self-center h-[80px] mt-10'>
                     <h1 className='flex justify-center text-4xl'>History Order</h1>
                 </div>
-                <div className='flex flex-row justify-end w-screen pr-40 ml-5'>
+                <div className='flex flex-row justify-end w-[95%]'>
                     <Select
                         defaultValue="Waiting for the pack"
                         size="large"

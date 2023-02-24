@@ -185,7 +185,7 @@ const Category = () => {
                     </div>
                 </div>
                 <div className="row-span-3 justify-center place-self-center">
-                    <Card style={{ width: 800 }}>
+                    <Card style={{ width: 800 }} className='shadow-md'>
                         <List>
                             <VirtualList
                                 data={category}

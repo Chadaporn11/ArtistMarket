@@ -101,7 +101,7 @@ const RequestType = () => {
     }
 
     const loadData = () => {
-        listRequestType()
+        listRequestType(user.token)
             .then((res) => {
                 setRequestType(res.data)
             }).catch((err) => {
@@ -185,7 +185,7 @@ const RequestType = () => {
                     </div>
                 </div>
                 <div className="row-span-3 justify-center place-self-center">
-                    <Card style={{ width: 800 }}>
+                    <Card style={{ width: 800 }} className='shadow-md'>
                         <List>
                             <VirtualList
                                 data={RequestType}

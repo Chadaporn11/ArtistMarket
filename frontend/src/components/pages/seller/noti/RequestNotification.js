@@ -90,6 +90,7 @@ const RequestNotification = () => {
                     </Button>
                     <Select
                         defaultValue="Other"
+                        disabled
                         size="large"
                         style={{ width: 200 }}
                         onChange={handleSelectChange}

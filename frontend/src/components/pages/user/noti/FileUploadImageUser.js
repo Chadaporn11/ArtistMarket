@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 //antd
-import { Avatar, Badge, Space } from 'antd';
+import { Avatar, Badge, Spin, Image } from 'antd';
 
 
-const FileUpload = ({ values, setValues, loading, setLoading }) => {
+const FileUploadImageUser = ({ values, setValues, loading, setLoading }) => {
     const { user } = useSelector((state) => ({ ...state }));
     console.log('file:', values);
     const handleChangeFile = (e) => {
@@ -26,7 +26,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
                     100,
                     0,
                     (uri) => {
-                        axios.post("http://localhost:4200/api/images-admin",
+                        axios.post("http://localhost:4200/api/images-user",
                             {
                                 image: uri,
                             },
@@ -58,7 +58,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
         //const img = values.images
         //#2
         const { images } = values;
-        axios.post("http://localhost:4200/api/removeimages-admin",
+        axios.post("http://localhost:4200/api/removeimages-user",
             {
                 public_id
             }, {
@@ -84,37 +84,51 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
             <br />
             {
                 values.images && values.images.map((item) =>
-                    <span className="avatar-item">
+                    <div className="flex justify-center">
+
+                        <Image
+                            width='70%'
+                            className="object-cover rounded-xl"
+                            src={item.url}
+                        >
+
+                        </Image >
                         <Badge
+                            className='relative flex justify-end w-auto h-auto z-40'
                             onClick={() => handleRemove(item.public_id)}
-                            style={{ cursor: 'pointer' }}
-                            count="x">
-                            <Avatar
-                                className='m-3'
-                                src={item.url}
-                                shape="square"
-                                size={120} />
+                        >
+                            <div className='flex justify-center absolute -top-3 -right-2 p-1 rounded-full bg-[#f87171] opacity-90 shadow-md w-[30px] h-[30px] hover:-translate-y-2'>
+                                {/* <p className='font-semibold text-md text-white ml-2'></p> */}
+                                <i className="fa-solid fa-circle-xmark text-white text-md  pt-1"></i>
+                            </div>
                         </Badge>
-                    </span>
+
+                    </div >
                 )
             }
-            <p className='mb-1'>QR Code</p>
-            <div className='bg-[#f9fafb] rounded-md border border-gray-300 w-[120px] h-[30px]'>
-                <label className='text-center ml-3'>
-                    Choose File...
-                    <input
-                        onChange={handleChangeFile}
-                        type="file"
-                        hidden
-                        multiple
-                        accept='images/*'
-                        name="file"
-                    />
-                </label>
+            <div className='flex flex-row justify-center'>
+                {loading && (<Spin className='mr-3' />)}
+                <p className='mb-2'>Upload Images</p>
             </div>
+            <div className='flex flex-row justify-center'>
+                <div className='bg-[#f9fafb] rounded-md border border-gray-300 w-[120px] h-[30px]'>
+                    <label className='text-center ml-3'>
+                        Choose File...
+                        <input
+                            onChange={handleChangeFile}
+                            type="file"
+                            hidden
+                            multiple
+                            accept='images/*'
+                            name="file"
+                        />
+                    </label>
+                </div>
+            </div>
+
             <br />
         </>
     )
 }
 
-export default FileUpload
+export default FileUploadImageUser

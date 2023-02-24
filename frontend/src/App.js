@@ -28,6 +28,7 @@ import ManageAdmin from './components/pages/admin/ManageAdmin';
 import Category from './components/pages/admin/Category';
 import RequestType from './components/pages/admin/RequestType';
 import Payment from './components/pages/admin/payment/Payment';
+import RequestOrder from './components/pages/admin/RequestOrder';
 
 //pages seller
 import HomeSeller from "./components/pages/seller/Home";
@@ -41,7 +42,6 @@ import HistoryRequestSeller from './components/pages/seller/noti/HistoryRequest'
 
 // pages user
 import HomeUser from "./components/pages/user/Home";
-import WalletUser from "./components/pages/user/wallet/Wallet";
 import WishList from './components/pages/user/WishList';
 import HistoryOrderUser from './components/pages/user/HistoryOrder'
 import HistoryRequestUser from './components/pages/user/noti/HistoryRequest';
@@ -144,6 +144,14 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route
+          path="/admin/request-orders"
+          element={
+            <AdminRoute>
+              <RequestOrder />
+            </AdminRoute>
+          }
+        />
         {/* seller */}
         <Route
           path="/seller/index"
@@ -186,7 +194,7 @@ function App() {
           }
         />
         <Route
-          path="/seller/requestnoti"
+          path="/seller/request"
           element={
             <SellerRoute>
               <RequestNotificationSeller />
@@ -219,14 +227,6 @@ function App() {
           }
         /> */}
         <Route
-          path="/user/wallet"
-          element={
-            <UserRoute>
-              <WalletUser />
-            </UserRoute>
-          }
-        />
-        <Route
           path="/user/wishlist"
           element={
             <UserRoute>
@@ -243,7 +243,7 @@ function App() {
           }
         />
         <Route
-          path="/user/requestnoti"
+          path="/user/request"
           element={
             <UserRoute>
               <RequestNotificationUser />
