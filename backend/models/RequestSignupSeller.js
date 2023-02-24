@@ -1,24 +1,20 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
-const RequestWithdrawSchema = new mongoose.Schema(
+const RequestSignupSellerSchema = new mongoose.Schema(
     {
-        amount: {
-            type: Number,
-        },
         checkStatus: {
             type: String,
             default: 'Waiting for confirmation',
         },
-        paymentImage: {
+        CardImage: {
+            type: Array,
+        },
+        PersonImage: {
             type: Array,
         },
         requestType: {
             type: ObjectId,
             ref: "requesttypes",
-        },
-        walletRequest: {
-            type: ObjectId,
-            ref: 'wallets'
         },
         requestBy: {
             type: ObjectId,
@@ -27,4 +23,4 @@ const RequestWithdrawSchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
-module.exports = RequestWithdraw = mongoose.model("requestwithdraws", RequestWithdrawSchema);
+module.exports = RequestSignupSeller = mongoose.model("requestsignupsellers", RequestSignupSellerSchema);

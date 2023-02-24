@@ -91,7 +91,7 @@ const SignIn = () => {
                         >
                             < Input
                                 placeholder="email"
-                                className={`w-full !text-lg px-2 !rounded-[10px] justify-self-center`}
+                                className={`w-full !text-lg px-4 !rounded-[10px] justify-self-center`}
                             />
 
                         </Form.Item>
@@ -108,7 +108,7 @@ const SignIn = () => {
                         >
                             <Input.Password
                                 placeholder="password"
-                                className={`w-full !text-lg px-2 !rounded-[10px] justify-self-center`}
+                                className={`w-full !text-lg px-4 !rounded-[10px] justify-self-center`}
                             />
                         </Form.Item>
 

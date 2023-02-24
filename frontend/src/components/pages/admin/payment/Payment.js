@@ -149,14 +149,14 @@ const Payment = () => {
 
   return (
     <div className="container max-w-[100%] max-h-[100%] bg-[#f9fafb]">
-      <div className="grid grid-rows-6 grid-flow-col gap-2 justify-items-center content-center w-[100%]">
+      <div className="grid grid-rows-6 grid-flow-col gap-2 justify-items-center content-center w-screen">
         <div className='row-span-1 place-self-center'>
           <h1 className='text-3xl'>Payment</h1>
         </div>
-        <div className="row-span-4 justify-center">
+        <div className="row-span-4 justify-self-center w-[100%] pl-20">
           {(paymentMethod === undefined) && (
-            <div className='grid grid-cols-6 grap-2 justify-items-center w-[1300px] h-[550px]'>
-              <div className="container col-span-6 bg-white w-[100%] rounded-lg shadow-md p-8">
+            <div div className='grid grid-cols-6 grap-2 justify-items-center w-[90%]'>
+              <div className="container col-span-6 bg-white w-[100%] rounded-lg shadow-md">
                 {loading
                   ? <h1 className="text-xl text-center mb-2">Loading...<Spin /></h1>
                   : <h1 className="text-xl text-center mb-2">Create Payment</h1>
@@ -252,7 +252,7 @@ const Payment = () => {
             </div>
           )}
           {(paymentMethod !== undefined) && (
-            <div className='grid grid-cols-6 grap-2 justify-items-center w-[1300px] h-[600px]'>
+            <div className='grid grid-cols-6 grap-2 justify-items-center w-[95%] h-[600px]'>
               <div className="container col-span-4 bg-white w-[100%] mr-10 rounded-lg shadow-md p-8">
                 {loading
                   ? <h1 className="text-xl text-center mb-2">Loading...<Spin /></h1>

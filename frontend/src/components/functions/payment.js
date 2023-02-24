@@ -38,6 +38,14 @@ export const updatePayment = async (authtoken, id, values) => {
     });
 };
 
+export const updatePaymentSeller = async (authtoken, id, values) => {
+    return await axios.put("http://localhost:4200/api/payment-seller/" + id, values, {
+        headers: {
+            authtoken,
+        },
+    });
+};
+
 // export const listProductBy = async (sort, order, limit) => {
 //     return await axios.post("http://localhost:4200/api/productby",
 //         {

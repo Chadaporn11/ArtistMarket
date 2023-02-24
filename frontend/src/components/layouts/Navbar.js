@@ -77,8 +77,14 @@ const Navbar = () => {
                     onClick: () => navigate('/admin/payment')
                 },
                 {
-                    label: 'Logout',
+                    label: 'Request Orders',
                     key: '6',
+                    icon: <i className="fa-solid fa-money-check-dollar" />,
+                    onClick: () => navigate('/admin/request-orders')
+                },
+                {
+                    label: 'Logout',
+                    key: '7',
                     icon: <i className="fa-solid fa-arrow-right-from-bracket" />,
                     onClick: () => logout()
                 },
@@ -113,7 +119,7 @@ const Navbar = () => {
                     label: 'Request Notifications',
                     key: '5',
                     icon: <i className="fa-solid fa-money-check-dollar" />,
-                    onClick: () => navigate('/seller/requestnoti')
+                    onClick: () => navigate('/seller/request')
                 },
 
                 {
@@ -126,32 +132,26 @@ const Navbar = () => {
         } else {
             return items = [
                 {
-                    label: 'Payment',
-                    key: '1',
-                    icon: <i className="fa-solid fa-wallet"></i>,
-                    onClick: () => navigate('/user/wallet')
-                },
-                {
                     label: 'Wishlist',
-                    key: '2',
+                    key: '1',
                     icon: <i className="fa-brands fa-gratipay"></i>,
                     onClick: () => navigate('/user/wishlist')
                 },
                 {
                     label: 'History Order',
-                    key: '3',
+                    key: '2',
                     icon: <i className="fa-solid fa-clone"></i>,
                     onClick: () => navigate('/user/history-order')
                 },
                 {
                     label: 'Request Notifications',
-                    key: '4',
+                    key: '3',
                     icon: <i className="fa-solid fa-money-check-dollar" />,
-                    onClick: () => navigate('/user/requestnoti')
+                    onClick: () => navigate('/user/request')
                 },
                 {
                     label: 'Logout',
-                    key: '5',
+                    key: '4',
                     icon: <i className="fa-solid fa-arrow-right-from-bracket" />,
                     onClick: () => logout()
                 },

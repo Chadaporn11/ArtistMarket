@@ -10,9 +10,10 @@ import { Select, Button, Form, Input, Image, Card, Empty, Avatar } from 'antd';
 
 const CardOrderHistory = ({ orders, setOrders, loadData, setSelectedStatus, selectedStatus }) => {
     const { user } = useSelector((state) => ({ ...state }));
-    const { _id, orderStatus, products, cartTotal, addressOrder } = orders;
+    const { _id, orderStatus, products, cartTotal, addressOrder, delivery } = orders;
     const [addressorder, setAddressorder] = useState('');
     const [statusUpdate, setStatusUpdate] = useState(selectedStatus);
+    console.log('test::', orders)
 
 
     const handleUpdateStatus = (value) => {
@@ -34,7 +35,7 @@ const CardOrderHistory = ({ orders, setOrders, loadData, setSelectedStatus, sele
 
     return (
         <div className={`container bg-[#f0f9ff] w-[350px] rounded-md shadow-md hover:shadow-xl hover:-translate-y-3 
-        ${orderStatus !== "Waiting for confirmed" ? 'h-[400px]' : 'h-[500px]'}
+        ${orderStatus === "Waiting for confirmed" ? 'h-[500px]' : orderStatus === "Confirm received" ? 'h-[450px]' : 'h-[400px]'}
         `}>
             <div className='flex flex-col px-8 pt-5'>
                 <div className='flex justify-between mb-1'>
@@ -105,7 +106,33 @@ const CardOrderHistory = ({ orders, setOrders, loadData, setSelectedStatus, sele
                         </div>
 
                         <hr className='my-3' />
-                        <p className='flex justify-end font-semibold text-md mt-2'>Total : <b className='text-[#ef4444]'>{cartTotal}</b> ฿</p>
+                        <div className='flex flex-row justify-between'>
+                            {(orderStatus === 'Waiting for confirmed' || orderStatus === 'Confirm received') && (
+
+                                <div className='container bg-white/50 w-[180px] h-auto rounded-md p-2 mt-1'>
+
+                                    <div className='flex flex-col p-0 w-[100%]'>
+                                        <div className='flex flex-row'>
+                                            <i className="text-sm text-[#0891b2]">Delivery Name</i>
+                                            <p className='text-[13px] ml-2'>: {delivery.deliveryName}</p>
+
+                                        </div>
+                                        <div className='flex flex-row '>
+                                            <i className="text-sm text-[#0891b2]">Tax ID</i>
+                                            <p className='text-[13px] ml-2'>: {delivery.parcelNumber}</p>
+
+                                        </div>
+                                        <div className='flex flex-row w-[100%]'>
+                                            {/* <i className="text-sm text-[#0891b2]">Date Time</i> */}
+                                            <p className='text-[13px]'>( {delivery.deliveryTime} )</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            <p className='flex justify-end font-semibold text-md mt-2'>Total : <b className='text-[#ef4444]'>{cartTotal}</b> ฿</p>
+                        </div>
                         {orderStatus === 'Waiting for confirmed' && (
                             <Button
                                 type="primary"

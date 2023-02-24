@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 //antd
-import { Avatar, Badge, Space } from 'antd';
+import { Avatar, Badge, Space, Image } from 'antd';
 
 
-const FileUpload = ({ values, setValues, loading, setLoading }) => {
+const FileUploadConfirmed = ({ values, setValues, loading, setLoading }) => {
     const { user } = useSelector((state) => ({ ...state }));
     console.log('file:', values);
     const handleChangeFile = (e) => {
@@ -26,7 +26,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
                     100,
                     0,
                     (uri) => {
-                        axios.post("http://localhost:4200/api/images-seller",
+                        axios.post("http://localhost:4200/api/images-admin",
                             {
                                 image: uri,
                             },
@@ -58,7 +58,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
         //const img = values.images
         //#2
         const { images } = values;
-        axios.post("http://localhost:4200/api/removeimages-seller",
+        axios.post("http://localhost:4200/api/removeimages-admin",
             {
                 public_id
             }, {
@@ -81,26 +81,26 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
 
     return (
         <>
-            <br />
+            {/* <br /> */}
             {
                 values.images && values.images.map((item) =>
-                    <span className="avatar-item">
+                    <span className="self-center avatar-item">
                         <Badge
                             onClick={() => handleRemove(item.public_id)}
                             style={{ cursor: 'pointer' }}
                             count="x">
-                            <Avatar
+                            <Image
                                 className='m-3'
                                 src={item.url}
                                 shape="square"
-                                size={120} />
+                                width={150} />
                         </Badge>
                     </span>
                 )
             }
-            <p className='mb-1'>QR Code</p>
-            <div className='bg-[#f9fafb] rounded-md border border-gray-300 w-[120px] h-[30px]'>
-                <label className='text-center ml-3'>
+            {/* <p className='mb-1'>Payment</p> */}
+            <div className='self-center bg-[#f9fafb] ml-2 mt-2 rounded-md border border-gray-300 w-[120px] h-[30px]'>
+                <label className='text-center p-2'>
                     Choose File...
                     <input
                         onChange={handleChangeFile}
@@ -117,4 +117,4 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
     )
 }
 
-export default FileUpload
+export default FileUploadConfirmed

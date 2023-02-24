@@ -7,7 +7,7 @@ import FileUpload from './FileUpload';
 import {
     createPaymentSeller,
     readPayment,
-    updatePayment,
+    updatePaymentSeller,
 } from '../../../functions/payment';
 import { createRequestWithdraw } from '../../../functions/request';
 import { toast } from "react-toastify";
@@ -73,7 +73,9 @@ const Payment = () => {
                 setPaymentMethod(res.data)
                 window.location.reload();
                 setValue(initialstatepayment)
-                setImage(initialstate)
+                setImage({
+                    images: []
+                })
                 setSelected('')
                 toast.success("Created payment Success!");
                 // form.resetFields();
@@ -111,13 +113,15 @@ const Payment = () => {
             owner: user.username,
         }
         // console.log('Data=>', id, data)
-        updatePayment(user.token, id, data)
+        updatePaymentSeller(user.token, id, data)
             .then((res) => {
                 // console.log(res);
                 setPaymentMethod(res.data)
                 toast.success("Update payment Success!");
                 setValue(initialstatepayment)
-                setImage(initialstate)
+                setImage({
+                    images: []
+                })
                 setSelected('')
                 form.resetFields();
             }).catch((err) => {
@@ -234,8 +238,7 @@ const Payment = () => {
                                     <p className='text-md mb-2'>Amount :</p>
                                     <InputNumber
                                         min={1}
-                                        max={user.walletUser.pocketmoney}
-                                        onChange={(value) => handleChangeWithdraw(value)}
+                                        onChange={handleChangeWithdraw}
                                         className={`w-full !text-lg px-2 !rounded-[10px] justify-self-center`}
                                     />
                                 </div>

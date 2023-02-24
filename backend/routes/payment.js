@@ -21,7 +21,7 @@ router.post("/payment-seller", auth, sellerCheck, createPayment);
 router.put("/payment/:id", auth, adminCheck, updatePayment);
 
 //@Endpoint  http://localhost:4200/api/payment/:id
-router.put("/payment/:id", auth, sellerCheck, updatePayment);
+router.put("/payment-seller/:id", auth, sellerCheck, updatePayment);
 
 //@Endpoint  http://localhost:4200/api/payment/:id
 router.get("/payment/:id", auth, readPayment);

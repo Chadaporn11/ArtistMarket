@@ -38,11 +38,15 @@ const Product = () => {
 
     const loadData = () => {
         console.log('ID:', id)
-        wishlist.map((item) => {
-            if (item._id === id) {
-                setStatuslike(true)
-            }
-        })
+        if (wishlist) {
+            wishlist.map((item) => {
+                if (item._id === id) {
+                    setStatuslike(true)
+                }
+            })
+
+        }
+
         // setLoading(true);
         readProduct(id)
             .then((res) => {
