@@ -96,6 +96,16 @@ const CardOrderHistoryseller = ({ orders, setOrders, loadData, setSelectedStatus
 
     }
 
+    const disabledDate = (current) => {
+        const day = new Date();
+        day.setDate(day.getDate());
+
+        return current && current > day;
+    };
+
+
+
+
     return (
         <div className={`container bg-[#f0f9ff] w-[350px] rounded-md shadow-md hover:shadow-xl hover:-translate-y-3 
         ${orderStatus === "Waiting for confirmed" || orderStatus === "Waiting for delivery" ? 'h-[500px]' : 'h-[500px]'}
@@ -341,6 +351,7 @@ const CardOrderHistoryseller = ({ orders, setOrders, loadData, setSelectedStatus
                                         /> */}
                                         <DatePicker
                                             size={18}
+                                            disabledDate={disabledDate}
                                             showTime={{
                                                 defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
                                             }} />

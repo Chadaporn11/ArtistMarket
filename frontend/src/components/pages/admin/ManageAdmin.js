@@ -246,6 +246,7 @@ const ManageAdmin = () => {
                 rules={[
                   {
                     required: true,
+                    message: 'Please input your phone!',
                   },
                 ]}
               >
@@ -260,6 +261,11 @@ const ManageAdmin = () => {
                 rules={[
                   {
                     required: true,
+                    message: 'Please input your phone!',
+                  },
+                  {
+                    pattern: /^06\d{8}|09\d{8}|08\d{8}/g,
+                    message: 'Invalid phone number format start must 09,08,06 and must have 10 numbers',
                   },
                 ]}
               >
@@ -273,7 +279,12 @@ const ManageAdmin = () => {
                 name="email"
                 rules={[
                   {
+                    type: 'email',
+                    message: 'The input is not valid E-mail!',
+                  },
+                  {
                     required: true,
+                    message: 'Please input your E-mail!',
                   },
                 ]}
               >

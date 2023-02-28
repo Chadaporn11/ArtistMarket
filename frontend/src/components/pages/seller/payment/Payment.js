@@ -29,6 +29,7 @@ const initialstatepayment = {
 
 const Payment = () => {
     const [form] = Form.useForm();
+    const [formwithdraw] = Form.useForm();
     const { user } = useSelector((state) => ({ ...state }));
     const [image, setImage] = useState(initialstate);
     const [value, setValue] = useState(initialstatepayment);
@@ -154,33 +155,69 @@ const Payment = () => {
 
     const showModal = () => {
         setIsModalOpen(true);
+        // setAmounts(0)
+        formwithdraw.resetFields()
+
     };
     const handleCancel = () => {
         setIsModalOpen(false);
+        // setAmounts(0)
+        formwithdraw.resetFields()
+
+
     };
-    const handleChangeWithdraw = (value) => {
-        setAmounts(value);
+    // const handleChangeWithdraw = (value) => {
+    //     setAmounts(value);
 
-        console.log('Changed', value)
-    }
+    //     console.log('Changed', value)
+    // }
 
-    const onSubmitWithdraw = () => {
-        if (window.confirm(`Are you sure you want to withdraw ${amounts.amount} amount?`)) {
-            let data = {
-                amount: amounts,
-                requestType: 'Withdraw money',
+    const onSubmitWithdraw = (values) => {
+        console.log(values)
+        if (values.amount > Number(user.walletUser.pocketmoney)) {
+            toast.error('The amount is more valuable than the wallet.!')
+            // setAmounts(0)
+            setIsModalOpen(false);
+            formwithdraw.resetFields()
+
+
+        } else {
+            if (window.confirm(`Are you sure you want to withdraw ${values.amount} amount?`)) {
+                let data = {
+                    amount: values.amount,
+                    requestType: 'Withdraw money',
+                    Userpassword: values.password
+                }
+                createRequestWithdraw(user.token, data)
+                    .then((res) => {
+                        // console.log(res);
+                        toast.success('Request Withdraw Success')
+                        // setAmounts(0)
+                        formwithdraw.resetFields()
+
+
+                        setIsModalOpen(false);
+
+
+                    }).catch((err) => {
+                        // console.log(err)
+
+
+                        // // toast.error(err.response.data)
+                        toast.error('Error Request Withdraw!')
+
+
+                        // setAmounts(0)
+                        formwithdraw.resetFields()
+
+
+                        setIsModalOpen(false);
+                    })
+                console.log('onSubmit', data)
             }
-            createRequestWithdraw(user.token, data)
-                .then((res) => {
-                    toast.success('Request Withdraw Success')
-
-                }).catch((err) => {
-                    toast.error('Error Request Withdraw!')
-                })
-            console.log('onSubmit', data)
         }
-        setIsModalOpen(false);
-        setAmounts(0)
+
+
     }
 
     useEffect(() => {
@@ -235,23 +272,63 @@ const Payment = () => {
                                     </div>
                                 </div>
                                 <div className='flex flex-col my-5 mx-5'>
-                                    <p className='text-md mb-2'>Amount :</p>
-                                    <InputNumber
-                                        min={1}
-                                        onChange={handleChangeWithdraw}
-                                        className={`w-full !text-lg px-2 !rounded-[10px] justify-self-center`}
-                                    />
+                                    <Form
+                                        layout="vertical"
+                                        name="control-hooks"
+                                        form={formwithdraw}
+                                        onFinish={onSubmitWithdraw}
+                                    >
+                                        <Form.Item
+                                            label="Amount"
+                                            name="amount"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please input amount!',
+                                                },
+                                            ]}
+                                        >
+                                            <InputNumber
+                                                name='amount'
+                                                min={1}
+                                                // max={user.walletUser.pocketmoney}
+                                                // onChange={handleChangeWithdraw}
+                                                className={`w-full !text-lg px-2 !rounded-[10px] justify-self-center`}
+                                            />
+                                        </Form.Item>
+                                        <Form.Item
+                                            label="Password"
+                                            name={"password"}
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please input your password!',
+                                                }
+                                            ]}
+                                        >
+                                            < Input.Password
+                                                name="password"
+                                                id="password"
+                                                placeholder="password"
+                                                className={`w-full !text-lg px-2 !rounded-[10px] justify-self-center`}
+                                            />
+
+                                        </Form.Item>
+
+                                        <Form.Item
+                                        >
+                                            <Button
+                                                type="primary"
+                                                className="rounded-full bg-[#1BA8E7] justify-self-center"
+                                                htmlType="submit"
+                                            // onClick={onSubmitWithdraw}
+                                            >
+
+                                                Submit
+                                            </Button>
+                                        </Form.Item>
+                                    </Form>
                                 </div>
-
-                                <Button
-                                    type="primary"
-                                    className="rounded-full bg-[#1BA8E7] justify-self-center"
-                                    htmlType="submit"
-                                    onClick={onSubmitWithdraw}
-                                >
-
-                                    Submit
-                                </Button>
 
                             </Modal>
                         </div>
@@ -314,7 +391,12 @@ const Payment = () => {
                                             {
                                                 required: true,
                                                 message: 'Please input your account Number!',
-                                            },
+                                            }
+                                            ,
+                                            {
+                                                pattern: /^[1-9][0-9][0-9]-[0-9]-[0-9]{1,5}-[0-9]$/,
+                                                message: 'Invalid Account Number format. (Example 1XX-X-XXXXX-X)',
+                                            }
                                         ]}
                                     >
                                         < Input
@@ -413,6 +495,10 @@ const Payment = () => {
                                                 required: true,
                                                 message: 'Please input your account Number!',
                                             },
+                                            {
+                                                pattern: /^[1-9][0-9][0-9]-[0-9]-[0-9]{1,5}-[0-9]$/,
+                                                message: 'Invalid Account Number format. (Example 1XX-X-XXXXX-X)',
+                                            }
                                         ]}
                                     >
                                         < Input

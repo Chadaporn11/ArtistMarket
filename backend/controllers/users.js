@@ -212,6 +212,9 @@ exports.saveOrder = async (req, res) => {
         let user = await User.findOne({ username: req.user.username }).exec();
         let userCart = await Cart.findOne({ _id: id })
             .populate('products.product').populate('products.owner').exec();
+        const orderTotal = userCart.cartTotal
+        console.log('Data::', orderTotal)
+
         //Groub Owner//
         let groub_owner = await Cart.aggregate([
             { $group: { _id: '$products.owner' } }])
@@ -259,14 +262,26 @@ exports.saveOrder = async (req, res) => {
             return {
                 updateOne: {
                     filter: { _id: item.product._id },
-                    update: { $inc: { quantity: -item.count, sold: +item.count } }
+                    // update: { $inc: { quantity: -item.count, sold: +item.count } }
+                    update: { $inc: { quantity: -item.count } }
+
                 }
             }
         })
+        //+ - wallet 
+        let admin = await User.findOne({ username: 'admin' }).exec();
+        let wallet_oldadmin = await Wallet.findOne({ owner: admin._id })
+        let wallet_olduser = await Wallet.findOne({ owner: user._id })
+        let wallet_totaladmin = Number(wallet_oldadmin.pocketmoney) + orderTotal
+        let wallet_totaluser = Number(wallet_olduser.pocketmoney) - orderTotal
+        let totalsadmin = await Wallet.findOneAndUpdate({ owner: admin._id }, { pocketmoney: wallet_totaladmin })
+        let totalsuser = await Wallet.findOneAndUpdate({ owner: user._id }, { pocketmoney: wallet_totaluser })
 
         let updated = await Product.bulkWrite(bulkOption, {})
+        if (totalsadmin && totalsuser && updated) {
+            res.send(updated);
+        }
 
-        res.send(updated);
 
     } catch (err) {
         console.log(err);
@@ -355,9 +370,33 @@ exports.updateOrderStatus = async (req, res) => {
     try {
         const { id } = req.params
         const { status } = req.body;
-        // const user = await User.findOne({ username: req.user.username }).exec();
-        let order = await Order.findOneAndUpdate({ _id: id }, { orderStatus: status }).exec();
-        res.json(order);
+        if (status === 'Confirm received') {
+            // const user = await User.findOne({ id: req.user.id }).exec()
+            let order = await Order.findOne({ _id: id }).exec()
+            // let sellerowner = await User.findOne({ id: order.products[0].owner}).exec()
+            // let wallet_total = Number(wallet_old.pocketmoney) - orderTotal
+            // let totals = await Wallet.findOneAndUpdate({ owner: user._id }, { pocketmoney: wallet_total })
+
+            //+ - wallet 
+            let admin = await User.findOne({ username: 'admin' }).exec();
+            let wallet_oldadmin = await Wallet.findOne({ owner: admin._id })
+            let wallet_oldseller = await Wallet.findOne({ owner: order.products[0].owner })
+            let wallet_totaladmin = Number(wallet_oldadmin.pocketmoney) - order.cartTotal
+            let wallet_totalseller = Number(wallet_oldseller.pocketmoney) + order.cartTotal
+            let totalsadmin = await Wallet.findOneAndUpdate({ owner: admin._id }, { pocketmoney: wallet_totaladmin })
+            let totalsseller = await Wallet.findOneAndUpdate({ owner: order.products[0].owner }, { pocketmoney: wallet_totalseller })
+            if (totalsadmin && totalsseller) {
+                let orderupdate = await Order.findOneAndUpdate({ _id: id }, { orderStatus: status }).exec();
+                res.json(orderupdate);
+            }
+
+        } else {
+            // const user = await User.findOne({ username: req.user.username }).exec();
+            let order = await Order.findOneAndUpdate({ _id: id }, { orderStatus: status }).exec();
+            res.json(order);
+
+        }
+
 
     } catch (err) {
         console.log(err);

@@ -202,7 +202,12 @@ const Payment = () => {
                       {
                         required: true,
                         message: 'Please input your account Number!',
-                      },
+                      }
+                      ,
+                      {
+                        pattern: /^[1-9][0-9][0-9]-[0-9]-[0-9]{1,5}-[0-9]$/,
+                        message: 'Invalid Account Number format. (Example 1XX-X-XXXXX-X)',
+                      }
                     ]}
                   >
                     < Input
@@ -300,7 +305,12 @@ const Payment = () => {
                       {
                         required: true,
                         message: 'Please input your account Number!',
-                      },
+                      }
+                      ,
+                      {
+                        pattern: /^[1-9][0-9][0-9]-[0-9]-[0-9]{1,5}-[0-9]$/,
+                        message: 'Invalid Account Number format. (Example 1XX-X-XXXXX-X)',
+                      }
                     ]}
                   >
                     < Input

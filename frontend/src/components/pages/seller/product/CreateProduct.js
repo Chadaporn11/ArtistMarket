@@ -179,6 +179,10 @@ const CreateProduct = () => {
                                             required: true,
                                             message: 'Please input your price!',
                                         },
+                                        {
+                                            pattern: /^[1-9]|[1-9][0-9]{1,5}$/,
+                                            message: 'Price must be greater than 0.',
+                                        }
                                     ]}
                                 >
                                     < Input
@@ -200,6 +204,10 @@ const CreateProduct = () => {
                                             required: true,
                                             message: 'Please input your quantity!',
                                         },
+                                        {
+                                            pattern: /^[1-9]|[1-9][0-9]{1,3}$/,
+                                            message: 'Quantity must be greater than 0.',
+                                        }
                                     ]}
                                 >
                                     < Input

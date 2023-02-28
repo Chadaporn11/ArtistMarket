@@ -109,7 +109,7 @@ exports.login = async (req, res) => {
 exports.currentUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.user.email })
-      .populate('walletUser','_id walletName pocketmoney')
+      .populate('walletUser', '_id walletName pocketmoney')
       .select("-password")
       .exec();
     console.log('currentUser', user);
