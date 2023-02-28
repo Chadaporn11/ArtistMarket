@@ -66,6 +66,8 @@ const SignUp = () => {
                                 {
                                     required: true,
                                     message: 'Please input your username!',
+                                    whitespace: true,
+
                                 },
                             ]}
                         >
@@ -83,6 +85,11 @@ const SignUp = () => {
                                     required: true,
                                     message: 'Please input your phone!',
                                 },
+                                {
+                                    pattern: /^06\d{8}|09\d{8}|08\d{8}/g,
+                                    message: 'Invalid phone number format start must 09,08,06 and must have 10 numbers',
+                                }
+
                             ]}
                         >
                             < Input
@@ -94,10 +101,20 @@ const SignUp = () => {
                         <Form.Item
                             label="Email"
                             name={"email"}
+                            // rules={[
+                            //     {
+                            //         required: true,
+                            //         message: 'Please input your email!',
+                            //     },
+                            // ]}
                             rules={[
                                 {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!',
+                                },
+                                {
                                     required: true,
-                                    message: 'Please input your email!',
+                                    message: 'Please input your E-mail!',
                                 },
                             ]}
                         >
@@ -111,12 +128,19 @@ const SignUp = () => {
                         <Form.Item
                             label="Password"
                             name={"password"}
+                            // rules={[
+                            //     {
+                            //         required: true,
+                            //         message: 'Please input your password!',
+                            //     },
+                            // ]}
                             rules={[
                                 {
                                     required: true,
                                     message: 'Please input your password!',
-                                },
+                                }
                             ]}
+                            hasFeedback
                         >
                             <Input.Password
                                 placeholder="password"
@@ -126,11 +150,28 @@ const SignUp = () => {
                         <Form.Item
                             label="Confirmpassword"
                             name={"confirmpassword"}
+                            dependencies={['password']}
+                            hasFeedback
+                            // rules={[
+
+                            //     {
+                            //         required: true,
+                            //         message: 'Please input your confirmpassword!',
+                            //     },
+                            // ]}
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your confirmpassword!',
+                                    message: 'Please confirm your password!',
                                 },
+                                ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value || getFieldValue('password') === value) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                    },
+                                }),
                             ]}
                         >
                             <Input.Password

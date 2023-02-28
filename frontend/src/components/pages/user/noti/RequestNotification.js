@@ -167,6 +167,13 @@ const RequestNotification = () => {
 
     }
 
+    const disabledDate = (current) => {
+        const day = new Date();
+        day.setDate(day.getDate());
+
+        return current && current > day;
+    };
+
     useEffect(() => {
         loadData();
     }, []);
@@ -183,7 +190,7 @@ const RequestNotification = () => {
 
                     <div className={`flex w-screen mb-3 px-20 ${selectRequest === "Top up money" ? 'justify-between' : 'justify-end'}`}>
                         {selectRequest === "Top up money" && (
-                            <div className='flex container bg-[#e0f2fe] w-[450px] h-[120px] rounded-md shadow-md p-8'>
+                            <div className='flex container bg-[#e0f2fe] w-[450px] h-[120px] rounded-md shadow-md p-8 mx-20'>
                                 <div className='flex flex-col w-full'>
                                     <div className='flex mb-3 w-full'>
                                         <div className='flex justify-star'>
@@ -207,7 +214,7 @@ const RequestNotification = () => {
                             </div>
                         )}
 
-                        <div className='flex place-self-end'>
+                        <div className={`flex place-self-end ${selectRequest === "Top up money" ? 'mr-20' : 'mr-10'}`}>
                             <Button
                                 type="primary"
                                 className="rounded-full bg-[#34d399] justify-self-center mr-3"
@@ -343,6 +350,7 @@ const RequestNotification = () => {
                                         /> */}
                                         <DatePicker
                                             size={18}
+                                            disabledDate={disabledDate}
                                             showTime={{
                                                 defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
                                             }} />
@@ -401,6 +409,10 @@ const RequestNotification = () => {
                                                 required: true,
                                                 message: 'Please input your Last Payment Number!',
                                             },
+                                            {
+                                                pattern: /^\d{4}/g,
+                                                message: 'Last Payment Number must have 4 numbers',
+                                            }
                                         ]}
                                     >
                                         <Input

@@ -214,6 +214,13 @@ const UpdateProduct = () => {
                                 <Form.Item
                                     label="Price"
                                     name="price"
+                                    rules={[
+                                        {
+                                            pattern: /^[1-9]|[1-9][0-9]{1,5}$/,
+                                            message: 'Price must be greater than 0.',
+                                        }
+                                    ]}
+
                                 >
                                     < Input
                                         name="price"
@@ -229,6 +236,12 @@ const UpdateProduct = () => {
                                 <Form.Item
                                     label="Quantity"
                                     name="quantity"
+                                    rules={[
+                                        {
+                                            pattern: /^[1-9]|[1-9][0-9]{1,3}$/,
+                                            message: 'Quantity must be greater than 0.',
+                                        }
+                                    ]}
                                 >
                                     < Input
                                         name="quantity"

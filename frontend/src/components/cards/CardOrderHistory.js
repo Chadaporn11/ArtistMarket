@@ -33,6 +33,8 @@ const CardOrderHistory = ({ orders, setOrders, loadData, setSelectedStatus, sele
     }
 
 
+
+
     return (
         <div className={`container bg-[#f0f9ff] w-[350px] rounded-md shadow-md hover:shadow-xl hover:-translate-y-3 
         ${orderStatus === "Waiting for confirmed" ? 'h-[500px]' : orderStatus === "Confirm received" ? 'h-[450px]' : 'h-[400px]'}
@@ -140,7 +142,7 @@ const CardOrderHistory = ({ orders, setOrders, loadData, setSelectedStatus, sele
                                 onClick={handleUpdateStatus}
                                 htmlType="submit"
                             >
-                                Confirmed Order
+                                Confirm Order
                             </Button>
                         )}
                     </div>

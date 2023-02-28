@@ -35,14 +35,7 @@ const Navbar = () => {
                     key: '1',
                     icon: <i className="fa-solid fa-chalkboard-user" />,
                     onClick: () => navigate('/register')
-                },
-                {
-                    label: 'Seller',
-                    key: '2',
-                    icon: <i className="fa-solid fa-chalkboard" />,
-                    onClick: () => navigate('/register-seller')
-
-                },
+                }
             ];
         } else if (user && user.role === 'admin') {
             return items = [
@@ -116,7 +109,7 @@ const Navbar = () => {
                     onClick: () => navigate('/seller/history-order')
                 },
                 {
-                    label: 'Request Notifications',
+                    label: 'Request',
                     key: '5',
                     icon: <i className="fa-solid fa-money-check-dollar" />,
                     onClick: () => navigate('/seller/request')
@@ -144,7 +137,7 @@ const Navbar = () => {
                     onClick: () => navigate('/user/history-order')
                 },
                 {
-                    label: 'Request Notifications',
+                    label: 'Request',
                     key: '3',
                     icon: <i className="fa-solid fa-money-check-dollar" />,
                     onClick: () => navigate('/user/request')

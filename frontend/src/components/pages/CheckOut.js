@@ -14,7 +14,7 @@ import {
 } from '../functions/users';
 
 //antd
-import { Input, Button, Select, Card, Empty } from 'antd';
+import { Input, Button, Select, Card, Empty, Form } from 'antd';
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -27,6 +27,7 @@ const initialstate = [{
 
 const CheckOut = () => {
     const { user } = useSelector((state) => ({ ...state }));
+    const [form] = Form.useForm();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [cartId, setCartId] = useState('')
@@ -39,7 +40,7 @@ const CheckOut = () => {
     const [select, setSelect] = useState(initialstate);
     const [choose, setChoose] = useState();
 
-    const [statusSaveAddress, setStatusSaveAddress] = useState(false);
+    // const [statusSaveAddress, setStatusSaveAddress] = useState(false);
     const [statusCheckout, setStatusCheckout] = useState(false);
 
     const handleSelectChange = (value) => {
@@ -64,36 +65,36 @@ const CheckOut = () => {
         }
     }
     console.log("Setting choose", choose)
-    const handleNameChange = (e) => {
-        setName(e.target.value);
-        console.log(name.length)
-        if ((name !== undefined && name.length > 1) && (phone !== undefined && phone.length > 1) && (address !== undefined && address.length > 1)) {
-            setStatusSaveAddress(true)
-        } else {
-            setStatusSaveAddress(false)
+    // const handleNameChange = (e) => {
+    //     setName(e.target.value);
+    //     console.log(name.length)
+    //     if ((name !== undefined && name.length > 1) && (phone !== undefined && phone.length > 1) && (address !== undefined && address.length > 1)) {
+    //         setStatusSaveAddress(true)
+    //     } else {
+    //         setStatusSaveAddress(false)
 
-        }
-    }
-    const handlePhoneChange = (e) => {
-        setPhone(e.target.value);
+    //     }
+    // }
+    // const handlePhoneChange = (e) => {
+    //     setPhone(e.target.value);
 
-        if ((name !== undefined && name.length > 1) && (phone !== undefined && phone.length > 1) && (address !== undefined && address.length > 1)) {
-            setStatusSaveAddress(true)
-        } else {
-            setStatusSaveAddress(false)
+    //     if ((name !== undefined && name.length > 1) && (phone !== undefined && phone.length > 1) && (address !== undefined && address.length > 1)) {
+    //         setStatusSaveAddress(true)
+    //     } else {
+    //         setStatusSaveAddress(false)
 
-        }
-    }
-    const handleAddressChange = (e) => {
-        setAddress(e.target.value);
-        if ((name !== undefined && name.length > 1) && (phone !== undefined && phone.length > 1) && (address !== undefined && address.length > 1)) {
-            setStatusSaveAddress(true)
-        } else {
-            setStatusSaveAddress(false)
+    //     }
+    // }
+    // const handleAddressChange = (e) => {
+    //     setAddress(e.target.value);
+    //     if ((name !== undefined && name.length > 1) && (phone !== undefined && phone.length > 1) && (address !== undefined && address.length > 1)) {
+    //         setStatusSaveAddress(true)
+    //     } else {
+    //         setStatusSaveAddress(false)
 
-        }
+    //     }
 
-    }
+    // }
     const RemoveAddress = (id) => {
         if (window.confirm('Are you sure you want to delete this address?')) {
             console.log('remove', id);
@@ -111,18 +112,19 @@ const CheckOut = () => {
 
 
     }
-    const handleSaveAddress = () => {
+    const handleSaveAddress = (values) => {
 
         let data = {
-            name: name,
-            phone: phone,
-            address: address
+            name: values.name,
+            phone: values.phone,
+            address: values.address
         }
         console.log('save', data);
         saveAddressOrder(user.token, data)
             .then((res) => {
                 console.log(res.data);
-                setStatusCheckout(true)
+                // setStatusCheckout(true)
+                form.resetFields();
                 toast.success('Save Address Order Success!')
                 setSendOrder(res.data)
                 loadData()
@@ -260,189 +262,121 @@ const CheckOut = () => {
 
                             </div>
                         </div>
-                        <div className='container bg-white w-[700px] h-[500px] rounded-md shadow-md ml-5 mr-10'>
+                        <div className='container bg-white w-[700px] h-[550px] rounded-md shadow-md ml-5 mr-10 p-3'>
                             <div className='flex flex-col m-10'>
                                 <div className='flex mb-10 justify-center'>
                                     <i className="fa-solid fa-map-location-dot text-xl text-[#f87171]"></i>
                                     <i className="fa-solid text-lg text-[#075985] mx-2"> Create Address</i>
 
                                 </div>
-                                {/* <div className='flex mb-2 mr-2 justify-end'>
-                                <Select
-                                    name="nameaddress"
-                                    id="nameaddress"
-                                    className={`w-[30%] !text-md px-2 !rounded-[10px] justify-self-center`}
-                                    onChange={handleSelectChange}
-                                    placeholder="Select Address..."
+                                <Form
+
+                                    // layout="vertical"
+                                    onFinish={handleSaveAddress}
+                                    form={form}
                                 >
-                                    <Option>Select Address...</Option>
-                                    {
-                                        select.length > 0 &&
-                                        select.map((item) =>
-                                            <Option
-                                                key={item._id}
-                                                value={item._id}
-                                                className="truncate"
-                                            >{item.sendOrder.address}</Option>
-                                        )}
-                                </Select>
+                                    <Form.Item
+                                        label={<p className='text-md text-[#57534e] w-full ml-2'><i className="fa-solid fa-user" /> Name</p>}
+                                        name={"name"}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input your name!',
+                                                whitespace: true,
 
-                            </div> */}
-                                <div className='flex justify-start mb-1'>
-                                    <p className='text-md text-[#57534e] w-full ml-2'><i className="fa-solid fa-user" /> Name :</p>
-                                    <p className='text-md text-[#57534e] w-full ml-2'><i className="fa-solid fa-phone" /> Phone :</p>
+                                            },
+                                        ]}
+                                    >
 
-                                </div>
-                                <div className='flex justify-center'>
-                                    <Input
-                                        name="name"
-                                        // value={name}
-                                        className={`w-full !text-md px-2 mx-2 !rounded-[10px] justify-self-center`}
-                                        onChange={handleNameChange}
-                                        placeholder="Please input your name!"
-                                    />
-                                    <Input
-                                        name="phone"
-                                        // value={phone}
-                                        className={`w-full !text-md px-2 mx-2 !rounded-[10px] justify-self-center`}
-                                        onChange={handlePhoneChange}
-                                        placeholder="Please input your phone!"
-                                    />
+                                        <Input
+                                            name="name"
+                                            // value={name}
+                                            className={`w-full !text-md px-2 mx-2 !rounded-[10px] justify-self-center`}
+                                            // onChange={handleNameChange}
+                                            placeholder="Please input your name!"
+                                        />
+                                    </Form.Item>
+                                    <Form.Item
+                                        label={<p className='text-md text-[#57534e] w-full ml-2'><i className="fa-solid fa-phone" /> Phone</p>}
+                                        name={"phone"}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input your phone!',
+                                            },
+                                            {
+                                                pattern: /^06\d{8}|09\d{8}|08\d{8}/g,
+                                                message: 'Invalid phone number format start must 09,08,06 and must have 10 numbers',
+                                            }
 
-                                </div>
-                                <div className='flex justify-start mb-1 mt-3'>
+                                        ]}
+                                    >
+                                        <Input
+                                            name="phone"
+                                            required={[
+
+                                                {
+                                                    pattern: /^06\d{8}|09\d{8}|08\d{8}/g,
+                                                    message: 'Invalid phone number format start must 09,08,06 and must have 10 numbers',
+                                                },
+                                            ]}
+                                            // value={phone}
+                                            className={`w-full !text-md px-2 mx-2 !rounded-[10px] justify-self-center`}
+                                            // onChange={handlePhoneChange}
+                                            placeholder="Please input your phone!"
+                                        />
+                                    </Form.Item>
+
+
+                                    {/* </div> */}
+                                    {/* <div className='flex justify-start mb-1 mt-3'>
 
                                     <p className='text-md text-[#57534e] w-full ml-2'><i className="fa-solid fa-map-location-dot" /> Address :</p>
 
-                                </div>
-                                <div className='flex justify-center'>
-                                    <TextArea
-                                        name='address'
-                                        // value={address}
-                                        onChange={handleAddressChange}
-                                        rows={8}
-                                        placeholder="Please input your address!"
-                                        className={`w-full !text-md px-2 mx-2 !rounded-[10px] justify-self-center `}
-                                    />
-                                </div>
-                                <div className='flex justify-end mt-8'>
-                                    <Button
-                                        type="primary"
-                                        className="rounded-full bg-[#0ea5e9] ml-2 hover:-translate-y-2"
-                                        onClick={handleSaveAddress}
-                                        disabled={!statusSaveAddress}
-                                        htmlType="submit"
-                                    >
-                                        Save
-                                    </Button>
-                                </div>
+                                </div> */}
+                                    <Form.Item
+                                        label={<p className='text-md text-[#57534e] w-full'><i className="fa-solid fa-map-location-dot" /> Address</p>
+                                        }
+                                        name={"address"}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input your address!',
+                                                whitespace: true,
+
+                                            },
+                                        ]}>
+
+                                        <TextArea
+                                            name='address'
+                                            // value={address}
+                                            // onChange={handleAddressChange}
+                                            rows={8}
+                                            placeholder="Please input your address!"
+                                            className={`w-full !text-md px-2 mx-2 !rounded-[10px] justify-self-center `}
+                                        />
+                                    </Form.Item>
+
+                                    <Form.Item
+                                        className='flex justify-end mt-8'>
+                                        <div className='flex justify-end mt-8'>
+                                            <Button
+                                                type="primary"
+                                                className="rounded-full bg-[#0ea5e9] ml-2 hover:-translate-y-2"
+                                                // onClick={handleSaveAddress}
+                                                // disabled={!statusSaveAddress}
+                                                htmlType="submit"
+                                            >
+                                                Save
+                                            </Button>
+                                        </div>
+                                    </Form.Item >
+                                </Form>
                             </div>
                         </div >
 
                     </div>
-
-                    {/* <div className='container bg-white w-[700px] h-[600px] rounded-md shadow-md ml-5 mr-10'>
-                        <div className='flex flex-col m-10'>
-                            <div className='flex mb-10 justify-center'>
-                                <i className="fa-solid fa-location-dot text-lg text-[#f87171]"></i>
-                                <i className="fa-solid text-lg text-[#075985] mx-2"> Delivery Address</i>
-
-                            </div>
-                            <div className='flex mb-2 mr-2 justify-end'>
-                                <Select
-                                    name="nameaddress"
-                                    id="nameaddress"
-                                    className={`w-[30%] !text-md px-2 !rounded-[10px] justify-self-center`}
-                                    onChange={handleSelectChange}
-                                    placeholder="Select Address..."
-                                >
-                                    <Option>Select Address...</Option>
-                                    {
-                                        select.length > 0 &&
-                                        select.map((item) =>
-                                            <Option
-                                                key={item._id}
-                                                value={item._id}
-                                                className="truncate"
-                                            >{item.sendOrder.address}</Option>
-                                        )}
-                                </Select>
-
-                            </div>
-                            <div className='flex justify-start mb-1'>
-                                <p className='text-md text-[#57534e] w-full ml-2'><i className="fa-solid fa-user" /> Name :</p>
-                                <p className='text-md text-[#57534e] w-full ml-2'><i className="fa-solid fa-phone" /> Phone :</p>
-
-                            </div>
-                            <div className='flex justify-center'>
-                                <Input
-                                    name="name"
-                                    value={name}
-                                    className={`w-full !text-md px-2 mx-2 !rounded-[10px] justify-self-center`}
-                                    onChange={handleNameChange}
-                                    placeholder="Please input your name!"
-                                />
-                                <Input
-                                    name="phone"
-                                    value={phone}
-                                    className={`w-full !text-md px-2 mx-2 !rounded-[10px] justify-self-center`}
-                                    onChange={handlePhoneChange}
-                                    placeholder="Please input your phone!"
-                                />
-
-                            </div>
-                            <div className='flex justify-start mb-1 mt-3'>
-
-                                <p className='text-md text-[#57534e] w-full ml-2'><i className="fa-solid fa-map-location-dot" /> Address :</p>
-
-                            </div>
-                            <div className='flex justify-center'>
-                                <TextArea
-                                    name='address'
-                                    value={address}
-                                    onChange={handleAddressChange}
-                                    rows={8}
-                                    placeholder="Please input your address!"
-                                    className={`w-full !text-md px-2 mx-2 !rounded-[10px] justify-self-center `}
-                                />
-                            </div>
-                            <div className='flex justify-end mt-8'>
-                                <Button
-                                    type="primary"
-                                    className="rounded-full bg-[#0ea5e9] ml-2 hover:-translate-y-2"
-                                    onClick={handleSaveAddress}
-                                    disabled={!statusSaveAddress}
-                                    htmlType="submit"
-                                >
-                                    Save
-                                </Button>
-                            </div>
-                        </div>
-                    </div > */}
-
                     <div className='flex flex-col'>
-                        {/* <div className='container bg-[#e0f2fe] w-[450px] h-[120px] rounded-md shadow-md mr-5 mb-5 p-8'>
-                            <div className='flex flex-col w-full'>
-                                <div className='flex mb-3 w-full'>
-                                    <div className='flex justify-star'>
-                                        <i className="fa-solid fa-wallet text-xl text-[#78716c]"></i>
-                                        <i className="fa-solid text-md ml-2 text-[#075985]"> Wallet:</i>
-                                    </div>
-                                    <div className='flex justify-end w-full'>
-                                        <i className='fa-solid text-xl text-[#facc15]'>{user.walletUser.pocketmoney}</i>
-                                        <i className="fa-solid text-xl text-[#78716c] ml-2"> ฿</i>
-
-                                    </div>
-                                </div>
-                                <div className='flex'>
-                                    <p className='text-sm text-[#c7d2fe] bg-white/50 py-1 px-2 rounded-xl'><b>ID : </b>
-                                        {user.walletUser._id}</p>
-
-                                </div>
-
-
-                            </div>
-                        </div> */}
                         <div className='container bg-white w-[450px] h-[300px] rounded-md shadow-md mr-5 mb-5 p-8'>
                             <div className='flex mb-5 justify-center'>
                                 <i className="fa-solid fa-location-dot text-lg text-[#f87171]"></i>

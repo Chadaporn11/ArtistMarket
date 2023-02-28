@@ -3,6 +3,7 @@ const RequestOther = require("../models/RequestOther")
 const RequestTopup = require("../models/RequestTopup")
 const RequestWithdraw = require("../models/RequestWithdraw")
 const RequestSignupSeller = require("../models/RequestSignupSeller");
+const bcrypt = require("bcryptjs");
 
 const User = require("../models/User")
 const Wallet = require("../models/Wallet");
@@ -130,17 +131,27 @@ exports.createRequestTopup = async (req, res) => {
 
 exports.createRequestWithdraw = async (req, res) => {
     try {
-        const { amount, requestType } = req.body;
+        const { amount, requestType, Userpassword } = req.body;
         let user = await User.findOne({ username: req.user.username }).exec();
-        let requesttype = await RequestType.findOne({ name: requestType }).exec()
-        let data = {
-            amount: amount,
-            requestType: requesttype._id,
-            requestBy: user._id,
-            walletRequest: user.walletUser
+        // Check Password
+        const isMatch = await bcrypt.compare(Userpassword, user.password);
+
+        if (isMatch) {
+            let requesttype = await RequestType.findOne({ name: requestType }).exec()
+            let data = {
+                amount: amount,
+                requestType: requesttype._id,
+                requestBy: user._id,
+                walletRequest: user.walletUser
+            }
+            const requestWithdraw = await new RequestWithdraw(data).save();
+            res.send(requestWithdraw)
+        } else {
+            // return res.status(400).send("Password Invalid!!");
+            return res.status(400).json("Password Invalid!!");
+
         }
-        const requestWithdraw = await new RequestWithdraw(data).save();
-        res.send(requestWithdraw)
+
 
 
     } catch (err) {

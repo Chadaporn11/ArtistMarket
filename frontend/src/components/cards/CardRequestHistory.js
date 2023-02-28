@@ -55,6 +55,13 @@ const CardRequestHistory = ({ requests, setRequests, loadData, setSelectRequest,
 
     }
 
+    const disabledDate = (current) => {
+        const day = new Date();
+        day.setDate(day.getDate());
+
+        return current && current > day;
+    };
+
     return (
         <>
             {requestType.name === 'Other' && (
