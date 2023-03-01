@@ -65,7 +65,7 @@ const Product = () => {
 
 
   return (
-    <div className="container max-w-[100%] max-h-auto bg-[#f9fafb] pb-[150px]">
+    <div className="container max-w-[100%] max-h-auto bg-[#f9fafb] pb-[150px] px-10">
       <div className="flex flex-col justify-items-center content-center w-[100%]">
         <div className='flex flex-col place-self-center h-[100px] mt-10'>
           {loading

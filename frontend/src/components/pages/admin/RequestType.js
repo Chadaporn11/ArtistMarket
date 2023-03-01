@@ -135,7 +135,7 @@ const RequestType = () => {
         <div className="container max-w-[100%] max-h-[680px] bg-[#f9fafb]">
             <div className="grid grid-rows-6 grid-flow-col gap-4 justify-items-center content-center w-[100%] h-[680px]">
                 <div className='row-span-1 place-self-center'>
-                    <h1 className='text-3xl'>NOTIFICATION TYPE</h1>
+                    <h1 className='text-3xl'>REQUESTTYPES</h1>
                 </div>
                 <div className="row-span-1 justify-center place-self-center">
                     <div class="flex flex-row">

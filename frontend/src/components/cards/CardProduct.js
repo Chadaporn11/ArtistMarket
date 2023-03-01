@@ -164,20 +164,20 @@ function CardProduct({ product, loadData, setLoading }) {
                 </div>
                 <div className='flex flex-col justify-start mt-3 mx-8 mb-3'>
                     <div className='flex'>
-                        <p className='font-semibold text-md text-[#334155] mr-3'>Product Name : </p>
-                        <p className='text-md text-[#334155]'>{productName}</p>
+                        <p className='font-semibold text-md text-[#334155] mr-3'>Name : </p>
+                        <p className='text-sm text-[#334155]'>{productName}</p>
                     </div>
                     <div className='flex'>
                         <p className='font-semibold text-md text-[#334155] mr-3'>Category : </p>
-                        <p className='text-md text-[#334155]'>{category.name}</p>
+                        <p className='text-sm text-[#334155]'>{category.name}</p>
                     </div>
                     <div className='flex'>
                         <p className='font-semibold text-md text-[#334155] mr-3'>Quantity : </p>
-                        <p className='text-md text-[#334155]'>{quantity}</p>
+                        <p className='text-sm text-[#334155]'>{quantity}</p>
                     </div>
                     <div className='flex'>
                         <p className='font-semibold text-md text-[#334155] mr-3'>Description : </p>
-                        <p className='text-md text-[#334155]'>{description}</p>
+                        <p className='text-sm text-[#334155] whitespace-normal'>{description}</p>
                     </div>
                     {/* <p className='flex font-semibold text-md'>Category : {category.name}</p>
                     <p className='flex font-semibold text-md'>Description : {description}</p> */}

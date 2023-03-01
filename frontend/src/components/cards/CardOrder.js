@@ -135,55 +135,7 @@ const CardOrder = ({ product, loadData, setLoading }) => {
     }
     return (
         <div className='container bg-white w-[300px] h-[450px] rounded-md shadow-md hover:shadow-xl hover:-translate-y-3'>
-            {/* <div className='flex flex-col w-[280] h-[450px]'>
-                <div className='flex flex-col justify-center h-[300px] max-w-[300px] max-h-[300px]'>
-                    <div className='relative flex justify-center w-auto h-auto'>
-                        <Image
-                            className='object-cover object-center justify-center rounded-t-md'
 
-                            // src='https://pbs.twimg.com/media/FlxxsCqaUAEf9gP?format=jpg&name=large'
-                            style={contentStyle}
-                            width="100%"
-                            preview={false}
-                            src={productImages && productImages.length
-                                ? productImages[0].url
-                                : ""
-                            }
-                        />
-                        <div className='absolute bottom-3 right-0 rounded-l-md bg-[#fbbf24] opacity-90 shadow-md w-[100px] h-[28px]'>
-                            <p className='font-semibold text-md text-white ml-2'>Price: {price} ฿</p>
-                        </div>
-                    </div>
-                </div>
-                <div className='flex flex-col justify-start mt-3 mx-8 mb-3'>
-                    <div className='flex'>
-                        <p className='font-semibold text-md text-[#334155] mr-3'>Product Name : </p>
-                        <p className='text-md text-[#334155]'>{productName}</p>
-                    </div>
-                    <div className='flex'>
-                        <p className='font-semibold text-md text-[#334155] mr-3'>Category : </p>
-                        <p className='text-md text-[#334155]'>{category.name}</p>
-                    </div>
-                    <div className='flex'>
-                        <p className='font-semibold text-md text-[#334155] mr-3'>Description : </p>
-                        <p className='text-md text-[#334155]'>{description}</p>
-                    </div>
-                    
-                </div>
-                <div className='flex ml-8 w-[80%] divide-x divide-gray-300 mt-2'>
-                    <Badge
-                        className='w-[50%] h-[100%] text-[#52525b] opacity-80 text-2xl text-center align-middle hover:text-[#27272a]'
-                        onClick={() => navigate(`/product/${_id}`)}>
-                        <i className="fa-solid fa-eye"></i>
-                    </Badge>
-                    <Badge
-                        className='w-[50%] h-[100%] text-[#52525b] opacity-80 text-2xl text-center align-middle hover:text-[#27272a]'
-                        onClick={handleAddTOCart}>
-                        <i className="fa-solid fa-basket-shopping"></i>
-                    </Badge>
-                </div>
-
-            </div> */}
         </div >
     )
 }
