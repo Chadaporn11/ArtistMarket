@@ -123,7 +123,6 @@ const HistoryRequest = () => {
                                         selectRequest={selectRequest}
                                     />
                                 </div>
-
                             ))}
                             {requests.length < 1 && (
                                 <div className='col-span-3'>

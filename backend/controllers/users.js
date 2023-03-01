@@ -6,6 +6,7 @@ const Cart = require("../models/Cart");
 const AddressOrder = require("../models/AddressOrder");
 const Order = require("../models/Order");
 
+//User//
 exports.listUsers = async (req, res) => {
     try {
         // Code
@@ -34,7 +35,6 @@ exports.changeRole = async (req, res) => {
     try {
         // Code
         const { id, role } = req.body;
-        console.log(id, role);
         const user = await User.findOneAndUpdate(
             { _id: id },
             { role: role }
@@ -66,7 +66,7 @@ exports.updateUsers = async (req, res) => {
                 password: enPassword
             }
         );
-        // const wallet = await Wallet.findOne({ owner: id })
+        // update wallet
         const wallet = await Wallet.findOneAndUpdate(
             { owner: id },
             {
@@ -80,8 +80,8 @@ exports.updateUsers = async (req, res) => {
         res.status(500).send("updateUsers Error!");
     }
 };
-
-
+//User//
+//Cart//
 exports.userCart = async (req, res) => {
     try {
         const { cart } = req.body;
@@ -104,7 +104,6 @@ exports.userCart = async (req, res) => {
 
             products.push(object)
         }
-        console.log('Cart===', products, 'Cart===')
 
         //หาผลรวมของตะกร้า
         let cartTotal = 0;
@@ -117,8 +116,13 @@ exports.userCart = async (req, res) => {
             cartTotal,
             orderBy: user._id,
         }).save();
-        console.log(newCart);
-        res.send('Save UserCart Success!');
+
+        if (newCart) {
+            res.send('Save UserCart Success!');
+        } else {
+            res.status(500).send('Save UserCart Error!');
+        }
+
     } catch (err) {
         console.log(err);
         res.status(500).send("Server Error!");
@@ -135,7 +139,6 @@ exports.getUserCart = async (req, res) => {
         const { _id, products, cartTotal } = cart;
         res.json({ _id, products, cartTotal });
 
-
     } catch (err) {
         console.log(err);
         res.status(500).send("Server Error!");
@@ -148,7 +151,11 @@ exports.emptyCart = async (req, res) => {
     try {
         const user = await User.findOne({ username: req.user.username }).exec();
         const empty = await Cart.findOneAndRemove({ orderBy: user._id }).exec();
-        res.send(empty);
+        if (empty) {
+            res.send(empty);
+        } else {
+            res.status(500).send('Delete Cart failed')
+        }
 
     } catch (err) {
         console.log(err);
@@ -158,6 +165,9 @@ exports.emptyCart = async (req, res) => {
 
 };
 
+//Cart//
+
+//AddressOrder//
 exports.saveAddressOrder = async (req, res) => {
     try {
         const { sendOrder } = req.body;
@@ -166,7 +176,6 @@ exports.saveAddressOrder = async (req, res) => {
             orderBy: user._id,
             sendOrder: sendOrder
         }
-        console.log('Send Order:', data);
         const addressOrder = await new AddressOrder(data).save();
         res.send(addressOrder);
 
@@ -182,7 +191,6 @@ exports.removeAddressOrder = async (req, res) => {
     try {
         const id = req.params.id;
         const addressOrder = await AddressOrder.findOneAndRemove({ _id: id }).exec();
-        console.log('remove=>', addressOrder);
         res.send('addressOrder')
     } catch (err) {
         console.log(err);
@@ -194,7 +202,6 @@ exports.getAddressOrder = async (req, res) => {
     try {
         const user = await User.findOne({ username: req.user.username }).exec();
         const addressOrder = await AddressOrder.find({ orderBy: user._id }).populate('orderBy').exec();
-
         res.send(addressOrder);
 
     } catch (err) {
@@ -204,8 +211,9 @@ exports.getAddressOrder = async (req, res) => {
     }
 
 };
+//AddressOrder//
 
-//Save Order
+//Order//
 exports.saveOrder = async (req, res) => {
     try {
         let { sendOrder, id } = req.body;
@@ -213,9 +221,8 @@ exports.saveOrder = async (req, res) => {
         let userCart = await Cart.findOne({ _id: id })
             .populate('products.product').populate('products.owner').exec();
         const orderTotal = userCart.cartTotal
-        console.log('Data::', orderTotal)
 
-        //Groub Owner//
+        //Groub Owner seller//
         let groub_owner = await Cart.aggregate([
             { $group: { _id: '$products.owner' } }])
 
@@ -225,9 +232,10 @@ exports.saveOrder = async (req, res) => {
         })
 
         let fixowner = [...new Set(sellerID)]
+
+        //loop save order
         fixowner.map(async (seller) => {
             let userseller = await User.findOne({ _id: seller }).exec();
-            // console.log('================================')
             let order = {}
             const productsresult = []
             let result = {}
@@ -253,10 +261,9 @@ exports.saveOrder = async (req, res) => {
                 cartTotal: result.cartTotal,
                 addressOrder: sendOrder._id,
             }).save();
-            console.log('', ans)
 
         })
-        ///
+
         // + - product
         let bulkOption = userCart.products.map((item) => {
             return {
@@ -268,23 +275,24 @@ exports.saveOrder = async (req, res) => {
                 }
             }
         })
+
         //+ - wallet 
         let admin = await User.findOne({ username: 'admin' }).exec();
         let wallet_oldadmin = await Wallet.findOne({ owner: admin._id })
         let wallet_olduser = await Wallet.findOne({ owner: user._id })
+
         let wallet_totaladmin = Number(wallet_oldadmin.pocketmoney) + orderTotal
         let wallet_totaluser = Number(wallet_olduser.pocketmoney) - orderTotal
+
         let totalsadmin = await Wallet.findOneAndUpdate({ owner: admin._id }, { pocketmoney: wallet_totaladmin })
         let totalsuser = await Wallet.findOneAndUpdate({ owner: user._id }, { pocketmoney: wallet_totaluser })
 
         let updated = await Product.bulkWrite(bulkOption, {})
+
         if (totalsadmin && totalsuser && updated) {
             res.send(updated);
         }
-
-
     } catch (err) {
-        console.log(err);
         res.status(500).send("Server Error!");
     }
 
@@ -298,7 +306,6 @@ exports.getOrder = async (req, res) => {
         res.json(order);
 
     } catch (err) {
-        console.log(err);
         res.status(500).send("getOrders Error!");
     }
 
@@ -308,45 +315,12 @@ exports.getOrderSeller = async (req, res) => {
     try {
         const { status } = req.params
         const user = await User.findOne({ username: req.user.username }).exec();
-        // let orders = await Order.find({
-        //     orderStatus: status
-        // }).populate('products.product').populate('products.owner').populate('addressOrder', '_id sendOrder ')
-        //     .exec();
         let orderseller = await Order.find({ products: { $elemMatch: { owner: user._id } }, orderStatus: status })
             .populate('products.product').populate('products.owner').populate('addressOrder', '_id sendOrder ')
             .exec();
-        // // console.log('User==', user, 'User==')
-        // console.log('Order==', orderseller, 'Order==')
-        // let products = []
-        // order.map(async (item) => {99
-        //หาสินค้าของuser
-        // const ordersFilter = orders.reduce((result, order) => {
-        //     const products = []
-        //     let cartTotal = 0;
-
-        //     for (const product of order.products) {
-
-        //         if (product.owner.username === user.username) {
-        //             cartTotal = cartTotal + product.price * product.count;
-        //             products.push(product)
-        //         }
-        //     }
-
-
-        //     if (products.length > 0) {
-        //         order.products = products
-        //         order.cartTotal = cartTotal
-        //         result.push(order)
-        //     }
-
-        //     return result
-        // }, [])
-        // // console.log('order::', ordersFilter)
-        // res.json(ordersFilter);
         res.json(orderseller)
 
     } catch (err) {
-        console.log(err);
         res.status(500).send("getOrders Error!");
     }
 
@@ -371,32 +345,31 @@ exports.updateOrderStatus = async (req, res) => {
         const { id } = req.params
         const { status } = req.body;
         if (status === 'Confirm received') {
-            // const user = await User.findOne({ id: req.user.id }).exec()
+
             let order = await Order.findOne({ _id: id }).exec()
-            // let sellerowner = await User.findOne({ id: order.products[0].owner}).exec()
-            // let wallet_total = Number(wallet_old.pocketmoney) - orderTotal
-            // let totals = await Wallet.findOneAndUpdate({ owner: user._id }, { pocketmoney: wallet_total })
 
             //+ - wallet 
             let admin = await User.findOne({ username: 'admin' }).exec();
+
             let wallet_oldadmin = await Wallet.findOne({ owner: admin._id })
             let wallet_oldseller = await Wallet.findOne({ owner: order.products[0].owner })
+
             let wallet_totaladmin = Number(wallet_oldadmin.pocketmoney) - order.cartTotal
             let wallet_totalseller = Number(wallet_oldseller.pocketmoney) + order.cartTotal
+
             let totalsadmin = await Wallet.findOneAndUpdate({ owner: admin._id }, { pocketmoney: wallet_totaladmin })
             let totalsseller = await Wallet.findOneAndUpdate({ owner: order.products[0].owner }, { pocketmoney: wallet_totalseller })
+
             if (totalsadmin && totalsseller) {
                 let orderupdate = await Order.findOneAndUpdate({ _id: id }, { orderStatus: status }).exec();
                 res.json(orderupdate);
             }
 
         } else {
-            // const user = await User.findOne({ username: req.user.username }).exec();
             let order = await Order.findOneAndUpdate({ _id: id }, { orderStatus: status }).exec();
             res.json(order);
 
         }
-
 
     } catch (err) {
         console.log(err);
@@ -409,7 +382,6 @@ exports.updateDeliveryStatus = async (req, res) => {
     try {
         const { id } = req.params
         const { status, deliveryName, parcelNumber, deliveryTime } = req.body;
-        // const user = await User.findOne({ username: req.user.username }).exec();
         let data = {
             deliveryName: deliveryName,
             parcelNumber: parcelNumber,
@@ -419,16 +391,15 @@ exports.updateDeliveryStatus = async (req, res) => {
         res.json(order);
 
     } catch (err) {
-        console.log(err);
         res.status(500).send("getOrders Error!");
     }
 
 };
 
+//Wishlist
 exports.addToWishlist = async (req, res) => {
     try {
         const { productId } = req.body;
-        console.log(productId);
         let user = await User.findOneAndUpdate(
             { username: req.user.username },
             { $addToSet: { wishlist: productId } }
@@ -436,7 +407,6 @@ exports.addToWishlist = async (req, res) => {
         res.send(user);
 
     } catch (err) {
-        console.log(err);
         res.status(500).send("AddTo Wishlist Error");
     }
 };
@@ -446,11 +416,9 @@ exports.getWishlist = async (req, res) => {
         let list = await User.findOne({ username: req.user.username })
             .select('wishlist')
             .populate('wishlist').exec();
-
         res.json(list);
 
     } catch (err) {
-        console.log(err);
         res.status(500).send("Get Wishlist Error");
     }
 };
@@ -465,7 +433,7 @@ exports.removeWishlist = async (req, res) => {
         res.send(user);
 
     } catch (err) {
-        console.log(err);
         res.status(500).send("Remove Wishlist Error");
     }
 };
+//Wishlist

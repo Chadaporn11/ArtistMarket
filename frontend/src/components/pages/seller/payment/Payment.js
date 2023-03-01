@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
 import FileUpload from './FileUpload';
 
@@ -30,6 +30,7 @@ const initialstatepayment = {
 const Payment = () => {
     const [form] = Form.useForm();
     const [formwithdraw] = Form.useForm();
+    const dispatch = useDispatch();
     const { user } = useSelector((state) => ({ ...state }));
     const [image, setImage] = useState(initialstate);
     const [value, setValue] = useState(initialstatepayment);
@@ -191,6 +192,21 @@ const Payment = () => {
                 createRequestWithdraw(user.token, data)
                     .then((res) => {
                         // console.log(res);
+                        dispatch({
+                            type: "LOGIN",
+                            payload: {
+                                token: user.token,
+                                email: user.email,
+                                username: user.username,
+                                role: user.role,
+                                walletUser: {
+                                    _id: user.walletUser._id,
+                                    walletName: user.walletUser.walletName,
+                                    pocketmoney: res.data,
+                                    owner: user.walletUser.owner
+                                }
+                            },
+                        });
                         toast.success('Request Withdraw Success')
                         // setAmounts(0)
                         formwithdraw.resetFields()
@@ -340,7 +356,7 @@ const Payment = () => {
                 <div className="row-span-4 justify-center">
                     {(paymentMethod === undefined) && (
                         <div className='grid grid-cols-6 grap-2 justify-items-center w-[1300px] h-[550px]'>
-                            <div className="container col-span-6 bg-white w-[100%] rounded-lg shadow-md p-8">
+                            <div className="container col-span-6 bg-white w-[100%] rounded-lg shadow-md px-20 py-10">
                                 {loading
                                     ? <h1 className="text-xl text-center mb-2">Loading...<Spin /></h1>
                                     : <h1 className="text-xl text-center mb-2">Create Payment</h1>

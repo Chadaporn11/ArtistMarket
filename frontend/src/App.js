@@ -79,7 +79,12 @@ function App() {
             email: res.data.email,
             username: res.data.username,
             role: res.data.role,
-            walletUser: res.data.walletUser
+            walletUser: {
+              _id: res.data.walletUser._id,
+              walletName: res.data.walletUser.walletName,
+              pocketmoney: res.data.walletUser.pocketmoney,
+              owner: res.data.walletUser.owner
+            }
           },
         });
       })

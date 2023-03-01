@@ -18,20 +18,17 @@ const { auth, adminCheck } = require("../middleware/auth");
 router.get("/category", listCategory);
 
 //@Endpoint  http://localhost:4200/api/category
-// router.post("/category", auth, adminCheck, createCategory);
-router.post("/category", createCategory);
+router.post("/category", auth, adminCheck, createCategory);
 
 //@Endpoint  http://localhost:4200/api/category/:id
-// router.get("/category/:id", auth, adminCheck, readCategory);
 router.get("/category/:id", readCategory);
 
 //@Endpoint  http://localhost:4200/api/category/:id
 // router.put("/category/:id", auth, adminCheck, updateCategory);
-router.put("/category/:id", updateCategory);
+router.put("/category/:id", auth, adminCheck, updateCategory);
 
 //@Endpoint  http://localhost:4200/api/category/:id
-// router.delete("/category/:id", auth, adminCheck, removeCategory);
-router.delete("/category/:id", removeCategory);
+router.delete("/category/:id", auth, adminCheck, removeCategory);
 
 
 module.exports = router;

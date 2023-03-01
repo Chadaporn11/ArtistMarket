@@ -11,8 +11,7 @@ const {
 const { auth, adminCheck, sellerCheck } = require("../middleware/auth");
 
 //@Endpoint  http://localhost:4200/api/wallet/:id
-// router.get("/wallet", auth, listUsers);
-router.get("/wallets/:id",auth, readWalletById);
+router.get("/wallets/:id", auth, readWalletById);
 
 
 

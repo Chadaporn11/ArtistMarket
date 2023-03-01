@@ -25,7 +25,6 @@ router.post("/product", auth, sellerCheck, createProduct);
 router.get("/products/:count", listProduct);
 
 //@Endpoint  http://localhost:4200/api/product/:id
-// router.delete("/product/:id", auth, adminCheck, removeProduct);
 router.delete("/product/:id", auth, sellerCheck, removeProduct);
 
 //@Endpoint  http://localhost:4200/api/product

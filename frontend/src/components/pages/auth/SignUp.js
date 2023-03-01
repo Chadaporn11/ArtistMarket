@@ -138,6 +138,10 @@ const SignUp = () => {
                                 {
                                     required: true,
                                     message: 'Please input your password!',
+                                },
+                                {
+                                    pattern: /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{6,10}$/,
+                                    message: 'Password must be a minimum of 6 and maximum 10 characters including number, Upper, Lower And one special characterd'
                                 }
                             ]}
                             hasFeedback

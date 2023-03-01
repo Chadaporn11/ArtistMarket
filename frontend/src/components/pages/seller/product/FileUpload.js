@@ -9,6 +9,7 @@ import { Avatar, Badge, Space } from 'antd';
 
 const FileUpload = ({ values, setValues, loading, setLoading }) => {
     const { user } = useSelector((state) => ({ ...state }));
+    var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
     console.log('file:', values);
     const handleChangeFile = (e) => {
         const files = e.target.files;
@@ -107,7 +108,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
                         type="file"
                         hidden
                         multiple
-                        accept='images/*'
+                        accept="image/png, image/jpeg"
                         name="file"
                     />
                 </label>

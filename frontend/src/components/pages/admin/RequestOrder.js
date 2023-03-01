@@ -32,9 +32,7 @@ const RequestOrder = () => {
     const [paymentMethod, setPaymentMethod] = useState();
 
     const handleSelectChange = (value) => {
-        console.log(`selected ${value}`);
         setSelectRequest(value)
-
     }
 
     const loadData = () => {
