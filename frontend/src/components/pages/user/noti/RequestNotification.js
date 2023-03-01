@@ -190,7 +190,7 @@ const RequestNotification = () => {
 
                     <div className={`flex w-screen mb-3 px-20 ${selectRequest === "Top up money" ? 'justify-between' : 'justify-end'}`}>
                         {selectRequest === "Top up money" && (
-                            <div className='flex container bg-[#e0f2fe] w-[450px] h-[120px] rounded-md shadow-md p-8 mx-20'>
+                            <div className='flex container bg-[#e0f2fe] w-[450px] h-[120px] rounded-md shadow-md p-8'>
                                 <div className='flex flex-col w-full'>
                                     <div className='flex mb-3 w-full'>
                                         <div className='flex justify-star'>
@@ -214,7 +214,7 @@ const RequestNotification = () => {
                             </div>
                         )}
 
-                        <div className={`flex place-self-end ${selectRequest === "Top up money" ? 'mr-20' : 'mr-10'}`}>
+                        <div className={`flex place-self-end ${selectRequest === "Top up money" ? 'mr-3' : 'mr-1'}`}>
                             <Button
                                 type="primary"
                                 className="rounded-full bg-[#34d399] justify-self-center mr-3"

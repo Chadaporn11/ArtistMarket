@@ -154,7 +154,7 @@ const Payment = () => {
         <div className="row-span-4 justify-self-center w-[100%] pl-20">
           {(paymentMethod === undefined) && (
             <div div className='grid grid-cols-6 grap-2 justify-items-center w-[90%]'>
-              <div className="container col-span-6 bg-white w-[100%] rounded-lg shadow-md">
+              <div className="container col-span-6 bg-white w-[100%] rounded-lg shadow-md p-20">
                 {loading
                   ? <h1 className="text-xl text-center mb-2">Loading...<Spin /></h1>
                   : <h1 className="text-xl text-center mb-2">Create Payment</h1>

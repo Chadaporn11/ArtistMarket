@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
-// import { useNavigate } from 'react-router-dom';
 
 //card
 import CardProduct from '../cards/CardProduct';
-import CardOrder from '../cards/CardOrder';
 
 //function
 import { listProduct } from '../functions/product';
@@ -27,38 +25,23 @@ const initialstate = [{
 
 const Home = () => {
     const { user } = useSelector((state) => ({ ...state }));
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
     const [product, setProduct] = useState(initialstate);
     const [loading, setLoading] = useState(false);
-    // const [statuslike, setStatuslike] = useState(false)
 
     const loadData = () => {
-        // setLoading(true);
 
         listProduct(12)
             .then((res) => {
-                // console.log('Data loaded=>', res.data);
                 console.log(res.data);
                 setProduct(res.data)
                 setLoading(false);
-                // setValue({
-                //   id: res.data._id,
-                //   productName: res.data.productName,
-                //   description: res.data.description,
-                //   category: res.data.category.name,
-                //   price: res.data.price,
-                //   productStatus: res.data.productStatus,
-                //   productImages: res.data.productImages,
-                // });
             }).catch((err) => {
                 console.log(err.response.data);
-
             })
         if (user) {
             getWishList(user.token)
                 .then((res) => {
-                    // setWishlist(res.data.wishlist);
                     dispatch({
                         type: "ADD_TO_WISHLIST",
                         payload: res.data.wishlist
@@ -88,23 +71,12 @@ const Home = () => {
                     <div className='grid grid-cols-4 gap-8'>
                         {product.length === 0 && (
                             <div className="col-span-4">
-                                <Empty
-                                    className=''
-                                />
+                                <Empty />
                             </div>
                         )}
                         {product.map((item, index) =>
                             <div key={index} className='col-span-1'>
                                 <CardProduct
-                                    product={item}
-                                    loadData={loadData}
-                                    setLoading={setLoading}
-                                />
-                            </div>
-                        )}
-                        {product.map((item, index) =>
-                            <div key={index} className='col-span-1'>
-                                <CardOrder
                                     product={item}
                                     loadData={loadData}
                                     setLoading={setLoading}

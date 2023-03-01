@@ -192,21 +192,6 @@ const Payment = () => {
                 createRequestWithdraw(user.token, data)
                     .then((res) => {
                         // console.log(res);
-                        dispatch({
-                            type: "LOGIN",
-                            payload: {
-                                token: user.token,
-                                email: user.email,
-                                username: user.username,
-                                role: user.role,
-                                walletUser: {
-                                    _id: user.walletUser._id,
-                                    walletName: user.walletUser.walletName,
-                                    pocketmoney: res.data,
-                                    owner: user.walletUser.owner
-                                }
-                            },
-                        });
                         toast.success('Request Withdraw Success')
                         // setAmounts(0)
                         formwithdraw.resetFields()
