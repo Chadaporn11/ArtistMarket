@@ -78,29 +78,28 @@ const CardRequestHistory = ({ requests, setRequests, loadData, setSelectRequest,
                             </div>
                         </Badge>
                     )}
-                    <div className='container bg-[#fecaca] w-[350px] h-[200px] rounded-md hover:shadow-xl p-5'>
+                    <div className='container bg-[#d8b4fe]/60 w-[350px] h-[200px] rounded-md hover:shadow-xl p-5'>
                         <div className='flex flex-col w-full'>
                             <div className='flex mb-3 w-full justify-between'>
-                                <div className='flex justify-start w-[65%]'>
-                                    <i className="fa-solid fa-comment-dots text-xl text-[#fb923c]"></i>
+                                <div className='flex justify-start w-[65%] mt-2'>
+                                    <i className="fa-solid fa-comment-dots text-2xl text-[#f87171]"></i>
                                     {/* <i className="fa-solid fa-wallet text-xl text-[#78716c]"></i> */}
-                                    <i className="fa-solid text-sm ml-2 text-white"> Request {requestType.name}:</i>
+                                    <i className="fa-solid text-sm ml-2 text-[#075985]/90 mt-1"> Request {requestType.name}:</i>
                                 </div>
                                 <div className='flex justify-end w-[35%]'>
                                     {/* <i className='fa-solid text-[12px] text-[#facc15]'>{ }</i> */}
-                                    <b className="text-[12px] text-[#a8a29e] ml-2">{checkStatus}</b>
+                                    <b className="text-[12px] text-black/30 ml-2">{checkStatus}</b>
 
                                 </div>
                             </div>
                             <div className='flex'>
-                                <p className='text-[12px] text-white bg-white/40 py-1 px-2 rounded-xl'><b>ID : </b>
+                                <p className='text-[12px] text-white bg-[#f87171]/60 py-1 px-2 rounded-xl'><b>ID : </b>
                                     {_id}</p>
 
                             </div>
                             <div className='flex flex-col w-[100%] overflow-y-auto h-[85px] my-2'>
-                                <p className='text-sm text-white'><b>Title : </b>
-                                    {title}</p>
-                                <p className='text-sm text-white whitespace-normal'><b>Descriptions : </b>
+                                <p className='text-sm text-[#075985]/80'><>Title : </>{title}</p>
+                                <p className='text-sm text-[#075985]/80 whitespace-normal'><>Descriptions : </>
                                     {description}</p>
 
                             </div>

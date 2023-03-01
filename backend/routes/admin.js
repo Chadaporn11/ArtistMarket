@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-// middleware
-const { auth, adminCheck } = require("../middleware/auth");
-
 //controller
 const {
     getOrderAdmin,
     changeOrderStatus,
 } = require("../controllers/admin");
+
+// middleware
+const { auth, adminCheck } = require("../middleware/auth");
 
 //@Endpoint  http://localhost:4200/api/admin/orders
 router.get("/admin/orders", auth, adminCheck, getOrderAdmin);

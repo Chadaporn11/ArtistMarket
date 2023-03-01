@@ -146,6 +146,7 @@ const CheckOut = () => {
             };
             saveOrder(user.token, data)
                 .then((res) => {
+                    console.log('Hello', res.data);
                     emptyCart(user.token)
                         .then((res) => {
                             console.log(res.data);
@@ -160,6 +161,7 @@ const CheckOut = () => {
                         type: 'ADD_TO_CART',
                         payload: [],
                     })
+
                     //loacalStorage
                     if (typeof window !== 'undefined') {
                         localStorage.removeItem('cart');
@@ -210,32 +212,6 @@ const CheckOut = () => {
 
 
     return (
-        // <div className='container-fluid'>
-        //     <div className='row'>
-        //         <div className='col-md-6'>
-        //             <h4>Address</h4>
-        //             <br />
-        //             text area
-        //         </div>
-        // <div className='col-md-6'>
-        //     <h4>Order Summary</h4>
-        //     <hr />
-        //     <p>Product {products.length}</p>
-        //     <hr />
-        //     <p>List of Product</p>
-        //     {products.map((item, index) =>
-        //         <div key={index}>
-        //             <p>
-        //                 {item.productName.title} x {item.count} = {item.price * item.count}
-        //             </p>
-        //         </div>
-
-        //     )}
-        //     <hr />
-        //     Total : <b>{total}</b>
-        // </div>
-        //     </div>
-        // </div>
         <div className="container max-w-[100%] min-h-screen bg-[#f9fafb] mb-10">
             <div className="flex flex-col justify-items-center content-center max-w-[100%] min-h-[680px]">
                 <div className='flex flex-row place-self-center mt-10'>

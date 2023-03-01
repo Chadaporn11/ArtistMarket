@@ -119,7 +119,7 @@ const FileUploadImageUser = ({ values, setValues, loading, setLoading }) => {
                             type="file"
                             hidden
                             multiple
-                            accept='images/*'
+                            accept="image/png, image/jpeg"
                             name="file"
                         />
                     </label>

@@ -74,6 +74,7 @@ const Home = () => {
     useEffect(() => {
         loadData()
     }, [user]);
+
     return (
         <div className="container max-w-[100%] max-h-auto bg-[#f9fafb] pb-[150px]">
             <div className="flex flex-col justify-items-center content-center w-[100%]">
@@ -110,40 +111,6 @@ const Home = () => {
                                 />
                             </div>
                         )}
-                        {/* 
-            <div className='col-span-1'>
-              <CardProductSeller />
-            </div>
-            <div className='col-span-1'>
-              <CardProductSeller />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div> */}
-                        {/* <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div> */}
                     </div>
                 </div>
             </div>

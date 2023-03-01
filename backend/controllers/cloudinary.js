@@ -15,7 +15,6 @@ exports.createImage = async (req, res) => {
 
     res.send(result);
   } catch (err) {
-    console.log(err);
     res.status(500).send("Upload Error!!!");
   }
 };
@@ -29,7 +28,6 @@ exports.removeImage = async (req, res) => {
     });
 
   } catch (err) {
-    console.log(err);
     res.status(500).send("Server Error!/delete images error");
   }
 };

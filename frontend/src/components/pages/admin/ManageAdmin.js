@@ -129,6 +129,7 @@ const ManageAdmin = () => {
           setIsModalOpen(false);
           toast.success(res.data.user.username + " Update User Success!")
           loadData(user.token);
+          form.resetFields()
           // localStorage.clear('updateUserID');
         }).catch(err => {
           console.log(err)
@@ -148,6 +149,7 @@ const ManageAdmin = () => {
     setIsModalOpen(true);
   };
   const handleCancel = () => {
+
     setIsModalOpen(false);
   };
 
@@ -297,6 +299,13 @@ const ManageAdmin = () => {
               <Form.Item
                 label="Password"
                 name="password"
+                rules={[
+                  {
+                    pattern: /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{6,10}$/,
+                    message: 'Password must be a minimum of 6 and maximum 10 characters including number, Upper, Lower And one special characterd'
+                  }
+                ]}
+                hasFeedback
               >
                 <Input.Password
                   className={`w-full !text-lg px-2 !rounded-[10px] justify-self-center`}
@@ -305,6 +314,18 @@ const ManageAdmin = () => {
               <Form.Item
                 label="Confirmpassword"
                 name="confirmpassword"
+                dependencies={['password']}
+                hasFeedback
+                rules={[
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                    },
+                  }),
+                ]}
               >
                 <Input.Password
                   className={`w-full !text-lg px-2 !rounded-[10px] justify-self-center`}

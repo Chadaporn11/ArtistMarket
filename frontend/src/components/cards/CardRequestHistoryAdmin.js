@@ -40,49 +40,6 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
     const [image, setImage] = useState(initialstate);
     const [loading, setLoading] = useState(false);
 
-    console.log('Data::', requests)
-
-
-    const removeRequestOther = () => {
-        if (window.confirm('Are you sure you want to delete this Request?')) {
-            deleteRequestOther(user.token, _id)
-                .then((res) => {
-                    toast.success('Delete Request Other success!')
-                    loadData()
-
-                }).catch((err) => {
-                    toast.error('Error delete Request Other!')
-                })
-        }
-
-
-    }
-
-    const removeRequestTopup = () => {
-        if (window.confirm('Are you sure you want to delete this Request?')) {
-            deleteRequestTopup(user.token, _id)
-                .then((res) => {
-                    toast.success('Delete Request Topup success!')
-                    loadData()
-                }).catch((err) => {
-                    toast.error('Error delete Request Topup!')
-                })
-        }
-
-
-    }
-
-    const removeRequestWithdraw = () => {
-        if (window.confirm('Are you sure you want to delete this Request?')) {
-            deleteRequestWithdraw(user.token, _id)
-                .then((res) => {
-                    toast.success('Delete Request Withdraw success!')
-                    loadData()
-                }).catch((err) => {
-                    toast.error('Error delete Request Withdraw!')
-                })
-        }
-    }
 
     const UpdateStatusOther = (statusother) => {
 
@@ -117,12 +74,14 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
 
 
     };
+
     const handleCancelWithdraw = () => {
         setIsModalOpenWithdraw(false);
         setImage({
             images: []
         })
     };
+
     const UpdateStatusTopup = (statustopup) => {
         if (window.confirm('Are you sure you want to Update status this Request?')) {
             let status_topup = statustopup === 'Success' ? 'Request success' : 'Request error';
@@ -229,18 +188,18 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
     return (
         <>
             {requestType.name === 'Other' && (
-                <div className='container bg-[#fecaca] w-[350px] h-[250px] rounded-md hover:shadow-xl p-5'>
+                <div className='container bg-[#d8b4fe]/60 w-[350px] h-[250px] rounded-md hover:shadow-xl p-5'>
                     <div className='flex flex-col w-full'>
                         <div className='flex mb-3 w-full justify-between'>
                             <div className='flex flex-col justify-start w-[65%]'>
                                 <div className='flex'>
-                                    <i className="fa-solid fa-comment-dots text-2xl text-[#fb923c]"></i>
+                                    <i className="fa-solid fa-comment-dots text-2xl text-[#fda4af]"></i>
                                     {/* <i className="fa-solid fa-wallet text-xl text-[#78716c]"></i> */}
-                                    <i className="fa-solid text-sm ml-2 text-white mt-1"> Request {requestType.name}:</i>
+                                    <i className="fa-solid text-sm ml-2 text-[#1C82AD] mt-1"> Request {requestType.name}:</i>
 
                                 </div>
                                 <div className='flex mt-1'>
-                                    <p className='text-[12px] text-white bg-white/40 py-1 px-2 rounded-xl'><b>ID : </b>
+                                    <p className='text-[12px] text-white bg-[#f87171]/60 py-1 px-2 rounded-xl'><b>ID : </b>
                                         {_id}</p>
 
                                 </div>
@@ -249,15 +208,15 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                             </div>
                             <div className='flex justify-end w-[35%]'>
                                 {/* <i className='fa-solid text-[12px] text-[#facc15]'>{ }</i> */}
-                                <b className="text-[12px] text-[#a8a29e] ml-2">{checkStatus}</b>
+                                <b className="text-[12px] text-black/30 ml-2">{checkStatus}</b>
 
                             </div>
 
                         </div>
                         <div className='flex flex-col w-[100%] overflow-y-auto h-[85px] mt-2'>
-                            <p className='text-sm text-white'><b>Title : </b>
+                            <p className='text-sm text-[#075985]/80'><b>Title : </b>
                                 {title}</p>
-                            <p className='text-sm text-white whitespace-normal'><b>Descriptions : </b>
+                            <p className='text-sm text-[#075985]/80 whitespace-normal'><b>Descriptions : </b>
                                 {description}</p>
 
                         </div>
@@ -708,7 +667,7 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                                     onClick={() => UpdateStatusSignupSeller('Success')}
                                 >
 
-                                    Confirmed
+                                    Confirm
                                 </Button>
                                 <Button
                                     type="primary"

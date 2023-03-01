@@ -14,7 +14,6 @@ exports.createProduct = async (req, res) => {
             productImages: images,
             owner: user._id,
         }
-        console.log(data)
         const product = await new Product(data).save();
         res.send(product);
     } catch (err) {
@@ -29,11 +28,9 @@ exports.listProduct = async (req, res) => {
         const product = await Product.find().limit(count).populate('category').populate("owner", "_id username").sort([["createdAt", "desc"]]);
         res.send(product);
     } catch (err) {
-        console.log(err);
         res.status(500).send("Server Error!");
     }
 };
-
 
 exports.removeProduct = async (req, res) => {
     try {
@@ -42,20 +39,17 @@ exports.removeProduct = async (req, res) => {
         const product = await Product.findOneAndDelete({ _id: id }).exec();
         res.send(product);
     } catch (err) {
-        console.log(err);
         res.status(500).send("Server Error!");
     }
 };
 
 exports.readProduct = async (req, res) => {
-    // console.log('ID:=>', req.params.id)
     try {
         // Code
         const id = req.params.id;
         const product = await Product.findOne({ _id: id }).populate('category').populate("owner", "_id username").exec();
         res.send(product);
     } catch (err) {
-        console.log(err);
         res.status(500).send("Server Error!");
     }
 };
@@ -63,13 +57,10 @@ exports.readProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
     try {
         const id = req.params.id;
-        // console.log('Product=>', id, req.body);
         const product = await Product.findByIdAndUpdate({ _id: id }, req.body, { new: true }).populate('category').exec();
-        // console.log('Product=>', product)
         res.send(product);
 
     } catch (err) {
-        console.log(err);
         res.status(500).send("Server Error!");
     }
 };
@@ -81,10 +72,10 @@ exports.listProductBy = async (req, res) => {
         const product = await Product.find().limit(limit).populate('category').sort([[sort, order]]);
         res.send(product);
     } catch (err) {
-        console.log(err);
         res.status(500).send("Server Error!");
     }
 };
+
 //listProductByOwner
 exports.listProductByOwner = async (req, res) => {
     try {
@@ -92,15 +83,15 @@ exports.listProductByOwner = async (req, res) => {
         const id = req.params.id;
         let user = await User.findOne({ username: id }).exec();
         const product = await Product.find({ owner: user._id }).populate('category')
-        console.log("Product=>", product)
         res.send(product);
+
     } catch (err) {
         console.log(err);
         res.status(500).send("Server Error!");
     }
 };
 
-//search
+//========search=========//
 // Query
 const handleQuery = async (req, res, query) => {
     let products = await Product.find({ $text: { $search: query } }).populate('category', "_id name")
@@ -108,6 +99,7 @@ const handleQuery = async (req, res, query) => {
     res.send(products);
 
 };
+
 //Price
 const handlePrice = async (req, res, price) => {
     let products = await Product.find({
@@ -120,6 +112,7 @@ const handlePrice = async (req, res, price) => {
     res.send(products);
 
 };
+
 // Category
 const handleCategory = async (req, res, category) => {
     let products = await Product.find({ category }).populate('category', "_id name")

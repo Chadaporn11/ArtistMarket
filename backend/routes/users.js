@@ -27,22 +27,23 @@ const {
 // middleware
 const { auth, adminCheck, sellerCheck } = require("../middleware/auth");
 
+//=======User========//
+
 //@Endpoint  http://localhost:4200/api/users
 router.get("/users", auth, adminCheck, listUsers);
-// router.get("/users", listUsers);
 
 //@Endpoint  http://localhost:4200/api/users/:id
 router.delete("/users/:id", auth, adminCheck, removeUsers);
-// router.delete("/users/:id", removeUsers);
-
 
 //@Endpoint  http://localhost:4200/api/change-role
 router.post("/change-role", auth, adminCheck, changeRole);
-// router.post("/change-role", changeRole);
 
 //@Endpoint  http://localhost:5000/api/users/:id
 router.put("/users/:id", auth, adminCheck, updateUsers);
-// router.put("/users/:id", updateUsers);
+//=======User========//
+
+
+//=======Cart========//
 
 //@Endpoint  http://localhost:4200/api/user/cart
 router.post("/user/cart", auth, userCart);
@@ -52,16 +53,21 @@ router.get("/user/cart", auth, getUserCart);
 
 //@Endpoint  http://localhost:4200/api/user/cart
 router.delete("/user/cart", auth, emptyCart);
+//=======Cart========//
 
-//@Endpoint  http://localhost:4200/api/user/order
+
+//=======AddressOrder========//
+//@Endpoint  http://localhost:4200/api/user/address-order
 router.post("/user/address-order", auth, saveAddressOrder);
 
-//@Endpoint  http://localhost:4200/api/user/order
+//@Endpoint  http://localhost:4200/api/user/address-order/:id
 router.delete("/user/address-order/:id", auth, removeAddressOrder);
 
-//@Endpoint  http://localhost:4200/api/user/order
+//@Endpoint  http://localhost:4200/api/user/address-order
 router.get("/user/address-order", auth, getAddressOrder);
+//=======AddressOrder========//
 
+//=======Order========//
 //@Endpoint  http://localhost:4200/api/user/order
 router.post("/user/order", auth, saveOrder);
 
@@ -80,6 +86,10 @@ router.put("/user/order/:id", auth, updateOrderStatus);
 //@Endpoint  http://localhost:4200/api/user/order
 router.put("/user/order-delivery/:id", auth, sellerCheck, updateDeliveryStatus);
 
+//=======Order========//
+
+//=======Wishlist========//
+
 //@Endpoint  http://localhost:4200/api/user/wishlist
 router.post("/user/wishlist", auth, addToWishlist);
 
@@ -88,6 +98,9 @@ router.get("/user/wishlist", auth, getWishlist);
 
 //@Endpoint  http://localhost:4200/api/user/wishlist/:productId
 router.put("/user/wishlist/:productId", auth, removeWishlist);
+
+//=======Wishlist========//
+
 
 
 module.exports = router;

@@ -36,8 +36,7 @@ exports.createWallet = async (req, res) => {
 exports.readWalletById = async (req, res) => {
   try {
     const { id } = req.params;
-    const wallet = await Wallet.findOne({ _id: id}).select("-password").exec();
-    console.log("wallet",wallet)
+    const wallet = await Wallet.findOne({ _id: id }).select("-password").exec();
     res.status(200).send(wallet)
   } catch (err) {
     console.log(err);

@@ -111,11 +111,11 @@ const Cart = () => {
     // })
 
     // }
-    const onChange = (item, value) => {
+    const onChangeCount = (item, value) => {
         console.log('changed', value);
         const count = value < 1 ? 1 : value;
         if (count > item.quantity) {
-            toast.error('Max avialable Quantity' + item.quantity);
+            window.alert('Max avialable Quantity' + item.quantity);
         }
         let cart = [];
         if (localStorage.getItem('cart')) {
@@ -228,10 +228,11 @@ const Cart = () => {
                                                 </div>
                                                 <div className="col-span-2 place-self-center">
                                                     <InputNumber
-                                                        min={1} max={item.quantity}
+                                                        min={1}
+                                                        max={item.quantity}
                                                         // value={item.quantity}
                                                         defaultValue={1}
-                                                        onChange={(value) => onChange(item, value)} />
+                                                        onChange={(value) => onChangeCount(item, value)} />
 
                                                 </div>
                                                 <div className="col-span-2 place-self-center">

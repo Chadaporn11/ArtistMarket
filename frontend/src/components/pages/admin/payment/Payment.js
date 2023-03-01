@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 
-
-
 import FileUpload from './FileUpload';
 
 //function
@@ -35,7 +33,7 @@ const Payment = () => {
   const [selected, setSelected] = useState('')
   const [paymentMethod, setPaymentMethod] = useState();
   const [loading, setLoading] = useState(false);
-  const [statusEdit, setStatusEdit] = useState(false);
+  // const [statusEdit, setStatusEdit] = useState(false);
 
   const onSelectChange = (values) => {
     setSelected(values)
@@ -80,7 +78,7 @@ const Payment = () => {
   }
 
   const EditPaymentId = () => {
-    setStatusEdit(true);
+    // setStatusEdit(true);
     setImage({
       images: paymentMethod.qrcode
     })
@@ -376,14 +374,6 @@ const Payment = () => {
                     </div>
                   </div>
                 )}
-                {/* <div className='flex justify-center items-center w-[100%]'>
-                  <div className='self-center'>
-                    <Image
-                      width={320}
-                      src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-                    />
-                  </div>
-                </div> */}
                 <div className='flex justify-start mt-5 ml-8'>
                   <b><h1 className='mr-2'>ธนาคาร: </h1></b>
                   <p>{paymentMethod.paymentmethod}</p>
