@@ -137,7 +137,7 @@ const Cart = () => {
                                                         min={1}
                                                         max={item.quantity}
                                                         // value={item.quantity}
-                                                        defaultValue={1}
+                                                        defaultValue={item.count}
                                                         onChange={(value) => onChangeCount(item, value)} />
 
                                                 </div>

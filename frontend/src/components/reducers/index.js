@@ -4,6 +4,7 @@ import { walletReducer } from "./walletReducer";
 import { cartReducer } from "./cartReducer";
 import { drawerReducer } from "./drawerReducer";
 import { wishlistReducer } from "./wishlistReducer";
+import { searchReducer } from "./searchReducer";
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   drawer: drawerReducer,
   wishlist: wishlistReducer,
+  search: searchReducer,
 
 });
 

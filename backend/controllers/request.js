@@ -370,17 +370,23 @@ exports.updateRequestWithdraw = async (req, res) => {
         // Code
         var id = req.params.id;
         var { status, userId, Image } = req.body;
+
         if (status === 'Request success') {
-            const requestwithdraw = await RequestWithdraw.findOneAndUpdate(
-                { _id: id },
-                { checkStatus: status, paymentImage: Image }
+            // console.log('Test:;', requestwithdraw)
+            const requestwithdraw = await RequestWithdraw.findOne(
+                { _id: id }
             );
+
             const old_walletuser = await Wallet.findOne({ owner: userId }).exec()
 
             const new_pocketmoneyuser = Number(old_walletuser.pocketmoney) - Number(requestwithdraw.amount)
             const new_walletuser = await Wallet.findOneAndUpdate({ owner: userId }, { pocketmoney: new_pocketmoneyuser })
-            if (new_walletuser) {
-                res.send(new_pocketmoneyuser);
+            const requestwithdrawupdate = await RequestWithdraw.findOneAndUpdate(
+                { _id: id },
+                { checkStatus: status, paymentImage: Image }
+            );
+            if (new_walletuser && requestwithdrawupdate) {
+                res.send(requestwithdraw);
             }
         } else {
             const requestwithdraw = await RequestWithdraw.findOneAndUpdate(

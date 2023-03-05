@@ -59,21 +59,28 @@ const Payment = () => {
       owner: user.username,
     }
     // console.log(`onSubmit`, data);
-    createPayment(user.token, data)
-      .then((res) => {
-        // console.log(res);
-        localStorage.setItem('paymentMethodId', res.data._id)
-        setPaymentMethod(res.data)
-        window.location.reload();
-        setValue(initialstatepayment)
-        setImage(initialstate)
-        setSelected('')
-        toast.success("Created payment Success!");
-        // form.resetFields();
-      }).catch((err) => {
-        // console.log(err.response.data);
-        toast.error('Error created payment!')
-      });
+    if (image.images.length > 0) {
+      createPayment(user.token, data)
+        .then((res) => {
+          // console.log(res);
+          localStorage.setItem('paymentMethodId', res.data._id)
+          setPaymentMethod(res.data)
+          window.location.reload();
+          setValue(initialstatepayment)
+          setImage(initialstate)
+          setSelected('')
+          toast.success("Created payment Success!");
+          // form.resetFields();
+        }).catch((err) => {
+          // console.log(err.response.data);
+          toast.error('Error created payment!')
+        });
+
+    } else {
+      toast.error('You must add an Qrcode.!')
+
+    }
+
 
   }
 
@@ -256,7 +263,7 @@ const Payment = () => {
           )}
           {(paymentMethod !== undefined) && (
             <div className='grid grid-cols-6 grap-2 justify-items-center w-[95%] h-[600px]'>
-              <div className="container col-span-4 bg-white w-[100%] mr-10 rounded-lg shadow-md p-8">
+              <div className="container col-span-4 bg-white w-[100%] mr-10 rounded-lg shadow-md py-10 px-20">
                 {loading
                   ? <h1 className="text-xl text-center mb-2">Loading...<Spin /></h1>
                   : <h1 className="text-xl text-center mb-2">Edit Payment</h1>
@@ -297,7 +304,7 @@ const Payment = () => {
                   </Form.Item>
 
                   <Form.Item
-                    label="account Number"
+                    label="Account Number"
                     name="accountnumber"
                     rules={[
                       {
@@ -321,7 +328,7 @@ const Payment = () => {
 
                   </Form.Item>
                   <Form.Item
-                    label="accountname"
+                    label="Account Name"
                     name="accountname"
                     rules={[
                       {

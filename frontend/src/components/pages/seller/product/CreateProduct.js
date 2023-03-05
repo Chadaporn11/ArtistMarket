@@ -64,22 +64,30 @@ const CreateProduct = () => {
             quantity: Number(value.quantity),
             images: image.images,
         }
-        console.log(`onSubmit`, data);
-        createProduct(user.token, data)
-            .then((res) => {
-                console.log(res);
-                setLoading(false);
-                setImage(initialstateImage)
-                setValue(initialstate)
-                setSelected('')
-                toast.success('Create Product ' + res.data.productName + " Success!");
-                // window.location.reload();
-                navigate('/seller/product');
-            }).catch((err) => {
-                console.log(err);
-                setLoading(false);
-                toast.error('Error create product!')
-            });
+        if (image.images.length > 0) {
+            createProduct(user.token, data)
+                .then((res) => {
+                    console.log(res);
+                    setLoading(false);
+                    setImage(initialstateImage)
+                    setValue(initialstate)
+                    setSelected('')
+                    toast.success('Create Product ' + res.data.productName + " Success!");
+                    // window.location.reload();
+                    navigate('/seller/product');
+                }).catch((err) => {
+                    console.log(err);
+                    setLoading(false);
+                    toast.error('Error create product!')
+                });
+
+        } else {
+            setLoading(false);
+            toast.error('You must add an image.')
+
+        }
+
+
     }
 
     const loadData = () => {

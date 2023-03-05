@@ -86,7 +86,9 @@ const SignUp = () => {
                                     message: 'Please input your phone!',
                                 },
                                 {
-                                    pattern: /^06\d{8}|09\d{8}|08\d{8}/g,
+                                    // pattern: /^06\d{8}|09\d{8}|08\d{8}/g,
+                                    pattern: /^(0[689]{1})+([0-9]{8})/g,
+
                                     message: 'Invalid phone number format start must 09,08,06 and must have 10 numbers',
                                 }
 

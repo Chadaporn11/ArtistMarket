@@ -171,7 +171,7 @@ const Navbar = () => {
         <div className="grid grid-cols-3 gap-2 bg-sky-900 h-[60px] content-center justify-items-stretch">
             <div className="col-span-2 ml-5 ">
                 <a a className="navbar-brand text-white" href="/" >
-                    <i className="fa-solid fa-bars-staggered"></i><b className='text-white text-lg'>{" "}ARTIST MARKET</b>
+                    <i className="fa-solid fa-store"></i><b className='text-white text-lg'>{" "}ARTIST MARKET</b>
                 </a >
 
             </div >

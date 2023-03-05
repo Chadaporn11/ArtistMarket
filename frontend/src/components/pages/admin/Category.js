@@ -189,13 +189,21 @@ const Category = () => {
                         <List>
                             <VirtualList
                                 data={category}
-                                height={ContainerHeight}
+                                // height={500}
                                 itemHeight={47}
                                 itemKey="email"
-                                onScroll={onScroll}
+                                style={{
+                                    maxHeight: 300,
+                                    overflow: 'auto',
+                                }}
+
+
+                            // onScroll={onScroll}
+
+
                             >
                                 {(item) => (
-                                    <List.Item key={item._id}>
+                                    <List.Item key={item._id} >
                                         <List.Item.Meta
                                             title={item.name}
                                         />

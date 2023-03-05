@@ -67,24 +67,29 @@ const Payment = () => {
             qrcode: image.images,
             owner: user.username,
         }
-        console.log(`onSubmit`, data);
-        createPaymentSeller(user.token, data)
-            .then((res) => {
-                // console.log(res);
-                localStorage.setItem('paymentMethodId', res.data._id)
-                setPaymentMethod(res.data)
-                window.location.reload();
-                setValue(initialstatepayment)
-                setImage({
-                    images: []
-                })
-                setSelected('')
-                toast.success("Created payment Success!");
-                // form.resetFields();
-            }).catch((err) => {
-                // console.log(err.response.data);
-                toast.error('Error created payment!')
-            });
+        // console.log(`onSubmit`, data);
+        if (image.images.length > 0) {
+            createPaymentSeller(user.token, data)
+                .then((res) => {
+                    // console.log(res);
+                    localStorage.setItem('paymentMethodId', res.data._id)
+                    setPaymentMethod(res.data)
+                    window.location.reload();
+                    setValue(initialstatepayment)
+                    setImage({
+                        images: []
+                    })
+                    setSelected('')
+                    toast.success("Created payment Success!");
+                    // form.resetFields();
+                }).catch((err) => {
+                    // console.log(err.response.data);
+                    toast.error('Error created payment!')
+                });
+        } else {
+            toast.error('You must add an image.')
+        }
+
 
     }
 
@@ -115,23 +120,29 @@ const Payment = () => {
             owner: user.username,
         }
         // console.log('Data=>', id, data)
-        updatePaymentSeller(user.token, id, data)
-            .then((res) => {
-                // console.log(res);
-                setPaymentMethod(res.data)
-                toast.success("Update payment Success!");
-                setValue(initialstatepayment)
-                setImage({
-                    images: []
-                })
-                setSelected('')
-                form.resetFields();
-            }).catch((err) => {
-                // console.log(err.response.data);
-                toast.error('Error update payment!')
-            });
+        if (image.images.length > 0) {
+            updatePaymentSeller(user.token, id, data)
+                .then((res) => {
+                    // console.log(res);
+                    setPaymentMethod(res.data)
+                    toast.success("Update payment Success!");
+                    setValue(initialstatepayment)
+                    setImage({
+                        images: []
+                    })
+                    setSelected('')
+                    form.resetFields();
+                }).catch((err) => {
+                    // console.log(err.response.data);
+                    toast.error('Error update payment!')
+                });
+        } else {
+            toast.error('You must add an image.')
+        }
+
 
     }
+
     const loadData = () => {
         let data = {
             username: user.username,

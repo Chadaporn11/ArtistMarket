@@ -25,7 +25,7 @@ exports.listProduct = async (req, res) => {
     try {
         // Code
         const count = parseInt(req.params.count);
-        const product = await Product.find().limit(count).populate('category').populate("owner", "_id username").sort([["createdAt", "desc"]]);
+        const product = await Product.find({ quantity: { $gt: 0 } }).limit(count).populate('category').populate("owner", "_id username").sort([["createdAt", "desc"]]);
         res.send(product);
     } catch (err) {
         res.status(500).send("Server Error!");
@@ -94,8 +94,8 @@ exports.listProductByOwner = async (req, res) => {
 //========search=========//
 // Query
 const handleQuery = async (req, res, query) => {
-    let products = await Product.find({ $text: { $search: query } }).populate('category', "_id name")
-
+    let products = await Product.find({ $text: { $search: query } }).populate('category').populate("owner", "_id username").sort([["createdAt", "desc"]]);
+    // console.log(products);
     res.send(products);
 
 };
@@ -124,19 +124,19 @@ const handleCategory = async (req, res, category) => {
 exports.searchProductFilters = async (req, res) => {
 
     const { query, price, category } = req.body;
-    console.log(query);
+    // console.log('test', query);
     if (query) {
         console.log(query);
         await handleQuery(req, res, query);
     }
-    if (price != undefined) {
-        console.log(price);
-        await handlePrice(req, res, price);
-    }
-    if (category) {
-        console.log(category);
-        await handleCategory(req, res, category);
-    }
+    // if (price != undefined) {
+    //     console.log(price);
+    //     await handlePrice(req, res, price);
+    // }
+    // if (category) {
+    //     console.log(category);
+    //     await handleCategory(req, res, category);
+    // }
 
 
 };

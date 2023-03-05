@@ -48,18 +48,20 @@ const HistoryRequest = () => {
             getRequestTopup(user.token, requestStatus)
                 .then((res) => {
                     setRequests(res.data);
-                }).catch((err) => {
-                    console.log(err.response.data);
-                });
+                })
+            // .catch((err) => {
+            //     console.log(err.response.data);
+            // });
 
         }
         if (selectRequest === 'Other') {
             getRequestOther(user.token, requestStatus)
                 .then((res) => {
                     setRequests(res.data);
-                }).catch((err) => {
-                    console.log(err.response.data);
-                });
+                })
+            // .catch((err) => {
+            //     console.log(err.response.data);
+            // });
 
         }
         // let orderStatus = selectRequest

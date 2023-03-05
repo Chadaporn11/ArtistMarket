@@ -165,10 +165,14 @@ const ManageAdmin = () => {
               <VirtualList
                 data={selectData}
                 className="mx-0"
-                height={ContainerHeight}
+                // height={ContainerHeight}
                 itemHeight={47}
                 itemKey="email"
-                onScroll={onScroll}
+                style={{
+                  maxHeight: 450,
+                  overflow: 'auto',
+                }}
+              // onScroll={onScroll}
               >
                 {(item) => (
                   <List.Item key={item._id}>

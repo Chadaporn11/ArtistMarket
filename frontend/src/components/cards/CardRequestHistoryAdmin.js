@@ -23,7 +23,7 @@ import FileUploadConfirmed from '../pages/admin/payment/FileUploadConfirmed';
 
 
 //antd
-import { Button, Image, Modal, Spin } from 'antd';
+import { Button, Image, Modal, Spin, Empty } from 'antd';
 
 const initialstate = {
     images: [],
@@ -108,25 +108,52 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
     console.log('setPaymentRequest::', paymentRequest)
     console.log('setWallet::', wallet)
 
-    const UpdateStatusWithdraw = (statustopup) => {
-        if (window.confirm('Are you sure you want to Update status this Request?')) {
-            let status_topup = statustopup === 'Success' ? 'Request success' : 'Request error';
-            let data = {
-                status: status_topup,
-                userId: requestBy._id,
-                Image: image.images
+    const UpdateStatusWithdraw = (statuswithdraw) => {
+        let status_withdraw = statuswithdraw === 'Success' ? 'Request success' : 'Request error';
+        if (status_withdraw === 'Request success') {
+            if (image.images.length > 0) {
+                if (window.confirm('Are you sure you want to Update status this Request?')) {
 
+                    let data = {
+                        status: status_withdraw,
+                        userId: requestBy._id,
+                        Image: image.images
+
+                    }
+                    UpdateRequestWithdraw(user.token, _id, data)
+                        .then((res) => {
+                            toast.success('Update Status Request Withdraw success!')
+                            loadData()
+                        }).catch((err) => {
+                            toast.error('Update status Request Withdraw Error!')
+                        })
+                }
+            } else {
+                toast.error('You must add an image.!')
             }
-            UpdateRequestWithdraw(user.token, _id, data)
-                .then((res) => {
-                    toast.success('Update Status Request Withdraw success!')
-                    loadData()
-                }).catch((err) => {
-                    toast.error('Update status Request Withdraw Error!')
-                })
+
+
+        } else {
+            if (window.confirm('Are you sure you want to Update status this Request?')) {
+
+                let data = {
+                    status: status_withdraw,
+                    userId: requestBy._id,
+                    Image: image.images
+
+                }
+                UpdateRequestWithdraw(user.token, _id, data)
+                    .then((res) => {
+                        toast.success('Update Status Request Withdraw success!')
+                        loadData()
+                    }).catch((err) => {
+                        toast.error('Update status Request Withdraw Error!')
+                    })
+            }
 
 
         }
+
     }
 
     const UpdateStatusSignupSeller = (statussignupseller) => {
@@ -227,7 +254,7 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                                 onClick={() => UpdateStatusOther('Success')}
                                 htmlType="submit"
                             >
-                                <b>Confirmed</b>
+                                <b>Confirm</b>
                             </Button>
                             <Button
                                 type="primary"
@@ -235,7 +262,7 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                                 onClick={() => UpdateStatusOther('Error')}
                                 htmlType="submit"
                             >
-                                <b>Cancel</b>
+                                <b>No confirm</b>
                             </Button>
                         </div>
 
@@ -278,12 +305,25 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
 
                                 </div>
                                 <div className='flex justify-end w-[40%] mr-3'>
-                                    <Image
+                                    {paymentImage[0].images.length > 0 && (
+
+                                        <Image
+                                            className='object-cover object-center justify-center rounded-md'
+                                            shape="square"
+                                            height={'150px'}
+                                            src={paymentImage[0].images[0].url}
+                                        />
+                                    )}
+                                    {paymentImage[0].images.length <= 0 && (
+
+                                        <Empty />
+                                    )}
+                                    {/* <Image
                                         className='object-cover object-center justify-center rounded-md'
                                         shape="square"
                                         height={'150px'}
                                         src={paymentImage[0].images[0].url}
-                                    />
+                                    /> */}
 
                                 </div>
                             </div>
@@ -374,7 +414,7 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                                             onClick={() => UpdateStatusTopup('Success')}
                                         >
 
-                                            Confirmed
+                                            Confirm
                                         </Button>
                                         <Button
                                             type="primary"
@@ -383,7 +423,7 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                                             onClick={() => UpdateStatusTopup('Error')}
                                         >
 
-                                            Cancel
+                                            No confirm
                                         </Button>
 
                                     </div>
@@ -571,7 +611,7 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                                             onClick={() => UpdateStatusWithdraw('Success')}
                                         >
 
-                                            Confirmed
+                                            Confirm
                                         </Button>
                                         <Button
                                             type="primary"
@@ -580,7 +620,7 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                                             onClick={() => UpdateStatusWithdraw('Error')}
                                         >
 
-                                            Cancel
+                                            No confirm
                                         </Button>
 
                                     </div>
@@ -676,7 +716,7 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                                     onClick={() => UpdateStatusSignupSeller('Error')}
                                 >
 
-                                    Cancel
+                                    No confirm
                                 </Button>
 
                             </div>

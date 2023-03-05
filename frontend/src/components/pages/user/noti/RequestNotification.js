@@ -50,7 +50,7 @@ const RequestNotification = () => {
     const [loadingUser, setLoadingUser] = useState(false);
 
     const [paymentMethod, setPaymentMethod] = useState();
-    const [image, setImage] = useState(initialstateImage);
+    const [Topupimage, setTopupImage] = useState(initialstateImage);
     const [cardImage, setCardImage] = useState(initialstateImageCard);
     const [userImage, setUserImage] = useState(initialstateImageUser);
 
@@ -96,26 +96,37 @@ const RequestNotification = () => {
     }
 
     const onSubmitTopUp = (values) => {
-        let data = {
-            paymenttime: values.paymenttime.format('YYYY/MM/DD HH:mm:ss'),
-            amount: Number(values.amount),
-            name: values.name,
-            lastpaymentnumber: values.lastpaymentnumber,
-            paymentImage: image,
-            requestType: selectRequest,
-        }
-        createRequestTopup(user.token, data)
-            .then((res) => {
-                toast.success('Create Request Success')
-                formTopup.resetFields()
-                setImage({
-                    images: []
-                })
+        if (Number(values.amount) > 0) {
+            if (Topupimage.images.length > 0) {
+                let data = {
+                    paymenttime: values.paymenttime.format('YYYY/MM/DD HH:mm:ss'),
+                    amount: Number(values.amount),
+                    name: values.name,
+                    lastpaymentnumber: values.lastpaymentnumber,
+                    paymentImage: Topupimage,
+                    requestType: selectRequest,
+                }
+                createRequestTopup(user.token, data)
+                    .then((res) => {
+                        toast.success('Create Request Success')
+                        formTopup.resetFields()
+                        setTopupImage({
+                            images: []
+                        })
 
-            }).catch((err) => {
-                toast.error('Create Request error!')
-            })
-        console.log('onSubmit', data)
+                    }).catch((err) => {
+                        toast.error('Create Request error!')
+                    })
+            } else {
+                toast.error('You must add an payment image.')
+
+            }
+
+        } else {
+            toast.error('Amount must be greater than 0!')
+
+        }
+
     }
     const handleSelectChange = (values) => {
         setSelectRequest(values)
@@ -127,19 +138,26 @@ const RequestNotification = () => {
             ImageUser: userImage.images,
             requestType: selectRequest
         }
-        createRequestSignupSeller(user.token, data)
-            .then((res) => {
-                toast.success('Create Request Success')
-                setCardImage({
-                    images: []
-                })
-                setUserImage({
-                    images: []
+        if (cardImage.images.length > 0 && userImage.images > 0) {
+            createRequestSignupSeller(user.token, data)
+                .then((res) => {
+                    toast.success('Create Request Success')
+                    setCardImage({
+                        images: []
+                    })
+                    setUserImage({
+                        images: []
+                    })
+
+                }).catch((err) => {
+                    toast.error('Create Request error!')
                 })
 
-            }).catch((err) => {
-                toast.error('Create Request error!')
-            })
+        } else {
+            toast.error('You must add an image.')
+
+        }
+
 
     }
 
@@ -323,8 +341,8 @@ const RequestNotification = () => {
                         <div className='grid grid-cols-6 grap-2 justify-items-center w-[1200px] h-[600px]'>
                             <div className="container col-span-4 bg-white w-[100%] mr-10 rounded-lg shadow-md p-10">
                                 <FileUpload
-                                    values={image}
-                                    setValues={setImage}
+                                    values={Topupimage}
+                                    setValues={setTopupImage}
                                     loadind={loading}
                                     setLoading={setLoading}
                                 />
@@ -369,7 +387,8 @@ const RequestNotification = () => {
                                         ]}
                                     >
                                         < InputNumber
-                                            min={0} max={user.walletUser.pocketmoney}
+                                            min={0}
+                                            // max={user.walletUser.pocketmoney}
                                             name="amount"
                                             id="amount"
                                             // value={value.productName}
