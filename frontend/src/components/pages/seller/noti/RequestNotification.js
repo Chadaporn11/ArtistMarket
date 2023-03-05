@@ -75,7 +75,7 @@ const RequestNotification = () => {
         <div className="container max-w-[100%] min-h-screen bg-[#f9fafb] pb-[150px]">
             <div className="flex flex-col justify-items-center content-center w-[100%]">
                 <div className='flex flex-col place-self-center h-[80px] mt-10'>
-                    <h1 className='flex justify-center text-4xl'>Request Notifications</h1>
+                    <h1 className='flex justify-center text-4xl'>Request {selected}</h1>
                 </div>
                 <div className='flex justify-end w-full px-20'>
                     <Button

@@ -92,11 +92,11 @@ const RequestType = () => {
             .then((res) => {
                 console.log(res)
                 loadData(user.token);
-                toast.success("Remove Data " + res.data.name + " Success!");
+                toast.success("Remove Requesttype" + res.data.name + " Success!");
 
             }).catch((err) => {
                 console.log(err.response.data);
-                toast.error('Error delete data!')
+                toast.error('Error delete Requesttype!')
             })
     }
 
@@ -135,7 +135,7 @@ const RequestType = () => {
         <div className="container max-w-[100%] max-h-[680px] bg-[#f9fafb]">
             <div className="grid grid-rows-6 grid-flow-col gap-4 justify-items-center content-center w-[100%] h-[680px]">
                 <div className='row-span-1 place-self-center'>
-                    <h1 className='text-3xl'>REQUESTTYPES</h1>
+                    <h1 className='text-3xl'>REQUEST TYPES</h1>
                 </div>
                 <div className="row-span-1 justify-center place-self-center">
                     <div class="flex flex-row">
@@ -189,10 +189,14 @@ const RequestType = () => {
                         <List>
                             <VirtualList
                                 data={RequestType}
-                                height={ContainerHeight}
+                                // height={ContainerHeight}
                                 itemHeight={47}
                                 itemKey="email"
-                                onScroll={onScroll}
+                                style={{
+                                    maxHeight: 300,
+                                    overflow: 'auto',
+                                }}
+                            // onScroll={onScroll}
                             >
                                 {(item) => (
                                     <List.Item key={item._id}>

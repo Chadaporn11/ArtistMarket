@@ -65,7 +65,7 @@ const Product = () => {
 
 
   return (
-    <div className="container max-w-[100%] max-h-auto bg-[#f9fafb] pb-[150px] px-10">
+    <div className="container max-w-[100%] h-[680px] max-h-fit bg-[#f9fafb] pb-[150px] px-10">
       <div className="flex flex-col justify-items-center content-center w-[100%]">
         <div className='flex flex-col place-self-center h-[100px] mt-10'>
           {loading
@@ -87,7 +87,7 @@ const Product = () => {
         <div className="flex justify-center">
           <div className='grid grid-cols-4 gap-8'>
             {product.length === 0 && (
-              <div className="col-span-4">
+              <div className="col-span-4 h-[350px]">
                 <Empty
                   className=''
                 />
@@ -102,116 +102,12 @@ const Product = () => {
                 />
               </div>
             )}
-            {/* 
-            <div className='col-span-1'>
-              <CardProductSeller />
-            </div>
-            <div className='col-span-1'>
-              <CardProductSeller />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div> */}
-            {/* <div className='col-span-1'>
-              <CardProduct />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div> */}
           </div>
         </div>
       </div>
 
     </div>
-    // <div className="container max-w-[100%] max-h-auto bg-[#f9fafb] pb-[150px]">
-    //   <div className="grid grid-rows-6 grid-flow-col gap-2 justify-items-center content-center w-[100%] h-auto">
-    //     <div className='row-span-1 place-self-center'>
-    //       <h1 className='flex justify-center text-3xl mt-3'>Product</h1>
-    //       <div className='flex justify-end w-[1200px]'>
-    //         <Button
-    //           type="primary"
-    //           className="rounded-full bg-[#93c5fd] justify-self-center"
-    //           onClick={() => navigate('/seller/create-product')}
-    //           htmlType="submit"
-    //         >
-    //           <i className="fa-solid fa-plus"></i>
-    //         </Button>
-    //       </div>
-    //     </div>
-    //     <div className="row-span-5 justify-center">
-    //       <div className='grid grid-cols-4 gap-8'>
-    //         {product.length === 0 && (
-    //           <div className="col-span-4">
-    //             <Empty
-    //               className=''
-    //             />
-    //           </div>
-    //         )}
-    //         {product.map((item, index) =>
-    //           <div key={index} className='col-span-1'>
-    //             <CardProductSeller
-    //               product={item}
-    //               loadData={loadData}
-    //             />
-    //           </div>
-    //         )}
-    //         {/* 
-    //         <div className='col-span-1'>
-    //           <CardProductSeller />
-    //         </div>
-    //         <div className='col-span-1'>
-    //           <CardProductSeller />
-    //         </div>
-    //         <div className='col-span-1'>
-    //           <CardProduct />
-    //         </div> */}
-    //         <div className='col-span-1'>
-    //           <CardProduct />
-    //         </div>
-    //         <div className='col-span-1'>
-    //           <CardProduct />
-    //         </div>
-    //         <div className='col-span-1'>
-    //           <CardProduct />
-    //         </div>
-    //         <div className='col-span-1'>
-    //           <CardProduct />
-    //         </div>
-    //         <div className='col-span-1'>
-    //           <CardProduct />
-    //         </div>
-    //         <div className='col-span-1'>
-    //           <CardProduct />
-    //         </div>
-    //         <div className='col-span-1'>
-    //           <CardProduct />
-    //         </div>
-    //         <div className='col-span-1'>
-    //           <CardProduct />
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
 
-    // </div>
   )
 }
 

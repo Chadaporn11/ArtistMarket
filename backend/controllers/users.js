@@ -416,7 +416,18 @@ exports.getWishlist = async (req, res) => {
         let list = await User.findOne({ username: req.user.username })
             .select('wishlist')
             .populate('wishlist').exec();
-        res.json(list);
+
+        if (list.wishlist.length > 0) {
+            const result = list.wishlist.filter(item => item.quantity > 0)
+            let data = {
+                wishlist: result,
+                _id: list._id
+            }
+            res.json(data);
+        } else {
+            res.json(list);
+        }
+
 
     } catch (err) {
         res.status(500).send("Get Wishlist Error");

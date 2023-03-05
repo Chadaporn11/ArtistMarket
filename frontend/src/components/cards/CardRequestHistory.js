@@ -6,12 +6,13 @@ import { toast } from 'react-toastify';
 import { deleteRequestOther, deleteRequestTopup, deleteRequestWithdraw } from '../functions/request';
 
 //antd
-import { Badge, Image, Avatar } from 'antd';
+import { Badge, Image, Empty } from 'antd';
 
 const CardRequestHistory = ({ requests, setRequests, loadData, setSelectRequest, selectRequest }) => {
     const { user } = useSelector((state) => ({ ...state }));
     const { _id, checkStatus, description, requestBy, requestType, title, paymentImage, paymentname, amount, topupAmount, topupTime } = requests;
 
+    console.log('result::==>', requests.paymentImage)
     const removeRequestOther = () => {
         if (window.confirm('Are you sure you want to delete this Request?')) {
             deleteRequestOther(user.token, _id)
@@ -153,12 +154,19 @@ const CardRequestHistory = ({ requests, setRequests, loadData, setSelectRequest,
 
                                 </div>
                                 <div className='flex justify-end w-[40%]'>
-                                    <Image
-                                        className='object-cover object-center justify-center rounded-md'
-                                        shape="square"
-                                        height={'150px'}
-                                        src={paymentImage[0].images[0].url}
-                                    />
+                                    {paymentImage[0].images.length > 0 && (
+
+                                        <Image
+                                            className='object-cover object-center justify-center rounded-md'
+                                            shape="square"
+                                            height={'150px'}
+                                            src={paymentImage[0].images[0].url}
+                                        />
+                                    )}
+                                    {paymentImage[0].images.length <= 0 && (
+
+                                        <Empty />
+                                    )}
 
                                 </div>
                             </div>
@@ -183,7 +191,7 @@ const CardRequestHistory = ({ requests, setRequests, loadData, setSelectRequest,
                         </Badge>
                     )}
 
-                    <div className={`container bg-[#d1fae5] ${paymentImage.length <= 0 ? 'h-[130px]' : 'h-[430px]'} w-[350px]  rounded-md hover:shadow-xl p-5`}>
+                    <div className={`container bg-[#d1fae5] ${checkStatus === 'Request error' || checkStatus === 'Waiting for confirmation' ? 'h-[130px]' : 'h-[430px]'} w-[350px]  rounded-md hover:shadow-xl p-5`}>
                         <div className='flex flex-col w-[100%]'>
                             <div className='flex justify-between'>
                                 <div className='flex justify-start'>
@@ -209,23 +217,40 @@ const CardRequestHistory = ({ requests, setRequests, loadData, setSelectRequest,
                                 <p className='text-sm text-[#075985]/60 py-1 px-2 rounded-xl'><b>Amount : </b>
                                     {amount} ฿</p>
                             </div>
-
-                            {paymentImage.length > 0 && (
-
-                                <div className={`flex mt-2 justify-center w-[100%]`}>
-                                    <div className='flex'>
-                                        <Image
-                                            className='object-cover object-center justify-center rounded-md'
-                                            shape="square"
-                                            height={'300px'}
-                                            src={paymentImage[0].url}
-                                        // src={'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'}
-                                        />
-                                    </div>
+                            {checkStatus === 'Request success' && (
+                                <>
+                                    {paymentImage && (
 
 
-                                </div>
+                                        <div className={`flex mt-2 justify-center w-[100%]`}>
+                                            <div className='flex'>
+                                                <Image
+                                                    className='object-cover object-center justify-center rounded-md'
+                                                    shape="square"
+                                                    height={'300px'}
+                                                    src={paymentImage[0].url}
+                                                // src={'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* {paymentImage.length > 0 && paymentImage[0].images.length > 0 && (
+
+                                        <div className={`flex mt-2 justify-center w-[100%]`}>
+                                            <div className='flex'>
+                                                <Image
+                                                    className='object-cover object-center justify-center rounded-md'
+                                                    shape="square"
+                                                    height={'300px'}
+                                                    src={paymentImage[0].url}
+                                                // src={'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'}
+                                                />
+                                            </div>
+                                        </div>
+                                    )} */}
+                                </>
                             )}
+
 
                         </div>
 

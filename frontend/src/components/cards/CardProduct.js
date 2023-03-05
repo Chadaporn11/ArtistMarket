@@ -28,6 +28,7 @@ function CardProduct({ product, loadData, setLoading }) {
     //     setStatuslike(!statuslike)
     // }
     const handleAddTOCart = () => {
+
         if (user && user.role === 'user') {
             let cart = [];
             if (localStorage.getItem('cart')) {

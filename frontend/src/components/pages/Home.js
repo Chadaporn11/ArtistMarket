@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 //card
 import CardProduct from '../cards/CardProduct';
-
+import SearchCard from '../cards/SearchCard';
 //function
-import { listProduct } from '../functions/product';
+import { listProduct, searchFilters } from '../functions/product';
 import { getWishList } from '../functions/users';
 
 //antd
@@ -24,10 +24,12 @@ const initialstate = [{
 },];
 
 const Home = () => {
+    const { search } = useSelector((state) => ({ ...state }))
     const { user } = useSelector((state) => ({ ...state }));
     const dispatch = useDispatch();
     const [product, setProduct] = useState(initialstate);
     const [loading, setLoading] = useState(false);
+    const { text } = search;
 
     const loadData = () => {
 
@@ -54,6 +56,26 @@ const Home = () => {
     }
     console.log('product=>', product)
 
+
+    // //load data on user filter
+    // useEffect(() => {
+
+    //     const delay = setTimeout(() => {
+    //         fetchDataFilter({ query: text });
+    //     }, 300)
+    //     return () => clearTimeout(delay)
+
+    // }, [text]);
+
+    // //Filter
+    // const fetchDataFilter = (arg) => {
+    //     searchFilters(arg)
+    //         .then((res) => {
+    //             console.log('Search', res.data)
+    //             setProduct(res.data);
+    //         });
+    // }
+
     useEffect(() => {
         loadData()
     }, [user]);
@@ -67,10 +89,13 @@ const Home = () => {
                         : <h1 className='flex justify-center text-4xl'>Product</h1>
                     }
                 </div>
+                {/* <div className="flex justify-end my-2 pr-[100px]">
+                    <SearchCard />
+                </div> */}
                 <div className="flex justify-center">
                     <div className='grid grid-cols-4 gap-8'>
                         {product.length === 0 && (
-                            <div className="col-span-4">
+                            <div className="col-span-4 h-[350px]">
                                 <Empty />
                             </div>
                         )}

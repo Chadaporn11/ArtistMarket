@@ -87,7 +87,7 @@ const WishList = () => {
                 <div className="flex justify-center">
                     <div className='grid grid-cols-4 gap-8'>
                         {product.length === 0 && (
-                            <div className="col-span-4">
+                            <div className="col-span-4 h-[350px]">
                                 <Empty
                                     className=''
                                 />

@@ -111,21 +111,29 @@ const UpdateProduct = () => {
             quantity: Number(value.quantity),
             productImages: image.images,
         }
-        console.log('Submit=>', data, id);
-        updateProduct(user.token, id, data)
-            .then((res) => {
-                console.log(res);
-                setLoading(false);
-                toast.success('Update Product ' + res.data.productName + " Success!");
-                // navigate(`/seller/update-product/${res.data._id}`);
-                window.location.reload();
+        if (image.images.length > 0) {
+            updateProduct(user.token, id, data)
+                .then((res) => {
+                    console.log(res);
+                    setLoading(false);
+                    toast.success('Update Product ' + res.data.productName + " Success!");
+                    // navigate(`/seller/update-product/${res.data._id}`);
+                    // window.location.reload();
+                    navigate('/seller/product')
 
-            }).catch((err) => {
-                console.log(err);
-                setLoading(false);
-                toast.error('Error update product!')
+                }).catch((err) => {
+                    console.log(err);
+                    setLoading(false);
+                    toast.error('Error update product!')
 
-            });
+                });
+
+        } else {
+            setLoading(false);
+            toast.error('You must add an image.')
+
+        }
+
     }
 
 
