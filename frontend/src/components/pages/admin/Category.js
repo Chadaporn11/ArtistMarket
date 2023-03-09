@@ -66,7 +66,7 @@ const Category = () => {
                     toast.success("Edit Data " + res.data.name + " Success!");
                     clearForm();
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    console.log(err);
                     toast.error('Error Edit data!')
                 })
 
@@ -78,7 +78,7 @@ const Category = () => {
                     toast.success("Insert Data " + res.data.name + " Success!");
                     clearForm();
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    console.log(err);
                     toast.error('Error insert data!')
                 })
 
@@ -95,7 +95,7 @@ const Category = () => {
                 toast.success("Remove Data " + res.data.name + " Success!");
 
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
                 toast.error('Error delete data!')
             })
     }
@@ -105,7 +105,7 @@ const Category = () => {
             .then((res) => {
                 setCategory(res.data)
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             })
     }
     console.log('data:', category)

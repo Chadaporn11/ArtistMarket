@@ -24,35 +24,35 @@ const Home = () => {
       .then((res) => {
         setRequestOther(res.data);
       }).catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
       });
 
     listRequestTopup(user.token, 'Waiting for confirmation')
       .then((res) => {
         setRequestTopup(res.data);
       }).catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
       });
 
     listRequestWithdraw(user.token, 'Waiting for confirmation')
       .then((res) => {
         setRequestWithdraw(res.data);
       }).catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
       });
 
     listRequestWithdraw(user.token, 'Waiting for confirmation')
       .then((res) => {
         setRequestWithdraw(res.data);
       }).catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
       });
 
     listRequestSignupSeller(user.token, 'Waiting for confirmation')
       .then((res) => {
         setRequestSignup(res.data);
       }).catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
       });
 
   }

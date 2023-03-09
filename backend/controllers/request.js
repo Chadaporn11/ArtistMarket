@@ -318,14 +318,27 @@ exports.updateRequestSignupSeller = async (req, res) => {
         // Code
         var id = req.params.id;
         var { status, requestBy } = req.body;
-        const seller = await User.findOneAndUpdate({ username: requestBy.username }, { role: 'seller' })
-        const requestsignupseller = await RequestSignupSeller.findOneAndUpdate(
-            { _id: id },
-            { checkStatus: status }
-        );
-        if (seller && requestsignupseller) {
+        if (status === 'Request success') {
+            const seller = await User.findOneAndUpdate({ username: requestBy.username }, { role: 'seller' })
+            const requestsignupseller = await RequestSignupSeller.findOneAndUpdate(
+                { _id: id },
+                { checkStatus: status }
+            );
+            if (seller && requestsignupseller) {
+                res.send(requestsignupseller);
+            }
+
+        } else {
+            const requestsignupseller = await RequestSignupSeller.findOneAndUpdate(
+                { _id: id },
+                { checkStatus: status }
+            );
             res.send(requestsignupseller);
+
+
         }
+
+
     } catch (err) {
         console.log(err);
         res.status(500).send("Server Error!");

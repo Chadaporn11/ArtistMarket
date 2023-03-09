@@ -45,7 +45,7 @@ const HistoryRequest = () => {
                 .then((res) => {
                     setRequests(res.data);
                 }).catch((err) => {
-                    // console.log(err.response.data);
+                    // console.log(err);
                 });
 
         }
@@ -54,7 +54,7 @@ const HistoryRequest = () => {
                 .then((res) => {
                     setRequests(res.data);
                 }).catch((err) => {
-                    // console.log(err.response.data);
+                    // console.log(err);
                 });
 
         }

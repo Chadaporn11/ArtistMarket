@@ -100,7 +100,7 @@ function CardProduct({ product, loadData, setLoading }) {
                         toast.success('Add To WishList Success!');
                         // loadData()
                     }).catch((err) => {
-                        console.log(err.response.data);
+                        console.log(err);
                     });
             } else {
                 removeWishList(user.token, _id)
@@ -124,7 +124,7 @@ function CardProduct({ product, loadData, setLoading }) {
                         // loadData();
 
                     }).catch((err) => {
-                        console.log(err.response.data);
+                        console.log(err);
                     });
 
             }

@@ -224,11 +224,11 @@ const ManageAdmin = () => {
                                 localStorage.setItem('updateUserID', item._id);
                               }}
                             ><i className="fa-solid fa-marker"></i></Button>
-                            <Button
+                            {/* <Button
                               className="rounded-full bg-[#dc2626] text-white justify-self-center mx-1"
                               htmlType="button"
                               onClick={() => handleRemove(item._id)}
-                            ><i className="fa-solid fa-trash"></i></Button>
+                            ><i className="fa-solid fa-trash"></i></Button> */}
                           </>
                         )}
                       </div>

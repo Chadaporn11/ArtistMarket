@@ -39,7 +39,7 @@ const Home = () => {
                 setProduct(res.data)
                 setLoading(false);
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             })
         if (user) {
             getWishList(user.token)
@@ -50,7 +50,7 @@ const Home = () => {
                     });
 
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    console.log(err);
                 })
         }
     }

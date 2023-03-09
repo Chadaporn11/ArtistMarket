@@ -66,7 +66,7 @@ const RequestType = () => {
                     toast.success("Edit Data " + res.data.name + " Success!");
                     clearForm();
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    console.log(err);
                     toast.error('Error Edit data!')
                 })
 
@@ -78,7 +78,7 @@ const RequestType = () => {
                     toast.success("Insert Data " + res.data.name + " Success!");
                     clearForm();
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    console.log(err);
                     toast.error('Error insert data!')
                 })
 
@@ -95,7 +95,7 @@ const RequestType = () => {
                 toast.success("Remove Requesttype" + res.data.name + " Success!");
 
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
                 toast.error('Error delete Requesttype!')
             })
     }
@@ -105,7 +105,7 @@ const RequestType = () => {
             .then((res) => {
                 setRequestType(res.data)
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             })
     }
     console.log('data:', RequestType)

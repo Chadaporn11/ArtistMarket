@@ -48,7 +48,7 @@ const Product = () => {
                 setLoading(false);
                 setCountImg(res.data.productImages.length)
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
 
             })
         if (user) {
@@ -60,7 +60,7 @@ const Product = () => {
                     });
 
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    console.log(err);
                 })
         }
     }

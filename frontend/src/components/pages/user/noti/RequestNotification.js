@@ -138,7 +138,7 @@ const RequestNotification = () => {
             ImageUser: userImage.images,
             requestType: selectRequest
         }
-        if (cardImage.images.length > 0 && userImage.images > 0) {
+        if (cardImage.images.length > 0 && userImage.images.length > 0) {
             createRequestSignupSeller(user.token, data)
                 .then((res) => {
                     toast.success('Create Request Success')
@@ -178,7 +178,7 @@ const RequestNotification = () => {
                     owner: res.data.username
                 })
             }).catch((err) => {
-                // console.log(err.response.data);
+                // console.log(err);
                 setPaymentMethod()
             })
 

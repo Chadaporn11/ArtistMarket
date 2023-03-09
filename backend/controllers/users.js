@@ -5,6 +5,10 @@ const Product = require("../models/Product");
 const Cart = require("../models/Cart");
 const AddressOrder = require("../models/AddressOrder");
 const Order = require("../models/Order");
+const RequestTopup = require("../models/RequestTopup");
+const RequestSignupSeller = require("../models/RequestSignupSeller");
+const RequestOther = require("../models/RequestOther");
+const PaymentMethod = require("../models/PaymentMethod");
 
 //User//
 exports.listUsers = async (req, res) => {
@@ -22,9 +26,109 @@ exports.removeUsers = async (req, res) => {
     try {
         // Code
         const id = req.params.id;
-        const user = await User.findOneAndDelete({ _id: id });
-        await Wallet.findOneAndDelete({ owner: id });
-        res.send(user);
+        // const user = await User.findOneAndDelete({ _id: id });
+        const user = await User.findOne({ _id: id });
+        console.log(user)
+
+        if (user && user.role === 'seller') {
+            const withdrawuser = await RequestWithdraw.find({ requestBy: id })//
+            withdrawuser.map(async (item) => {
+                await RequestWithdraw.findOneAndDelete({ _id: item.id })//
+            })
+            const topupuser = await RequestTopup.find({ requestBy: id })//
+            topupuser.map(async (item) => {
+                await RequestTopup.findOneAndDelete({ _id: item.id })//
+            })
+            const signupuser = await RequestSignupSeller.find({ requestBy: id })//
+            signupuser.map(async (item) => {
+                await RequestSignupSeller.findOneAndDelete({ _id: item.id })//
+            })
+            const otheruser = await RequestOther.find({ requestBy: id })//
+            otheruser.map(async (item) => {
+                await RequestOther.findOneAndDelete({ _id: item.id })//
+            })
+            const addressorderuser = await AddressOrder.find({ orderBy: id })//
+            addressorderuser.map(async (item) => {
+                await AddressOrder.findOneAndDelete({ _id: item.id })//
+            })
+            const productuser = await Product.find({ owner: id })
+            productuser.map(async (item) => {
+                await AddressOrder.findOneAndDelete({ _id: item.id })//
+            })
+            const paymentuser = await PaymentMethod.findOneAndDelete({ owner: id })//
+            const orderuser = await Order.find({ products: { $elemMatch: { owner: id } } })
+            const orderremove = orderuser.map(async (order) => {
+                if (order.orderStatus === "Confirm received" || order.orderStatus === "Waiting for confirmed") {
+                    await Order.findOneAndDelete({ _id: order.id })
+
+                } else {
+                    const adminwallet = await Wallet.findOne({ walletName: 'admin0950000111' })
+                    console.log("5555", order.orderStatus, "555")
+                    const walletuser = await Wallet.findOne({ owner: order.orderBy });
+                    const pocketNumuser = Number(walletuser.pocketmoney) + Number(order.cartTotal)
+                    const pocketNumadmin = Number(adminwallet.pocketmoney) - Number(order.cartTotal)
+
+
+                    const update_walletuser = await Wallet.findOneAndUpdate(
+                        { owner: order.orderBy },
+                        { pocketmoney: pocketNumuser }
+                    )
+                    const updatewalletadmin = await Wallet.updateOne(
+                        { walletName: adminwallet.walletName },
+                        { pocketmoney: pocketNumadmin }
+                    )
+                    await Order.findOneAndDelete({ _id: order.id })
+
+                    // console.log("5555", adminwallet.pocketmoney, "555")
+                    // console.log("6666", pocketNumadmin, "666")
+                    // console.log("5555", walletuser.pocketmoney, "555")
+                    // console.log("6666", pocketNumuser, "666")
+                }
+
+            })
+
+            const usered = await User.findOneAndDelete({ _id: id })
+            if (productuser & usered) {
+                res.send(usered)
+            }
+
+
+
+        } else if (user && user.role === 'user') {
+            // const walletuser = await Wallet.findOneAndDelete({ owner: id })
+            const topupuser = await RequestTopup.findOneAndDelete({ requestBy: id })//
+            const signupuser = await RequestSignupSeller.findOneAndDelete({ requestBy: id })//
+            const otheruser = await RequestOther.findOneAndDelete({ requestBy: id })//
+            const cartuser = await Cart.findOneAndDelete({ orderBy: id })//
+            const addressorderuser = await AddressOrder.findOneAndDelete({ orderBy: id })//
+            const orderuser = await Order.findOneAndDelete({ orderBy: id })
+
+            // const orderremove = orderuser.map(order => {
+            //     if (order.orderStatus !== "Confirm received") {
+            //         Order.findOneAndDelete({ _id: order.id })
+
+            //     } else {
+            //         Wallet.updateOne({ owner: order.products[0].owner, $inc: { pocketmoney: order.cartTotal } })
+            //     }
+
+            // })
+
+
+            // console.log("=====", walletuser, topupuser, signupuser, otheruser, cartuser, addressorderuser, orderuser, "=====")
+            // res.send(usered);
+            const usered = await User.findOneAndDelete({ _id: id })
+            res.send(usered)
+
+
+
+        } else if (user && user.role === 'admin') {
+            const useradmin = await User.findOneAndDelete({ _id: _id });
+            res.send(useradmin);
+
+        }
+
+        // await Wallet.findOneAndDelete({ owner: id });
+        // res.send(user);
     } catch (err) {
         console.log(err);
         res.status(500).send("removeUsers Error!");
@@ -277,17 +381,19 @@ exports.saveOrder = async (req, res) => {
         })
 
         //+ - wallet 
-        let admin = await User.findOne({ username: 'admin' }).exec();
-        let wallet_oldadmin = await Wallet.findOne({ owner: admin._id })
+        // let admin = await User.findOne({ username: 'admin' }).exec();
+        let wallet_oldadmin = await Wallet.findOne({ walletName: 'admin0950000111' })
         let wallet_olduser = await Wallet.findOne({ owner: user._id })
+
 
         let wallet_totaladmin = Number(wallet_oldadmin.pocketmoney) + orderTotal
         let wallet_totaluser = Number(wallet_olduser.pocketmoney) - orderTotal
 
-        let totalsadmin = await Wallet.findOneAndUpdate({ owner: admin._id }, { pocketmoney: wallet_totaladmin })
+        let totalsadmin = await Wallet.findOneAndUpdate({ walletName: 'admin0950000111' }, { pocketmoney: wallet_totaladmin })
         let totalsuser = await Wallet.findOneAndUpdate({ owner: user._id }, { pocketmoney: wallet_totaluser })
 
         let updated = await Product.bulkWrite(bulkOption, {})
+
 
         if (totalsadmin && totalsuser && updated) {
             res.send(updated);
@@ -351,13 +457,13 @@ exports.updateOrderStatus = async (req, res) => {
             //+ - wallet 
             let admin = await User.findOne({ username: 'admin' }).exec();
 
-            let wallet_oldadmin = await Wallet.findOne({ owner: admin._id })
+            let wallet_oldadmin = await Wallet.findOne({ walletName: "admin0950000111" })
             let wallet_oldseller = await Wallet.findOne({ owner: order.products[0].owner })
 
             let wallet_totaladmin = Number(wallet_oldadmin.pocketmoney) - order.cartTotal
             let wallet_totalseller = Number(wallet_oldseller.pocketmoney) + order.cartTotal
 
-            let totalsadmin = await Wallet.findOneAndUpdate({ owner: admin._id }, { pocketmoney: wallet_totaladmin })
+            let totalsadmin = await Wallet.findOneAndUpdate({ walletName: "admin0950000111" }, { pocketmoney: wallet_totaladmin })
             let totalsseller = await Wallet.findOneAndUpdate({ owner: order.products[0].owner }, { pocketmoney: wallet_totalseller })
 
             if (totalsadmin && totalsseller) {

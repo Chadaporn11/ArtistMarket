@@ -41,7 +41,7 @@ const RequestOrder = () => {
                 .then((res) => {
                     setRequests(res.data);
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    console.log(err);
                 });
 
         }
@@ -50,7 +50,7 @@ const RequestOrder = () => {
                 .then((res) => {
                     setRequests(res.data);
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    console.log(err);
                 });
 
         }
@@ -94,7 +94,7 @@ const RequestOrder = () => {
                     owner: res.data.username
                 })
             }).catch((err) => {
-                // console.log(err.response.data);
+                // console.log(err);
                 setPaymentMethod()
             })
 

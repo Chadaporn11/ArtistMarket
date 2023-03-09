@@ -36,7 +36,7 @@ const HistoryOrder = () => {
             .then((res) => {
                 setOrders(res.data);
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
 
     }
@@ -133,77 +133,9 @@ const HistoryOrder = () => {
 
                             )}
 
-                            {/* <div className='col-span-1'>
-                                <CardOrderHistory
-                                    orders={orders}
-                                    setOrders={setOrders}
-                                    loadData={loadData}
-                                />
-                            </div> */}
-                            {/* <div className='col-span-1'>
-                                <CardOrderHistory
-                                    orders={orders}
-                                    setOrders={setOrders}
-                                    loadData={loadData}
-                                />
-                            </div>
-                            <div className='col-span-1'>
-                                <CardOrderHistory
-                                    orders={orders}
-                                    setOrders={setOrders}
-                                    loadData={loadData}
-                                />
-                            </div>
-                            <div className='col-span-1'>
-                                <CardOrderHistory />
-                            </div>
-                            <div className='col-span-1'>
-                                <CardOrderHistory />
-                            </div>
-                            <div className='col-span-1'>
-                                <CardOrderHistory />
-                            </div>
-                            <div className='col-span-1'>
-                                <CardOrderHistory />
-                            </div> */}
-
 
                         </div>
 
-                        {/* 
-            <div className='col-span-1'>
-              <CardProductSeller />
-            </div>
-            <div className='col-span-1'>
-              <CardProductSeller />
-            </div>
-            <div className='col-span-1'>
-              <CardProduct />
-            </div> */}
-                        {/* <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div>
-                        <div className='col-span-1'>
-                            <CardProduct />
-                        </div> */}
                     </div>
                 </div>
             </div>
