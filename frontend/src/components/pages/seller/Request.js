@@ -53,7 +53,7 @@ const Request = () => {
             .then((res) => {
                 setOrders(res.data);
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
 
     }

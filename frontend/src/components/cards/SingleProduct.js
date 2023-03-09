@@ -83,7 +83,7 @@ const SingleProduct = ({ product, countImg, statuslike, setStatuslike, loadData 
                         toast.success('Add To WishList Success!');
                         loadData();
                     }).catch((err) => {
-                        console.log(err.response.data);
+                        console.log(err);
                     });
             } else {
                 removeWishList(user.token, _id)
@@ -107,7 +107,7 @@ const SingleProduct = ({ product, countImg, statuslike, setStatuslike, loadData 
                         loadData();
 
                     }).catch((err) => {
-                        console.log(err.response.data);
+                        console.log(err);
                     });
 
             }
@@ -129,7 +129,7 @@ const SingleProduct = ({ product, countImg, statuslike, setStatuslike, loadData 
     //             });
 
     //         }).catch((err) => {
-    //             console.log(err.response.data);
+    //             console.log(err);
     //         })
 
     // }

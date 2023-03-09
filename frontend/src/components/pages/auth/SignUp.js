@@ -31,8 +31,8 @@ const SignUp = () => {
                     navigate('/login');
                 })
                 .catch((err) => {
-                    console.log(err.response.data);
-                    toast.error(err.response.data);
+                    console.log(err);
+                    toast.error(err);
                 });
         }
     };

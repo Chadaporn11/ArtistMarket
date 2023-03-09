@@ -33,7 +33,7 @@ const Home = () => {
             .then((res) => {
                 setOrderPack(res.data);
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
 
         //GetData Status Waiting for delivery
@@ -41,7 +41,7 @@ const Home = () => {
             .then((res) => {
                 setOrderDelivery(res.data);
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
 
         //GetData Status Waiting for confirmed
@@ -49,28 +49,28 @@ const Home = () => {
             .then((res) => {
                 setOrderConfirmed(res.data);
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
 
         getOrderSeller(user.token, 'Confirm received')
             .then((res) => {
                 setOrderSuccess(res.data);
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
 
         // getRequestTopup(user.token, 'Waiting for confirmation')
         //     .then((res) => {
         //         setRequestTopup(res.data);
         //     }).catch((err) => {
-        //         console.log(err.response.data);
+        //         console.log(err);
         //     });
 
         // getRequestWithdraw(user.token, 'Waiting for confirmation')
         //     .then((res) => {
         //         setRequestWithdraw(res.data);
         //     }).catch((err) => {
-        //         console.log(err.response.data);
+        //         console.log(err);
         //     });
 
     }

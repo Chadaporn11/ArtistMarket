@@ -52,7 +52,7 @@ const Product = () => {
         //   productImages: res.data.productImages,
         // });
       }).catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
 
       })
   }

@@ -12,6 +12,9 @@ import {
     saveOrder,
     emptyCart,
 } from '../functions/users';
+import {
+    getWalletUser
+} from '../functions/wallet';
 
 //antd
 import { Input, Button, Select, Card, Empty, Form } from 'antd';
@@ -36,6 +39,7 @@ const CheckOut = () => {
     const [select, setSelect] = useState(initialstate);
     const [choose, setChoose] = useState();
     const [statusCheckout, setStatusCheckout] = useState(false);
+    const [wallet, setWallet] = useState('');
 
     const handleSelectChange = (value) => {
         setStatusCheckout(false)
@@ -133,13 +137,20 @@ const CheckOut = () => {
                 setProducts(res.data.products);
                 setTotal(res.data.cartTotal);
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
         getAddressOrder(user.token)
             .then((res) => {
                 setSelect(res.data)
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
+            });
+        getWalletUser(user.token, user.walletUser._id)
+            .then((res) => {
+                console.log('555', res.data)
+                setWallet(res.data)
+            }).catch((err) => {
+                console.log(err);
             });
 
     }

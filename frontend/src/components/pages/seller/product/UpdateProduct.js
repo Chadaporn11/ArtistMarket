@@ -85,14 +85,14 @@ const UpdateProduct = () => {
                 // })
                 // setSelected(res.data.category.name)
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
 
         listCategory()
             .then((res) => {
                 setCategorys(res.data);
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
     }
     console.log("value:", value)

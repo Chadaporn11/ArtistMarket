@@ -192,7 +192,7 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
                     owner: res.data.owner
                 })
             }).catch((err) => {
-                // console.log(err.response.data);
+                // console.log(err);
                 setPaymentRequest()
             })
         getWalletUser(user.token, walletRequest)

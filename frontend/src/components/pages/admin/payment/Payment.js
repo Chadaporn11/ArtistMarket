@@ -72,7 +72,7 @@ const Payment = () => {
           toast.success("Created payment Success!");
           // form.resetFields();
         }).catch((err) => {
-          // console.log(err.response.data);
+          // console.log(err);
           toast.error('Error created payment!')
         });
 
@@ -121,7 +121,7 @@ const Payment = () => {
         setSelected('')
         form.resetFields();
       }).catch((err) => {
-        // console.log(err.response.data);
+        // console.log(err);
         toast.error('Error update payment!')
       });
 
@@ -143,7 +143,7 @@ const Payment = () => {
           owner: res.data.username
         })
       }).catch((err) => {
-        // console.log(err.response.data);
+        // console.log(err);
         setPaymentMethod()
       })
   }

@@ -51,7 +51,7 @@ const WishList = () => {
         //         //   productImages: res.data.productImages,
         //         // });
         //     }).catch((err) => {
-        //         console.log(err.response.data);
+        //         console.log(err);
 
         //     })
         if (user) {
@@ -66,7 +66,7 @@ const WishList = () => {
 
 
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    console.log(err);
                 })
         }
     }
