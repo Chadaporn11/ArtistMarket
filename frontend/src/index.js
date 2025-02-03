@@ -23,6 +23,7 @@ ReactDOM.render(
   // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
+      <FontAwesome/>
       <App />
     </BrowserRouter>
   </Provider>,
