@@ -10,7 +10,7 @@ const {
 // middleware
 const { auth, adminCheck, sellerCheck } = require("../middleware/auth");
 
-//@Endpoint  process.env.PORT/api/wallet/:id
+//@Endpoint  process.env.PORT/wallet/:id
 router.get("/wallets/:id", auth, readWalletById);
 
 

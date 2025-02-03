@@ -26,7 +26,7 @@ const FileUploadConfirmed = ({ values, setValues, loading, setLoading }) => {
                     100,
                     0,
                     (uri) => {
-                        axios.post(process.env.REACT_APP_VERCEL_API_URL+"/api/images-admin",
+                        axios.post(process.env.REACT_APP_VERCEL_API_URL+"/images-admin",
                             {
                                 image: uri,
                             },
@@ -58,7 +58,7 @@ const FileUploadConfirmed = ({ values, setValues, loading, setLoading }) => {
         //const img = values.images
         //#2
         const { images } = values;
-        axios.post(process.env.REACT_APP_VERCEL_API_URL+"/api/removeimages-admin",
+        axios.post(process.env.REACT_APP_VERCEL_API_URL+"/removeimages-admin",
             {
                 public_id
             }, {

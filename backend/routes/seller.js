@@ -10,10 +10,10 @@ const {
     changeOrderStatus,
 } = require("../controllers/seller");
 
-//@Endpoint  process.env.PORT/api/seller/orders
+//@Endpoint  process.env.PORT/seller/orders
 router.get("/seller/orders", auth, sellerCheck, getOrderSeller);
 
-//@Endpoint  process.env.PORT/api/seller/order-status
+//@Endpoint  process.env.PORT/seller/order-status
 router.put("/seller/order-status", auth, sellerCheck, changeOrderStatus);
 
 module.exports = router;
