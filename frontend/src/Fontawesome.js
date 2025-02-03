@@ -11,4 +11,5 @@ const FontAwesome = () => {
     
       return null;
 }
+
 export default FontAwesome
