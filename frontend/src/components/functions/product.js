@@ -1,7 +1,8 @@
 import axios from "axios";
+const apiUrl = process.env.REACT_APP_VERCEL_API_URL;
 
 export const createProduct = async (authtoken, value) => {
-  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/product", value, {
+  return await axios.post(apiUrl+"/product", value, {
     headers: {
       authtoken,
     },
@@ -10,11 +11,11 @@ export const createProduct = async (authtoken, value) => {
 
 
 export const listProduct = async (count) => {
-  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/products/" + count);
+  return await axios.get(apiUrl+"/products/" + count);
 };
 
 export const removeProduct = async (authtoken, id) => {
-  return await axios.delete(process.env.REACT_APP_VERCEL_API_URL+"/product/" + id, {
+  return await axios.delete(apiUrl+"/product/" + id, {
     headers: {
       authtoken,
     },
@@ -22,11 +23,11 @@ export const removeProduct = async (authtoken, id) => {
 };
 
 export const readProduct = async (id) => {
-  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/product/" + id);
+  return await axios.get(apiUrl+"/product/" + id);
 };
 
 export const updateProduct = async (authtoken, id, product) => {
-  return await axios.put(process.env.REACT_APP_VERCEL_API_URL+"/product/" + id, product, {
+  return await axios.put(apiUrl+"/product/" + id, product, {
     headers: {
       authtoken,
     },
@@ -34,7 +35,7 @@ export const updateProduct = async (authtoken, id, product) => {
 };
 
 export const listProductBy = async (sort, order, limit) => {
-  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/productby",
+  return await axios.post(apiUrl+"/productby",
     {
       sort,
       order,
@@ -44,7 +45,7 @@ export const listProductBy = async (sort, order, limit) => {
 };
 
 export const listProductByOwner = async (authtoken, id) => {
-  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/productby/" + id, {
+  return await axios.get(apiUrl+"/productby/" + id, {
     headers: {
       authtoken,
     },
@@ -52,5 +53,5 @@ export const listProductByOwner = async (authtoken, id) => {
 };
 
 export const searchFilters = async (arg) => {
-  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/search/filters", arg);
+  return await axios.post(apiUrl+"/search/filters", arg);
 };
