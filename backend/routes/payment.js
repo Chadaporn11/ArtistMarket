@@ -11,19 +11,19 @@ const {
 // middleware
 const { auth, adminCheck, sellerCheck } = require("../middleware/auth");
 
-//@Endpoint  http://localhost:4200/api/payment-admin
+//@Endpoint  process.env.PORT/api/payment-admin
 router.post("/payment-admin", auth, adminCheck, createPayment);
 
-//@Endpoint  http://localhost:4200/api/payment-seller
+//@Endpoint  process.env.PORT/api/payment-seller
 router.post("/payment-seller", auth, sellerCheck, createPayment);
 
-//@Endpoint  http://localhost:4200/api/payment/:id
+//@Endpoint  process.env.PORT/api/payment/:id
 router.put("/payment/:id", auth, adminCheck, updatePayment);
 
-//@Endpoint  http://localhost:4200/api/payment/:id
+//@Endpoint  process.env.PORT/api/payment/:id
 router.put("/payment-seller/:id", auth, sellerCheck, updatePayment);
 
-//@Endpoint  http://localhost:4200/api/payment/:id
+//@Endpoint  process.env.PORT/api/payment/:id
 router.get("/payment/:id", auth, readPayment);
 
 module.exports = router;

@@ -15,22 +15,22 @@ const {
 // middleware
 const { auth, adminCheck, sellerCheck } = require("../middleware/auth");
 
-//@Endpoint  http://localhost:4200/api/register
+//@Endpoint  process.env.PORT/api/register
 router.post("/register", register, createWallet);
 
-//@Endpoint  http://localhost:4200/api/register-seller
+//@Endpoint  process.env.PORT/api/register-seller
 router.post("/register-seller", registerSeller, createWallet);
 
-//@Endpoint  http://localhost:4200/api/login
+//@Endpoint  process.env.PORT/api/login
 router.post("/login", login);
 
-//@Endpoint  http://localhost:4200/api/current-user
+//@Endpoint  process.env.PORT/api/current-user
 router.post("/current-user", auth, currentUser);
 
-//@Endpoint  http://localhost:4200/api/current-seller
+//@Endpoint  process.env.PORT/api/current-seller
 router.post("/current-seller", auth, sellerCheck, currentUser);
 
-//@Endpoint  http://localhost:4200/api/current-admin
+//@Endpoint  process.env.PORT/api/current-admin
 router.post("/current-admin", auth, adminCheck, currentUser);
 
 module.exports = router;

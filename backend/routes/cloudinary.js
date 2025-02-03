@@ -10,19 +10,19 @@ const {
 // middleware
 const { auth, adminCheck, sellerCheck } = require("../middleware/auth");
 
-//@Endpoint  http://localhost:4200/api/images-seller
+//@Endpoint  process.env.PORT/api/images-seller
 router.post("/images-seller", auth, sellerCheck, createImage);
 
-//@Endpoint  http://localhost:4200/api/images-admin
+//@Endpoint  process.env.PORT/api/images-admin
 router.post("/images-admin", auth, adminCheck, createImage);
 
-//@Endpoint  http://localhost:4200/api/removeimages-seller
+//@Endpoint  process.env.PORT/api/removeimages-seller
 router.post("/removeimages-seller", auth, sellerCheck, removeImage);
 
 //@Endpoint  http://localhost:5000/api/removeimages-admin
 router.post("/removeimages-admin", auth, adminCheck, removeImage);
 
-//@Endpoint  http://localhost:4200/api/images-user
+//@Endpoint  process.env.PORT/api/images-user
 router.post("/images-user", auth, createImage);
 
 //@Endpoint  http://localhost:5000/api/removeimages-user

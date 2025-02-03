@@ -13,21 +13,21 @@ const {
 // middleware
 const { auth, adminCheck } = require("../middleware/auth");
 
-//@Endpoint  http://localhost:4200/api/category
+//@Endpoint  process.env.PORT/api/category
 // router.get("/category", auth, listCategory);
 router.get("/category", listCategory);
 
-//@Endpoint  http://localhost:4200/api/category
+//@Endpoint  process.env.PORT/api/category
 router.post("/category", auth, adminCheck, createCategory);
 
-//@Endpoint  http://localhost:4200/api/category/:id
+//@Endpoint  process.env.PORT/api/category/:id
 router.get("/category/:id", readCategory);
 
-//@Endpoint  http://localhost:4200/api/category/:id
+//@Endpoint  process.env.PORT/api/category/:id
 // router.put("/category/:id", auth, adminCheck, updateCategory);
 router.put("/category/:id", auth, adminCheck, updateCategory);
 
-//@Endpoint  http://localhost:4200/api/category/:id
+//@Endpoint  process.env.PORT/api/category/:id
 router.delete("/category/:id", auth, adminCheck, removeCategory);
 
 

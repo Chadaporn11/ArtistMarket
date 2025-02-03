@@ -29,13 +29,13 @@ const { auth, adminCheck, sellerCheck } = require("../middleware/auth");
 
 //=======User========//
 
-//@Endpoint  http://localhost:4200/api/users
+//@Endpoint  process.env.PORT/api/users
 router.get("/users", auth, adminCheck, listUsers);
 
-//@Endpoint  http://localhost:4200/api/users/:id
+//@Endpoint  process.env.PORT/api/users/:id
 router.delete("/users/:id", auth, adminCheck, removeUsers);
 
-//@Endpoint  http://localhost:4200/api/change-role
+//@Endpoint  process.env.PORT/api/change-role
 router.post("/change-role", auth, adminCheck, changeRole);
 
 //@Endpoint  http://localhost:5000/api/users/:id
@@ -45,58 +45,58 @@ router.put("/users/:id", auth, adminCheck, updateUsers);
 
 //=======Cart========//
 
-//@Endpoint  http://localhost:4200/api/user/cart
+//@Endpoint  process.env.PORT/api/user/cart
 router.post("/user/cart", auth, userCart);
 
-//@Endpoint  http://localhost:4200/api/user/cart
+//@Endpoint  process.env.PORT/api/user/cart
 router.get("/user/cart", auth, getUserCart);
 
-//@Endpoint  http://localhost:4200/api/user/cart
+//@Endpoint  process.env.PORT/api/user/cart
 router.delete("/user/cart", auth, emptyCart);
 //=======Cart========//
 
 
 //=======AddressOrder========//
-//@Endpoint  http://localhost:4200/api/user/address-order
+//@Endpoint  process.env.PORT/api/user/address-order
 router.post("/user/address-order", auth, saveAddressOrder);
 
-//@Endpoint  http://localhost:4200/api/user/address-order/:id
+//@Endpoint  process.env.PORT/api/user/address-order/:id
 router.delete("/user/address-order/:id", auth, removeAddressOrder);
 
-//@Endpoint  http://localhost:4200/api/user/address-order
+//@Endpoint  process.env.PORT/api/user/address-order
 router.get("/user/address-order", auth, getAddressOrder);
 //=======AddressOrder========//
 
 //=======Order========//
-//@Endpoint  http://localhost:4200/api/user/order
+//@Endpoint  process.env.PORT/api/user/order
 router.post("/user/order", auth, saveOrder);
 
-//@Endpoint  http://localhost:4200/api/user/order
+//@Endpoint  process.env.PORT/api/user/order
 router.get("/user/order", auth, getOrder);
 
-//@Endpoint  http://localhost:4200/api/seller/order:status
+//@Endpoint  process.env.PORT/api/seller/order:status
 router.get("/seller/order/:status", auth, getOrderSeller);
 
-//@Endpoint  http://localhost:4200/api/user/order
+//@Endpoint  process.env.PORT/api/user/order
 router.get("/user/order/:status", auth, getOrderStatus);
 
-//@Endpoint  http://localhost:4200/api/user/order
+//@Endpoint  process.env.PORT/api/user/order
 router.put("/user/order/:id", auth, updateOrderStatus);
 
-//@Endpoint  http://localhost:4200/api/user/order
+//@Endpoint  process.env.PORT/api/user/order
 router.put("/user/order-delivery/:id", auth, sellerCheck, updateDeliveryStatus);
 
 //=======Order========//
 
 //=======Wishlist========//
 
-//@Endpoint  http://localhost:4200/api/user/wishlist
+//@Endpoint  process.env.PORT/api/user/wishlist
 router.post("/user/wishlist", auth, addToWishlist);
 
-//@Endpoint  http://localhost:4200/api/user/wishlist
+//@Endpoint  process.env.PORT/api/user/wishlist
 router.get("/user/wishlist", auth, getWishlist);
 
-//@Endpoint  http://localhost:4200/api/user/wishlist/:productId
+//@Endpoint  process.env.PORT/api/user/wishlist/:productId
 router.put("/user/wishlist/:productId", auth, removeWishlist);
 
 //=======Wishlist========//

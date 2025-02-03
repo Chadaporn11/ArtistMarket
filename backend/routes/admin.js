@@ -10,10 +10,10 @@ const {
 // middleware
 const { auth, adminCheck } = require("../middleware/auth");
 
-//@Endpoint  http://localhost:4200/api/admin/orders
+//@Endpoint  process.env.PORT/api/admin/orders
 router.get("/admin/orders", auth, adminCheck, getOrderAdmin);
 
-//@Endpoint  http://localhost:4200/api/user/order-status
+//@Endpoint  process.env.PORT/api/user/order-status
 router.put("/admin/order-status", auth, adminCheck, changeOrderStatus);
 
 module.exports = router;
