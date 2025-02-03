@@ -22,7 +22,7 @@ app.get('/',function(req,res,next){
 });
 
 // Routes
-// readdirSync('./routes').map((r)=> app.use(require('./routes/'+r)));
+readdirSync('./routes').map((r)=> app.use(require('./routes/'+r)));
 
 const port = process.env.PORT || 3000;
 app.listen(port,()=>{
