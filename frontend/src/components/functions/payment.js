@@ -1,14 +1,14 @@
 import axios from "axios";
 
 export const createPayment = async (authtoken, value) => {
-    return await axios.post(process.env.PORT+"/api/payment-admin", value, {
+    return await axios.post(process.env.APIURL+"/api/payment-admin", value, {
         headers: {
             authtoken,
         },
     });
 };
 export const createPaymentSeller = async (authtoken, value) => {
-    return await axios.post(process.env.PORT+"/api/payment-seller", value, {
+    return await axios.post(process.env.APIURL+"/api/payment-seller", value, {
         headers: {
             authtoken,
         },
@@ -17,13 +17,13 @@ export const createPaymentSeller = async (authtoken, value) => {
 
 
 // export const listProduct = async (count) => {
-//     return await axios.get(process.env.PORT+"/api/products/" + count);
+//     return await axios.get(process.env.APIURL+"/api/products/" + count);
 // };
 
 
 export const readPayment = async (authtoken, value) => {
     // console.log("readPayment", value);
-    return await axios.get(process.env.PORT+"/api/payment/" + value.username, {
+    return await axios.get(process.env.APIURL+"/api/payment/" + value.username, {
         headers: {
             authtoken,
         },
@@ -31,7 +31,7 @@ export const readPayment = async (authtoken, value) => {
 };
 
 export const updatePayment = async (authtoken, id, values) => {
-    return await axios.put(process.env.PORT+"/api/payment/" + id, values, {
+    return await axios.put(process.env.APIURL+"/api/payment/" + id, values, {
         headers: {
             authtoken,
         },
@@ -39,7 +39,7 @@ export const updatePayment = async (authtoken, id, values) => {
 };
 
 export const updatePaymentSeller = async (authtoken, id, values) => {
-    return await axios.put(process.env.PORT+"/api/payment-seller/" + id, values, {
+    return await axios.put(process.env.APIURL+"/api/payment-seller/" + id, values, {
         headers: {
             authtoken,
         },
@@ -47,7 +47,7 @@ export const updatePaymentSeller = async (authtoken, id, values) => {
 };
 
 // export const listProductBy = async (sort, order, limit) => {
-//     return await axios.post(process.env.PORT+"/api/productby",
+//     return await axios.post(process.env.APIURL+"/api/productby",
 //         {
 //             sort,
 //             order,
@@ -57,5 +57,5 @@ export const updatePaymentSeller = async (authtoken, id, values) => {
 // };
 
 // export const searchFilters = async (arg) => {
-//     return await axios.post(process.env.PORT+"/api/search/filters", arg);
+//     return await axios.post(process.env.APIURL+"/api/search/filters", arg);
 // };

@@ -26,7 +26,7 @@ const FileUploadImageUser = ({ values, setValues, loading, setLoading }) => {
                     100,
                     0,
                     (uri) => {
-                        axios.post(process.env.PORT+"/api/images-user",
+                        axios.post(process.env.APIURL+"/api/images-user",
                             {
                                 image: uri,
                             },
@@ -58,7 +58,7 @@ const FileUploadImageUser = ({ values, setValues, loading, setLoading }) => {
         //const img = values.images
         //#2
         const { images } = values;
-        axios.post(process.env.PORT+"/api/removeimages-user",
+        axios.post(process.env.APIURL+"/api/removeimages-user",
             {
                 public_id
             }, {
