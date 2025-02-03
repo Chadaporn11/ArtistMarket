@@ -1,17 +1,16 @@
 import axios from "axios";
-const apiUrl = process.env.REACT_APP_VERCEL_API_URL;
 
 export const register = async (value) =>
-  await axios.post(apiUrl+"/register", value);
+  await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/register", value);
 
 export const registerSeller = async (value) => 
-  await axios.post(apiUrl+"/register-seller", value);
+  await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/register-seller", value);
 
 export const login = async (value) =>
-  await axios.post(apiUrl+"/login", value);
+  await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/login", value);
 
 export const currentUser = async (authtoken) => {
-  return await axios.post(apiUrl+"/current-user",
+  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/current-user",
     {},
     {
       headers: {
@@ -22,7 +21,7 @@ export const currentUser = async (authtoken) => {
 }
 
 export const currentSeller = async (authtoken) => {
-  return await axios.post(apiUrl+"/current-seller",
+  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/current-seller",
     {},
     {
       headers: {
@@ -33,7 +32,7 @@ export const currentSeller = async (authtoken) => {
 }
 
 export const currentAdmin = async (authtoken) => {
-  return await axios.post(apiUrl+"/current-admin",
+  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/current-admin",
     {},
     {
       headers: {
