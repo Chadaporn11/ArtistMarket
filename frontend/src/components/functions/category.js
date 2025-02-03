@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const createCategory = async (authtoken,value) => {
-  return await axios.post("http://localhost:4200/api/category", value,{
+  return await axios.post(process.env.PORT+"/api/category", value,{
     headers: {
       authtoken,
     },
@@ -9,11 +9,11 @@ export const createCategory = async (authtoken,value) => {
 };
 
 export const listCategory = async () => {
-  return await axios.get("http://localhost:4200/api/category");
+  return await axios.get(process.env.PORT+"/api/category");
 };
 
 export const readCategory = async (authtoken,id) => {
-  return await axios.get("http://localhost:4200/api/category/"+id,{
+  return await axios.get(process.env.PORT+"/api/category/"+id,{
     headers: {
       authtoken,
     },
@@ -22,7 +22,7 @@ export const readCategory = async (authtoken,id) => {
 
 export const editCategory = async (authtoken,id,value) => {
     console.log("Edit Category",id,value);
-  return await axios.put("http://localhost:4200/api/category/"+id,value,{
+  return await axios.put(process.env.PORT+"/api/category/"+id,value,{
     headers: {
       authtoken,
     },
@@ -30,7 +30,7 @@ export const editCategory = async (authtoken,id,value) => {
 };
 
 export const deleteCategory = async (authtoken,id) => {
-  return await axios.delete("http://localhost:4200/api/category/"+id,{
+  return await axios.delete(process.env.PORT+"/api/category/"+id,{
     headers: {
       authtoken,
     },

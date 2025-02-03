@@ -26,7 +26,7 @@ const FileUploadConfirmed = ({ values, setValues, loading, setLoading }) => {
                     100,
                     0,
                     (uri) => {
-                        axios.post("http://localhost:4200/api/images-admin",
+                        axios.post(process.env.PORT+"/api/images-admin",
                             {
                                 image: uri,
                             },
@@ -58,7 +58,7 @@ const FileUploadConfirmed = ({ values, setValues, loading, setLoading }) => {
         //const img = values.images
         //#2
         const { images } = values;
-        axios.post("http://localhost:4200/api/removeimages-admin",
+        axios.post(process.env.PORT+"/api/removeimages-admin",
             {
                 public_id
             }, {

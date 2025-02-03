@@ -1,16 +1,16 @@
 import axios from "axios";
 
 export const register = async (value) =>
-  await axios.post("http://localhost:4200/api/register", value);
+  await axios.post(process.env.PORT+"/api/register", value);
 
 export const registerSeller = async (value) => 
-  await axios.post("http://localhost:4200/api/register-seller", value);
+  await axios.post(process.env.PORT+"/api/register-seller", value);
 
 export const login = async (value) =>
-  await axios.post("http://localhost:4200/api/login", value);
+  await axios.post(process.env.PORT+"/api/login", value);
 
 export const currentUser = async (authtoken) => {
-  return await axios.post("http://localhost:4200/api/current-user",
+  return await axios.post(process.env.PORT+"/api/current-user",
     {},
     {
       headers: {
@@ -21,7 +21,7 @@ export const currentUser = async (authtoken) => {
 }
 
 export const currentSeller = async (authtoken) => {
-  return await axios.post("http://localhost:4200/api/current-seller",
+  return await axios.post(process.env.PORT+"/api/current-seller",
     {},
     {
       headers: {
@@ -32,7 +32,7 @@ export const currentSeller = async (authtoken) => {
 }
 
 export const currentAdmin = async (authtoken) => {
-  return await axios.post("http://localhost:4200/api/current-admin",
+  return await axios.post(process.env.PORT+"/api/current-admin",
     {},
     {
       headers: {
