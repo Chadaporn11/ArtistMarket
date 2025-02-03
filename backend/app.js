@@ -20,9 +20,8 @@ app.get('/', (req, res) => {
     res.send('Welcom to ArtistMarket!')
 });
 
-//Route
-readdirSync('./routes')
-.map((r)=> app.use('/api', require('./routes/'+r)));
+// Routes
+readdirSync('./routes').map((r)=> app.use(require('./routes/'+r)));
 
 const port = process.env.PORT
 app.listen(port,() => {
