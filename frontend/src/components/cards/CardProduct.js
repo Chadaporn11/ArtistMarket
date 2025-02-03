@@ -141,18 +141,17 @@ function CardProduct({ product, loadData, setLoading }) {
             <div className='flex flex-col w-[280] h-[450px]'>
                 <div className='flex flex-col justify-center h-[300px] max-w-[300px] max-h-[300px]'>
                     <div className='relative flex justify-center w-auto h-auto'>
-                        <Image
+                        {productImages && productImages.length > 0 ? (
+                            <Image
                             className='object-cover object-center justify-center rounded-t-md'
 
                             // src='https://pbs.twimg.com/media/FlxxsCqaUAEf9gP?format=jpg&name=large'
                             style={contentStyle}
                             width="100%"
                             preview={false}
-                            src={productImages && productImages.length
-                                ? productImages[0].url
-                                : ""
-                            }
+                            src={productImages[0].url}
                         />
+                        ):(<i class="fa-solid fa-image" style="color: #abadb0;"></i>)}
                         <div className='absolute bottom-3 right-0 rounded-l-md bg-[#fbbf24] opacity-90 shadow-md w-[100px] h-[28px]'>
                             <p className='font-semibold text-md text-white ml-2'>Price: {price} ฿</p>
                         </div>
