@@ -17,7 +17,7 @@ app.use(bodyParser.json({limit: '20mb'}));
 app.use(cors())
 
 app.get('/', (req, res) => {
-    res.send('Welcom to ArtistMarket!')
+    res.send('Welcom to ArtistMarket!!!')
 });
 
 // Routes
