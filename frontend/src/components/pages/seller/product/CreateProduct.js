@@ -50,7 +50,7 @@ const CreateProduct = () => {
             ...value,
             [name]: values,
         });
-        console.log('Changed', value)
+        // console.log('Changed', value)
     }
 
 
@@ -67,7 +67,7 @@ const CreateProduct = () => {
         if (image.images.length > 0) {
             createProduct(user.token, data)
                 .then((res) => {
-                    console.log(res);
+                    // console.log(res);
                     setLoading(false);
                     setImage(initialstateImage)
                     setValue(initialstate)
@@ -93,7 +93,7 @@ const CreateProduct = () => {
     const loadData = () => {
         listCategory()
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setValue({ ...value, categories: res.data })
                 setImage({
                     images: []

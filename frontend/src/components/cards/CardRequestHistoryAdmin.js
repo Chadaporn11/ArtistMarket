@@ -102,11 +102,8 @@ const CardRequestHistoryAdmin = ({ requests, setRequests, loadData, setSelectReq
         }
     }
 
-
-
-
-    console.log('setPaymentRequest::', paymentRequest)
-    console.log('setWallet::', wallet)
+    // console.log('setPaymentRequest::', paymentRequest)
+    // console.log('setWallet::', wallet)
 
     const UpdateStatusWithdraw = (statuswithdraw) => {
         let status_withdraw = statuswithdraw === 'Success' ? 'Request success' : 'Request error';

@@ -28,7 +28,7 @@ const SearchCard = () => {
     }
 
     const onSearch = (value) => {
-        console.log('Search::', value);
+        // console.log('Search::', value);
         dispath({
             type: "SEARCH_QUERY",
             payload: {

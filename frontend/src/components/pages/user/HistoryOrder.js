@@ -40,7 +40,7 @@ const HistoryOrder = () => {
             });
 
     }
-    console.log('order=>', orders)
+    // console.log('order=>', orders)
     useEffect(() => {
         loadData();
 

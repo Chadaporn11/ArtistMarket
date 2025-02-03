@@ -81,7 +81,7 @@ function CardProduct({ product, loadData, setLoading }) {
 
                 addToWishList(user.token, _id)
                     .then((res) => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         let wishlist = [];
                         if (localStorage.getItem('wishlist')) {
                             wishlist = JSON.parse(localStorage.getItem('wishlist'));
@@ -105,7 +105,7 @@ function CardProduct({ product, loadData, setLoading }) {
             } else {
                 removeWishList(user.token, _id)
                     .then((res) => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         let wishlist = [];
                         if (localStorage.getItem('wishlist')) {
                             wishlist = JSON.parse(localStorage.getItem('wishlist'));

@@ -30,12 +30,12 @@ const HistoryRequest = () => {
     ]
 
     const handleSelectChange = (value) => {
-        console.log(`selected ${value}`);
+        // console.log(`selected ${value}`);
         setSelectRequest(value)
 
     }
     const onChangeRequestStatus = (e) => {
-        console.log('radio checked', e.target.value);
+        // console.log('radio checked', e.target.value);
         setRequestStatus(e.target.value);
     };
 
@@ -60,7 +60,7 @@ const HistoryRequest = () => {
         }
 
     }
-    console.log('order::', requests)
+    // console.log('order::', requests)
     useEffect(() => {
         loadData();
 

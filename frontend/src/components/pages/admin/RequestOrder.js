@@ -100,7 +100,7 @@ const RequestOrder = () => {
 
 
     }
-    console.log('order=>', requestType)
+    // console.log('order=>', requestType)
     useEffect(() => {
         loadData();
 

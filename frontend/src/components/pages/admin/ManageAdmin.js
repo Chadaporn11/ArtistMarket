@@ -49,7 +49,7 @@ const ManageAdmin = () => {
     listUser(authtoken)
       .then((res) => {
         //code
-        console.log(res.data)
+        // console.log(res.data)
         setData(res.data);
         setSelectData(res.data);
         //[...new Set(array)]
@@ -65,7 +65,7 @@ const ManageAdmin = () => {
     if (window.confirm("Are youe sure Delete!")) {
       removeUser(user.token, id)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           toast.success(`Delete ${res.data.username} Success!`);
           loadData(user.token);
 
@@ -82,10 +82,10 @@ const ManageAdmin = () => {
       id: id,
       role: value,
     }
-    console.log('changrole', values);
+    // console.log('changrole', values);
     changeRole(user.token, values)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         toast.success(`${res.data.username} Change Role Success!`);
         loadData(user.token);
       })
@@ -110,7 +110,7 @@ const ManageAdmin = () => {
   const onSubmit = (values) => {
     // e.preventDefault();
     const id = localStorage.getItem('updateUserID');
-    console.log(values);
+    // console.log(values);
     let data = {
       id: id,
       username: values.username,
@@ -118,14 +118,14 @@ const ManageAdmin = () => {
       email: values.email,
       password: values.password,
     }
-    console.log(data);
+    // console.log(data);
     if (values.password !== values.confirmpassword) {
       toast.error("Password not match");
     } else {
       //code
       updateUser(user.token, id, data)
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           setIsModalOpen(false);
           toast.success(res.data.user.username + " Update User Success!")
           loadData(user.token);
@@ -140,7 +140,7 @@ const ManageAdmin = () => {
   };
 
   const showModal = (item) => {
-    console.log('onfill', item)
+    // console.log('onfill', item)
     form.setFieldsValue({
       username: item.username,
       phone: item.phone,

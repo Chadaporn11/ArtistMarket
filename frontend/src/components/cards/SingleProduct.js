@@ -64,7 +64,7 @@ const SingleProduct = ({ product, countImg, statuslike, setStatuslike, loadData 
 
                 addToWishList(user.token, _id)
                     .then((res) => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         let wishlist = [];
                         if (localStorage.getItem('wishlist')) {
                             wishlist = JSON.parse(localStorage.getItem('wishlist'));
@@ -88,7 +88,7 @@ const SingleProduct = ({ product, countImg, statuslike, setStatuslike, loadData 
             } else {
                 removeWishList(user.token, _id)
                     .then((res) => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         let wishlist = [];
                         if (localStorage.getItem('wishlist')) {
                             wishlist = JSON.parse(localStorage.getItem('wishlist'));

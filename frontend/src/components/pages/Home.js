@@ -35,7 +35,7 @@ const Home = () => {
 
         listProduct(12)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setProduct(res.data)
                 setLoading(false);
             }).catch((err) => {

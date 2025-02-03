@@ -26,7 +26,7 @@ const Cart = () => {
         alert('CheckOut Order');
         userCart(user.token, cart)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 navigate('/checkout');
 
             }).catch((err) => {

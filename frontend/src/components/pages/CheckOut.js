@@ -57,10 +57,10 @@ const CheckOut = () => {
 
     const RemoveAddress = (id) => {
         if (window.confirm('Are you sure you want to delete this address?')) {
-            console.log('remove', id);
+            // console.log('remove', id);
             deleteAddressOrder(user.token, id)
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     window.location.reload();
 
                 }).catch((err) => {
@@ -147,7 +147,7 @@ const CheckOut = () => {
             });
         getWalletUser(user.token, user.walletUser._id)
             .then((res) => {
-                console.log('555', res.data)
+                // console.log('555', res.data)
                 setWallet(res.data)
             }).catch((err) => {
                 console.log(err);

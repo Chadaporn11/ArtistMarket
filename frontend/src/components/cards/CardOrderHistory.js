@@ -13,7 +13,7 @@ const CardOrderHistory = ({ orders, setOrders, loadData, setSelectedStatus, sele
     const { _id, orderStatus, products, cartTotal, addressOrder, delivery } = orders;
     const [addressorder, setAddressorder] = useState('');
     const [statusUpdate, setStatusUpdate] = useState(selectedStatus);
-    console.log('test::', orders)
+    // console.log('test::', orders)
 
 
     const handleUpdateStatus = (value) => {

@@ -50,7 +50,7 @@ const UpdateProduct = () => {
     const [loading, setLoading] = useState(false);
     const onSelectChange = (values) => {
         setSelected(values)
-        console.log('selected=>', selected)
+        // console.log('selected=>', selected)
     }
 
 
@@ -61,7 +61,7 @@ const UpdateProduct = () => {
             ...value,
             [name]: values,
         });
-        console.log('Changed', value)
+        // console.log('Changed', value)
     }
 
     const loadData = () => {
@@ -95,9 +95,9 @@ const UpdateProduct = () => {
                 console.log(err);
             });
     }
-    console.log("value:", value)
-    console.log("image:", image)
-    console.log("category:", categorys)
+    // console.log("value:", value)
+    // console.log("image:", image)
+    // console.log("category:", categorys)
 
     const onSubmit = () => {
         setLoading(true);
@@ -114,7 +114,7 @@ const UpdateProduct = () => {
         if (image.images.length > 0) {
             updateProduct(user.token, id, data)
                 .then((res) => {
-                    console.log(res);
+                    // console.log(res);
                     setLoading(false);
                     toast.success('Update Product ' + res.data.productName + " Success!");
                     // navigate(`/seller/update-product/${res.data._id}`);

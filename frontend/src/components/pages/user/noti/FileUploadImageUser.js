@@ -9,7 +9,7 @@ import { Avatar, Badge, Spin, Image } from 'antd';
 
 const FileUploadImageUser = ({ values, setValues, loading, setLoading }) => {
     const { user } = useSelector((state) => ({ ...state }));
-    console.log('file:', values);
+    // console.log('file:', values);
     const handleChangeFile = (e) => {
         const files = e.target.files;
         if (files) {
@@ -38,7 +38,7 @@ const FileUploadImageUser = ({ values, setValues, loading, setLoading }) => {
                             }).then((res) => {
                                 setLoading(false);
                                 allfileUpload.push(res.data);
-                                console.log('allfileUpload in data:', allfileUpload);
+                                // console.log('allfileUpload in data:', allfileUpload);
                                 setValues({ ...values, images: allfileUpload });
                             }).catch((err) => {
                                 setLoading(false);
@@ -52,7 +52,7 @@ const FileUploadImageUser = ({ values, setValues, loading, setLoading }) => {
     }
 
     const handleRemove = (public_id) => {
-        console.log(public_id)
+        // console.log(public_id)
         setLoading(true);
         //#1
         //const img = values.images

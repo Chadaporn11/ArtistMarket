@@ -41,7 +41,7 @@ const Request = () => {
 
     // ]
     const handleSelectChange = (value) => {
-        console.log(`selected ${value}`);
+        // console.log(`selected ${value}`);
         setSelectedStatus(value)
 
     }
@@ -57,7 +57,7 @@ const Request = () => {
             });
 
     }
-    console.log('order=>', orders)
+    // console.log('order=>', orders)
     useEffect(() => {
         loadData();
 

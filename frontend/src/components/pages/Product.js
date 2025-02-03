@@ -43,7 +43,7 @@ const Product = () => {
 
         readProduct(id)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setProduct(res.data)
                 setLoading(false);
                 setCountImg(res.data.productImages.length)

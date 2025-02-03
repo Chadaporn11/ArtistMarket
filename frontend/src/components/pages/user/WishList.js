@@ -70,7 +70,7 @@ const WishList = () => {
                 })
         }
     }
-    console.log('product=>', product)
+    // console.log('product=>', product)
 
     useEffect(() => {
         loadData()

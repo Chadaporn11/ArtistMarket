@@ -32,9 +32,9 @@ const RequestType = () => {
     const [RequestType, setRequestType] = useState([]);
     const [statusEdit, setStatusEdit] = useState(false);
 
-    console.log('editvalues', editvalues)
+    // console.log('editvalues', editvalues)
     const handleEdit = (item) => {
-        console.log(item)
+        // console.log(item)
         setEditValues({
             id: item._id,
             name: item.name,
@@ -55,13 +55,13 @@ const RequestType = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(values.name)
-        console.log(editvalues)
+        // console.log(values.name)
+        // console.log(editvalues)
         const { id, name } = editvalues;
         if (statusEdit) {
             editRequestType(user.token, id, { name })
                 .then((res) => {
-                    console.log(res)
+                    // console.log(res)
                     loadData();
                     toast.success("Edit Data " + res.data.name + " Success!");
                     clearForm();
@@ -73,7 +73,7 @@ const RequestType = () => {
         } else {
             createRequestType(user.token, values)
                 .then((res) => {
-                    console.log(res)
+                    // console.log(res)
                     loadData();
                     toast.success("Insert Data " + res.data.name + " Success!");
                     clearForm();
@@ -90,7 +90,7 @@ const RequestType = () => {
     const handleRemove = (id) => {
         deleteRequestType(user.token, id)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 loadData(user.token);
                 toast.success("Remove Requesttype" + res.data.name + " Success!");
 
@@ -108,7 +108,7 @@ const RequestType = () => {
                 console.log(err);
             })
     }
-    console.log('data:', RequestType)
+    // console.log('data:', RequestType)
 
 
     useEffect(() => {

@@ -13,7 +13,7 @@ const SellerRoute = ({ children }) => {
             currentSeller(user.token)
                 .then(res => {
                     //res
-                    console.log('hello',res)
+                    // console.log('hello',res)
                     setOk(true)
                 }).catch(err => {
                     //err

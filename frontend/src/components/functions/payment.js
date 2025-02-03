@@ -22,7 +22,7 @@ export const createPaymentSeller = async (authtoken, value) => {
 
 
 export const readPayment = async (authtoken, value) => {
-    console.log("readPayment", value);
+    // console.log("readPayment", value);
     return await axios.get(process.env.PORT+"/api/payment/" + value.username, {
         headers: {
             authtoken,

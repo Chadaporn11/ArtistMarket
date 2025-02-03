@@ -32,9 +32,9 @@ const Category = () => {
     const [category, setCategory] = useState([]);
     const [statusEdit, setStatusEdit] = useState(false);
 
-    console.log('editvalues', editvalues)
+    // console.log('editvalues', editvalues)
     const handleEdit = (item) => {
-        console.log(item)
+        // console.log(item)
         setEditValues({
             id: item._id,
             name: item.name,
@@ -55,13 +55,13 @@ const Category = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(values.name)
-        console.log(editvalues)
+        // console.log(values.name)
+        // console.log(editvalues)
         const { id, name } = editvalues;
         if (statusEdit) {
             editCategory(user.token, id, { name })
                 .then((res) => {
-                    console.log(res)
+                    // console.log(res)
                     loadData();
                     toast.success("Edit Data " + res.data.name + " Success!");
                     clearForm();
@@ -73,7 +73,7 @@ const Category = () => {
         } else {
             createCategory(user.token, values)
                 .then((res) => {
-                    console.log(res)
+                    // console.log(res)
                     loadData();
                     toast.success("Insert Data " + res.data.name + " Success!");
                     clearForm();
@@ -90,7 +90,7 @@ const Category = () => {
     const handleRemove = (id) => {
         deleteCategory(user.token, id)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 loadData(user.token);
                 toast.success("Remove Data " + res.data.name + " Success!");
 
@@ -108,7 +108,7 @@ const Category = () => {
                 console.log(err);
             })
     }
-    console.log('data:', category)
+    // console.log('data:', category)
 
 
     useEffect(() => {

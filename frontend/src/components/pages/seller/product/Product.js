@@ -56,7 +56,7 @@ const Product = () => {
 
       })
   }
-  console.log('product=>', product)
+  // console.log('product=>', product)
 
   useEffect(() => {
     loadData()

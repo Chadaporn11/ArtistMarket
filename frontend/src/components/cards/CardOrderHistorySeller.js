@@ -62,7 +62,7 @@ const CardOrderHistoryseller = ({ orders, setOrders, loadData, setSelectedStatus
 
         }
         // setStatusUpdate(value)
-        console.log('Taxid::', data)
+        // console.log('Taxid::', data)
         updateDeliveryStatus(user.token, _id, data)
             .then((res) => {
                 toast.success('Update order status success!')

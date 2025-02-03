@@ -9,7 +9,7 @@ export const listUser = async (authtoken) => {
 };
 
 export const changeRole = async (authtoken, values) => {
-  console.log('cahan', values);
+  // console.log('cahan', values);
   return await axios.post(process.env.PORT+"/api/change-role",
     values
     , {
@@ -28,7 +28,7 @@ export const removeUser = async (authtoken, id) => {
 };
 
 export const updateUser = async (authtoken, id, values) => {
-  console.log('reset', id, values);
+  // console.log('reset', id, values);
   return await axios.put(process.env.PORT+"/api/users/" + id, values, {
     headers: {
       authtoken,

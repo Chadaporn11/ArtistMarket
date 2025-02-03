@@ -185,7 +185,7 @@ const Payment = () => {
     // }
 
     const onSubmitWithdraw = (values) => {
-        console.log(values)
+        // console.log(values)
         if (values.amount > Number(user.walletUser.pocketmoney)) {
             toast.error('The amount is more valuable than the wallet.!')
             // setAmounts(0)
@@ -225,7 +225,7 @@ const Payment = () => {
 
                         setIsModalOpen(false);
                     })
-                console.log('onSubmit', data)
+                // console.log('onSubmit', data)
             }
         }
 

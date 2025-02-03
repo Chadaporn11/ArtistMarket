@@ -41,7 +41,7 @@ const SignIn = () => {
     const onSubmit = (values) => {
         setLoading(true);
         // e.preventDefault();
-        console.log(values);
+        // console.log(values);
         //code
         login(values)
             .then((res) => {

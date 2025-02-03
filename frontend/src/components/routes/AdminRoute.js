@@ -13,7 +13,7 @@ const AdminRoute = ({ children }) => {
             currentAdmin(user.token)
                 .then(res => {
                     //res
-                    console.log(res)
+                    // console.log(res)
                     setOk(true)
                 }).catch(err => {
                     //err

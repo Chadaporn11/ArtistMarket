@@ -74,9 +74,9 @@ const Home = () => {
         //     });
 
     }
-    console.log('Pack::', orderPack)
-    console.log('Delivery::', orderDelivery)
-    console.log('Confirmed::', orderConfirmed)
+    // console.log('Pack::', orderPack)
+    // console.log('Delivery::', orderDelivery)
+    // console.log('Confirmed::', orderConfirmed)
 
 
 

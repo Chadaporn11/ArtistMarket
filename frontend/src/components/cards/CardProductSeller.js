@@ -32,7 +32,7 @@ function CardProductSeller({ product, loadData, setLoading }) {
         if (window.confirm("Are youe sure Delete!")) {
             removeProduct(user.token, id)
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     toast.success(`Delete ${res.data.username} Success!`);
                     setLoading(false);
                     loadData();
