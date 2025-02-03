@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 // import 'https://kit.fontawesome.com/0cc975790d.js';
-import FontAwesome from "./FontAwesome";
+import FontAwesome from "./ConfigFontAwesome";
 
 // Redux
 import { Provider } from "react-redux";
