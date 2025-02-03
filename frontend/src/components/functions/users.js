@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const listUser = async (authtoken) => {
-  return await axios.get(process.env.APIURL+"/api/users", {
+  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/api/users", {
     headers: {
       authtoken,
     },
@@ -10,7 +10,7 @@ export const listUser = async (authtoken) => {
 
 export const changeRole = async (authtoken, values) => {
   // console.log('cahan', values);
-  return await axios.post(process.env.APIURL+"/api/change-role",
+  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/api/change-role",
     values
     , {
       headers: {
@@ -20,7 +20,7 @@ export const changeRole = async (authtoken, values) => {
 };
 
 export const removeUser = async (authtoken, id) => {
-  return await axios.delete(process.env.APIURL+"/api/users/" + id, {
+  return await axios.delete(process.env.REACT_APP_VERCEL_API_URL+"/api/users/" + id, {
     headers: {
       authtoken,
     },
@@ -29,7 +29,7 @@ export const removeUser = async (authtoken, id) => {
 
 export const updateUser = async (authtoken, id, values) => {
   // console.log('reset', id, values);
-  return await axios.put(process.env.APIURL+"/api/users/" + id, values, {
+  return await axios.put(process.env.REACT_APP_VERCEL_API_URL+"/api/users/" + id, values, {
     headers: {
       authtoken,
     },
@@ -37,7 +37,7 @@ export const updateUser = async (authtoken, id, values) => {
 };
 
 export const userCart = async (authtoken, cart) => {
-  return await axios.post(process.env.APIURL+"/api/user/cart",
+  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/api/user/cart",
     { cart }, {
     headers: {
       authtoken,
@@ -46,7 +46,7 @@ export const userCart = async (authtoken, cart) => {
 };
 
 export const getUserCart = async (authtoken) => {
-  return await axios.get(process.env.APIURL+"/api/user/cart", {
+  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/api/user/cart", {
     headers: {
       authtoken,
     },
@@ -54,7 +54,7 @@ export const getUserCart = async (authtoken) => {
 };
 
 export const emptyCart = async (authtoken) => {
-  return await axios.delete(process.env.APIURL+"/api/user/cart", {
+  return await axios.delete(process.env.REACT_APP_VERCEL_API_URL+"/api/user/cart", {
     headers: {
       authtoken,
     },
@@ -62,7 +62,7 @@ export const emptyCart = async (authtoken) => {
 };
 
 export const saveAddressOrder = async (authtoken, sendOrder) => {
-  return await axios.post(process.env.APIURL+"/api/user/address-order",
+  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/api/user/address-order",
     { sendOrder }, {
     headers: {
       authtoken,
@@ -71,7 +71,7 @@ export const saveAddressOrder = async (authtoken, sendOrder) => {
 };
 
 export const deleteAddressOrder = async (authtoken, id) => {
-  return await axios.delete(process.env.APIURL+"/api/user/address-order/" + id, {
+  return await axios.delete(process.env.REACT_APP_VERCEL_API_URL+"/api/user/address-order/" + id, {
     headers: {
       authtoken,
     },
@@ -79,7 +79,7 @@ export const deleteAddressOrder = async (authtoken, id) => {
 };
 
 export const getAddressOrder = async (authtoken) => {
-  return await axios.get(process.env.APIURL+"/api/user/address-order", {
+  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/api/user/address-order", {
     headers: {
       authtoken,
     },
@@ -87,7 +87,7 @@ export const getAddressOrder = async (authtoken) => {
 };
 
 export const saveOrder = async (authtoken, data) => {
-  return await axios.post(process.env.APIURL+"/api/user/order", data, {
+  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/api/user/order", data, {
     headers: {
       authtoken,
     },
@@ -95,14 +95,14 @@ export const saveOrder = async (authtoken, data) => {
 };
 
 export const getOrder = async (authtoken) => {
-  return await axios.get(process.env.APIURL+"/api/user/order", {
+  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/api/user/order", {
     headers: {
       authtoken,
     },
   });
 };
 export const getOrderSeller = async (authtoken, data) => {
-  return await axios.get(process.env.APIURL+"/api/seller/order/" + data, {
+  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/api/seller/order/" + data, {
     headers: {
       authtoken,
     },
@@ -110,7 +110,7 @@ export const getOrderSeller = async (authtoken, data) => {
 };
 
 export const getOrderStatus = async (authtoken, data) => {
-  return await axios.get(process.env.APIURL+"/api/user/order/" + data, {
+  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/api/user/order/" + data, {
     headers: {
       authtoken,
     },
@@ -118,7 +118,7 @@ export const getOrderStatus = async (authtoken, data) => {
 };
 
 export const updateOrderStatus = async (authtoken, id, data) => {
-  return await axios.put(process.env.APIURL+"/api/user/order/" + id, data, {
+  return await axios.put(process.env.REACT_APP_VERCEL_API_URL+"/api/user/order/" + id, data, {
     headers: {
       authtoken,
     },
@@ -126,7 +126,7 @@ export const updateOrderStatus = async (authtoken, id, data) => {
 };
 
 export const updateDeliveryStatus = async (authtoken, id, data) => {
-  return await axios.put(process.env.APIURL+"/api/user/order-delivery/" + id, data, {
+  return await axios.put(process.env.REACT_APP_VERCEL_API_URL+"/api/user/order-delivery/" + id, data, {
     headers: {
       authtoken,
     },
@@ -135,7 +135,7 @@ export const updateDeliveryStatus = async (authtoken, id, data) => {
 
 //Wishlist
 export const getWishList = async (authtoken) => {
-  return await axios.get(process.env.APIURL+"/api/user/wishlist", {
+  return await axios.get(process.env.REACT_APP_VERCEL_API_URL+"/api/user/wishlist", {
     headers: {
       authtoken,
     },
@@ -143,7 +143,7 @@ export const getWishList = async (authtoken) => {
 };
 
 export const addToWishList = async (authtoken, productId) => {
-  return await axios.post(process.env.APIURL+"/api/user/wishlist",
+  return await axios.post(process.env.REACT_APP_VERCEL_API_URL+"/api/user/wishlist",
     {
       productId
     },
@@ -155,7 +155,7 @@ export const addToWishList = async (authtoken, productId) => {
 };
 
 export const removeWishList = async (authtoken, productId) => {
-  return await axios.put(process.env.APIURL+"/api/user/wishlist/" + productId, {},
+  return await axios.put(process.env.REACT_APP_VERCEL_API_URL+"/api/user/wishlist/" + productId, {},
     {
       headers: {
         authtoken,

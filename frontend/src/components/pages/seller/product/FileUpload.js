@@ -27,7 +27,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
                     100,
                     0,
                     (uri) => {
-                        axios.post(process.env.APIURL+"/api/images-seller",
+                        axios.post(process.env.REACT_APP_VERCEL_API_URL+"/api/images-seller",
                             {
                                 image: uri,
                             },
@@ -59,7 +59,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
         //const img = values.images
         //#2
         const { images } = values;
-        axios.post(process.env.APIURL+"/api/removeimages-seller",
+        axios.post(process.env.REACT_APP_VERCEL_API_URL+"/api/removeimages-seller",
             {
                 public_id
             }, {
