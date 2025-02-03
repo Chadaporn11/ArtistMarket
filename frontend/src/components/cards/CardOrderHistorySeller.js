@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 
@@ -7,9 +7,9 @@ import dayjs from 'dayjs';
 import { updateOrderStatus, updateDeliveryStatus } from '../functions/users';
 
 //antd
-import { DatePicker, Button, Form, Input, Image, Card, Empty, Avatar, Badge, Modal } from 'antd';
+import { DatePicker, Button, Form, Input, Avatar, Badge, Modal } from 'antd';
 
-const CardOrderHistoryseller = ({ orders, setOrders, loadData, setSelectedStatus, selectedStatus }) => {
+const CardOrderHistoryseller = ({ orders, loadData, selectedStatus }) => {
     const { user } = useSelector((state) => ({ ...state }));
     const { _id, orderStatus, products, cartTotal, addressOrder, delivery } = orders;
     const [form] = Form.useForm();
