@@ -11,20 +11,20 @@ const app = express();
 //ConnectDB
 connectDB();
 
-//Middleware
+//middleware
 app.use(bodyParser.json({limit: '20mb'}));
 app.use(cors());
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => {
-    res.send('Welcom to ArtistMarket!')
+
+app.get('/',function(req,res,next){
+    res.json({msg: 'Hello World'});
 });
 
 // Routes
 readdirSync('./routes').map((r)=> app.use(require('./routes/'+r)));
 
-const port = process.env.PORT || 4200;
-app.listen(port,() => {
-    console.log('Server is running on port '+port);
-
-});
+const port = process.env.PORT || 3000;
+app.listen(port,()=>{
+    console.log('Listening on port: '+port);
+})
