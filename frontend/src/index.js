@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 // import 'https://kit.fontawesome.com/0cc975790d.js';
-import FontAwesome from "./ConfigFontAwesome";
+import FontAwesome from "./FontAwesome";
 
 // Redux
 import { Provider } from "react-redux";
@@ -24,7 +24,7 @@ ReactDOM.render(
   // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
-      <FontAwesome/>
+      <FontAwesome />
       <App />
     </BrowserRouter>
   </Provider>,
