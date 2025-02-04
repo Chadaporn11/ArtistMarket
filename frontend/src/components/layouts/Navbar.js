@@ -222,7 +222,7 @@ const Navbar = () => {
                             )} */}
                             <div class="flex mr-8">
                                 <Dropdown menu={menuProps}>
-                                    <Button className='text-white'>
+                                    <Button className='text-white bg-transparent'>
                                         <Space>
                                             <i className="fa-solid fa-lock"></i> {user.username}
                                         </Space>
@@ -239,7 +239,7 @@ const Navbar = () => {
                             </div>
                             <div className="flex mr-8">
                                 <Dropdown menu={menuProps}>
-                                    <Button className='text-white'>
+                                    <Button className='text-white bg-transparent'>
                                         <Space>
                                             <i className="fa-solid fa-lock"></i>Register
                                         </Space>
